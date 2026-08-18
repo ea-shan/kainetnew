@@ -1,0 +1,97 @@
+# Assets index
+- unique images: 44
+- unique videos: 2
+- unique bg urls: 1
+- font faces: 40
+
+## Videos
+- https://framer-videos.twelvelabs.io/assets/TL_01_alpha.webm
+- https://framer-videos.twelvelabs.io/assets/horse-cta-video.mp4
+
+## Images
+- https://framerusercontent.com/images/RI12VW53mjFT0vc3cYDbWwDeBE.png?width=3945&height=108
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 159 32" xmlns="http://www.w3.org/2000/svg"><path d="M 1.915 0 L 0.558 0 C 0.25 0 0 0.25 0 0.559 L 0 1.344 C…
+- https://framerusercontent.com/images/9Dk2VMiThR4wsySxv42hiiwdDBE.png?width=604&height=314
+- https://framerusercontent.com/images/N7QNfdt3u3dpWfejlaVxCHei6E.svg?width=120&height=18
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M 7.48 1 L 2.354 1 L 2.354 0 L 8.02 0 C 8.665 0 9.187 0.…
+- https://framerusercontent.com/images/nUghrpRDrBnm65VAzyao7IjxRno.png?width=1598&height=1440
+- https://framerusercontent.com/images/np6HkmAIeaU9NqrRohQ6hneoiNI.svg?width=1680&height=1198
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 134 32" xmlns="http://www.w3.org/2000/svg"><g d="M 0 32 L 0 0 L 133.333 0 L 133.333 32 Z M 114.795 0 C 107.…
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 140 28" xmlns="http://www.w3.org/2000/svg"><g d="M 0 28 L 0 0 L 140 0 L 140 28 Z M 0 27.239 L 8.136 27.239 …
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 94 32" xmlns="http://www.w3.org/2000/svg"><g d="M 0 32 L 0 0 L 93.204 0 L 93.204 32 Z M 75.795 27.713 C 75.…
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 163 32" xmlns="http://www.w3.org/2000/svg"><g d="M 0 32 L 0 0 L 162.712 0 L 162.712 32 Z M 57.882 0 L 57.88…
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 189 32" xmlns="http://www.w3.org/2000/svg"><g d="M 0.088 32 L 0.088 0 L 188.323 0 L 188.323 32 Z M 41.958 1…
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 68 28" xmlns="http://www.w3.org/2000/svg"><g d="M 0 28 L 0 0 L 67.742 0 L 67.742 28 Z M 26.084 11.407 C 26.…
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 137 32" xmlns="http://www.w3.org/2000/svg"><path d="M 13.407 0.195 C 14.969 -0.013 16.533 -0.018 18.106 0.0…
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 130 32" xmlns="http://www.w3.org/2000/svg"><path d="M 6.627 0.014 C 7.786 -0.014 9.014 0.008 10.178 0.01 C …
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 174 32" xmlns="http://www.w3.org/2000/svg"><path d="M 24 0 C 28.418 0 32 3.582 32 8 L 32 24 C 32 28.418 28.…
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 169 32" xmlns="http://www.w3.org/2000/svg"><g d="M 0 32 L 0 0 L 168.421 0 L 168.421 32 Z M 19.226 18.469 L …
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 179 22" xmlns="http://www.w3.org/2000/svg"><path d="M 0.033 0.008 L 11.953 0.004 C 14.025 0.004 16.156 -0.0…
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 79 32" xmlns="http://www.w3.org/2000/svg"><g d="M 0 32 L 0 0 L 78.125 0 L 78.125 32 Z M 0.589 0.282 C 1.416…
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 68 32" xmlns="http://www.w3.org/2000/svg"><g d="M 0.059 32 L 0.059 0 L 67.191 0 L 67.191 32 Z M 39.579 10.7…
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 94 32" xmlns="http://www.w3.org/2000/svg"><g d="M 0 32 L 0 0 L 93.204 0 L 93.204 32 Z M 25.827 18.244 C 25.…
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 145 32" xmlns="http://www.w3.org/2000/svg"><path d="M 0.224 8.717 C 0.336 8.489 1.754 6.79 2.037 6.423 C 2.…
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g d="M 0 32 L 0 0 L 32 0 L 32 32 Z M 27.393 23.168 L 27.393 25.4…
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 120 32" xmlns="http://www.w3.org/2000/svg"><g d="M 0 32 L 0 0 L 120 0 L 120 32 Z M 110.717 17.007 L 112.6 1…
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 156 28" xmlns="http://www.w3.org/2000/svg"><g d="M 0.004 28 L 0.004 0 L 155.277 0 L 155.277 28 Z M 0.005 14…
+- https://framerusercontent.com/images/s2phadnnlO3sNvpG3IAFWqhTWs.png?width=600&height=410
+- https://framerusercontent.com/images/kzyC48iyy75xy8n9TLUT6hKvAIc.png?width=2130&height=1058
+- https://framerusercontent.com/images/IoZNEoctxINbPTAce43aiEvlkd4.png?width=2130&height=1058
+- https://framerusercontent.com/images/ERhFVXR8YQMpsIgM5mii13D8c.png?width=2130&height=1058
+- https://framerusercontent.com/images/GdQFFX8feiXWZBm63HIxWpAgva8.svg?width=1680&height=653
+- https://framerusercontent.com/images/YaSK3URJGxMiUEFJbi7qjDCfbkc.png?width=1507&height=1306
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><path d="M 0 21.599 L 0 20.355 C 0 19.378 0.707 18.543 1.671 18.…
+- https://framerusercontent.com/images/4mgoTlmv0vT0M8DFqTJnvE25iwg.png?lossless=1&width=1360&height=998
+- data:image/svg+xml,<svg display="block" role="presentation" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><path d="M 42.037 0 C 42.748 0 43.406 0.378 43.765 0.992 L 55.65…
+- https://framerusercontent.com/images/Jv4lpQlDBOjrI4lzzIHSnTQe4.png?lossless=1&width=1360&height=998
+- https://framerusercontent.com/images/34IibeXUmMUb3pMFyH49UlDNIws.svg?width=1680&height=854
+- https://framerusercontent.com/images/9PG6e3JXFou0b275rmkrCHk6oE.svg?width=1680&height=854
+- https://framerusercontent.com/images/qGq0H3wpDVKaGWZPoCjFjnKI8s.png?width=700&height=700
+- https://framerusercontent.com/images/7jhvDpbLe3i5HfGaGT3va8igHXU.png?width=716&height=712
+- https://framerusercontent.com/images/fD2lMybcMtBvhQOwCefWjabcdM0.png?lossless=1&width=568&height=508
+- https://t.co/1/i/adsct?bci=4&dv=Asia%2FCalcutta%26en-GB%2Cen-IN%26Google%20Inc.%26MacIntel%26127%261920%261080%2612%2624%261920%261050%260%26na&eci=3&event=%7B%7D&event_id=ce72960a…
+- https://analytics.twitter.com/1/i/adsct?bci=4&dv=Asia%2FCalcutta%26en-GB%2Cen-IN%26Google%20Inc.%26MacIntel%26127%261920%261080%2612%2624%261920%261050%260%26na&eci=3&event=%7B%7D&…
+- https://t.co/i/adsct?bci=4&cv=100%261&dv=Asia%2FCalcutta%26en-GB%2Cen-IN%26Google%20Inc.%26MacIntel%26127%261920%261080%2612%2624%261920%261050%260%26na&eci=2&event_id=5e00bbd7-f62…
+- https://analytics.twitter.com/i/adsct?bci=4&cv=100%261&dv=Asia%2FCalcutta%26en-GB%2Cen-IN%26Google%20Inc.%26MacIntel%26127%261920%261080%2612%2624%261920%261050%260%26na&eci=2&even…
+
+## Fonts (family / weight / src prefix)
+- Geist w400 url("https://fonts.gstatic.com/s/geist/v5/gyBhhwUxId8gMGYQMKR3pzfaWI_RnOMIl5na-1Q.woff2") format("woff2")
+- Geist w400 url("https://fonts.gstatic.com/s/geist/v5/gyBhhwUxId8gMGYQMKR3pzfaWI_RnOMInpna-1Q.woff2") format("woff2")
+- Geist w400 url("https://fonts.gstatic.com/s/geist/v5/gyBhhwUxId8gMGYQMKR3pzfaWI_RnOMIlZna-1Q.woff2") format("woff2")
+- Geist w400 url("https://fonts.gstatic.com/s/geist/v5/gyBhhwUxId8gMGYQMKR3pzfaWI_RnOMIlJna-1Q.woff2") format("woff2")
+- Geist w400 url("https://fonts.gstatic.com/s/geist/v5/gyBhhwUxId8gMGYQMKR3pzfaWI_RnOMImpna.woff2") format("woff2")
+- "IBM Plex Mono" w400 url("https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1iIq129k.woff2") format("woff2")
+- "IBM Plex Mono" w400 url("https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1isq129k.woff2") format("woff2")
+- "IBM Plex Mono" w400 url("https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1iAq129k.woff2") format("woff2")
+- "IBM Plex Mono" w400 url("https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1iEq129k.woff2") format("woff2")
+- "IBM Plex Mono" w400 url("https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1i8q1w.woff2") format("woff2")
+- "Milling Duplex 1mm" w400 url("https://framerusercontent.com/assets/8I5HWpItJbV4MCFgD7QkryfFGqE.woff2")
+- "Milling Triplex 1,5mm" w701 url("https://framerusercontent.com/assets/pfJkmtzCm0YiWwnWdNReNhKXYw.woff2")
+- "Milling Duplex 1mm Italic" w400 url("https://framerusercontent.com/assets/Pm1pM0sxKTpWEAwroalSSF1RzkM.woff2")
+- "Milling Triplex 1mm" w700 url("https://framerusercontent.com/assets/NA0Me8AFFlQJ3DSBRHc9gGXInk.woff2")
+- "Milling Duplex 1mm" w url("https://framerusercontent.com/assets/8I5HWpItJbV4MCFgD7QkryfFGqE.woff2")
+- "Milling Triplex 1,5mm" w url("https://framerusercontent.com/assets/pfJkmtzCm0YiWwnWdNReNhKXYw.woff2")
+- "Milling Trial Duplex 1mm" w400 url("https://framerusercontent.com/assets/yvo4uBnnAFRATXf93jnYyvSv0M.woff2")
+- Inter w400 url("https://framerusercontent.com/assets/5vvr9Vy74if2I6bQbJvbw7SY1pQ.woff2")
+- Inter w400 url("https://framerusercontent.com/assets/EOr0mi4hNtlgWNn9if640EZzXCo.woff2")
+- Inter w400 url("https://framerusercontent.com/assets/Y9k9QrlZAqio88Klkmbd8VoMQc.woff2")
+- Inter w400 url("https://framerusercontent.com/assets/OYrD2tBIBPvoJXiIHnLoOXnY9M.woff2")
+- Inter w400 url("https://framerusercontent.com/assets/JeYwfuaPfZHQhEG8U5gtPDZ7WQ.woff2")
+- Inter w400 url("https://framerusercontent.com/assets/GrgcKwrN6d3Uz8EwcLHZxwEfC4.woff2")
+- Inter w400 url("https://framerusercontent.com/assets/b6Y37FthZeALduNqHicBT6FutY.woff2")
+- Inter w700 url("https://framerusercontent.com/assets/DpPBYI0sL4fYLgAkX8KXOPVt7c.woff2")
+- Inter w700 url("https://framerusercontent.com/assets/4RAEQdEOrcnDkhHiiCbJOw92Lk.woff2")
+- Inter w700 url("https://framerusercontent.com/assets/1K3W8DizY3v4emK8Mb08YHxTbs.woff2")
+- Inter w700 url("https://framerusercontent.com/assets/tUSCtfYVM1I1IchuyCwz9gDdQ.woff2")
+- Inter w700 url("https://framerusercontent.com/assets/VgYFWiwsAC5OYxAycRXXvhze58.woff2")
+- Inter w700 url("https://framerusercontent.com/assets/syRNPWzAMIrcJ3wIlPIP43KjQs.woff2")
+- Inter w700 url("https://framerusercontent.com/assets/GIryZETIX4IFypco5pYZONKhJIo.woff2")
+- Inter w400 url("https://framerusercontent.com/assets/vQyevYAyHtARFwPqUzQGpnDs.woff2")
+- Inter w400 url("https://framerusercontent.com/assets/CfMzU8w2e7tHgF4T4rATMPuWosA.woff2")
+- Inter w400 url("https://framerusercontent.com/assets/867QObYax8ANsfX4TGEVU9YiCM.woff2")
+- Inter w400 url("https://framerusercontent.com/assets/Oyn2ZbENFdnW7mt2Lzjk1h9Zb9k.woff2")
+- Inter w400 url("https://framerusercontent.com/assets/cdAe8hgZ1cMyLu9g005pAW3xMo.woff2")
+- Inter w400 url("https://framerusercontent.com/assets/DOfvtmE1UplCq161m6Hj8CSQYg.woff2")
+- Inter w400 url("https://framerusercontent.com/assets/pKRFNWFoZl77qYCAIp84lN1h944.woff2")
+- Inter w400 url("https://framerusercontent.com/assets/tKtBcDnBMevsEEJKdNGhhkLzYo.woff2")
+- Inter w700 url("https://framerusercontent.com/assets/H89BbHkbHDzlxZzxi8uPzTsp90.woff2")

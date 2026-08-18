@@ -25,8 +25,8 @@ export function WorkflowsSection() {
       </div>
 
       <div className="tl-page mt-16 overflow-hidden rounded-[40px] bg-white px-8 py-12 md:rounded-[80px] md:px-16 md:py-16 lg:rounded-[100px] lg:px-20 lg:py-20">
-        <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)] md:gap-x-14 lg:gap-x-20">
-          <div className="min-w-0">
+        <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-x-16">
+          <div className="min-w-0 md:pl-6">
             {workflowTabs.map((tab) => {
               const isOn = tab.id === active;
               return (
@@ -48,7 +48,7 @@ export function WorkflowsSection() {
               );
             })}
           </div>
-          <div className="mx-auto w-full max-w-[590px] min-w-0 md:ml-auto">
+          <div className="mx-auto w-full max-w-[590px] min-w-0 md:mx-0 md:pl-6">
             <WorkflowVisual active={active} />
           </div>
         </div>

@@ -19,12 +19,12 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TwelveLabs: Video Intelligence Platform & API",
+  title: "kAInet: Video Intelligence Platform & API",
   description:
     "Infrastructure for video intelligence, turning raw video into searchable, AI-ready data at massive scale.",
   icons: {
-    icon: "/sites/www-twelvelabs-io-a368af44/root-8a5edab2/images/favicon.png",
-    apple: "/sites/www-twelvelabs-io-a368af44/root-8a5edab2/images/apple-touch.png",
+    icon: "/sites/www-twelvelabs-io-a368af44/shared/kainet.webp",
+    apple: "/sites/www-twelvelabs-io-a368af44/shared/kainet.webp",
   },
 };
 

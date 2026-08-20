@@ -62,21 +62,21 @@ function SearchScene({ step }: { step: number }) {
       <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-white via-white/70 to-transparent" />
       <Layer on={step >= 2} className="absolute left-4 top-4 right-8">
         <div className="flex max-w-[440px] items-center gap-2 rounded-full border border-[#E8E6E6] bg-white px-3 py-2 shadow-[0_8px_24px_rgba(29,28,27,0.08)]">
-          <span className="inline-flex size-7 items-center justify-center rounded-md border border-[#1D1C1B]/20">
-            <SearchIcon className="size-3.5 text-[#1D1C1B]" />
+          <span className="inline-flex size-7 items-center justify-center rounded-md border border-[#000000]/20">
+            <SearchIcon className="size-3.5 text-[#000000]" />
           </span>
-          <p className="truncate text-[13px] leading-5 text-[#1D1C1B]">
+          <p className="truncate text-[13px] leading-5 text-[#000000]">
             Find all highlights within the Patriots game where player 87 scores
           </p>
         </div>
       </Layer>
       <Layer on={step >= 3} className="absolute right-4 top-[38%] max-w-[260px]">
-        <Glass className="p-3 text-[12px] leading-5 text-[#1D1C1B]">
+        <Glass className="p-3 text-[12px] leading-5 text-[#000000]">
           6 scoring highlights featuring Player #87 were identified across the Patriots game, extracted from a 2.5-hour broadcast and captured using 3–10 cameras.
         </Glass>
       </Layer>
       <Layer on={step >= 4} className="absolute bottom-24 left-4">
-        <Glass className="px-3 py-2 text-[12px] text-[#1D1C1B]">
+        <Glass className="px-3 py-2 text-[12px] text-[#000000]">
           Searched 2.5 hours in 0.5 seconds
           <span className="mt-1 block h-0.5 w-full bg-[#C6FF3D]" />
         </Glass>
@@ -110,12 +110,12 @@ function SegmentScene({ step }: { step: number }) {
       <LazyVideo src={CLIP(10)} className="absolute inset-0 h-[68%] w-full object-cover" />
       <Layer on={step >= 2} className="absolute left-1/2 top-4 w-[min(420px,90%)] -translate-x-1/2">
         <div className="flex items-center gap-2 rounded-full bg-white px-3 py-2 shadow-[0_8px_24px_rgba(29,28,27,0.08)]">
-          <SparkleIcon className="size-4 text-[#1D1C1B]" />
-          <p className="text-[13px] text-[#1D1C1B]">Segment the film into chapters and give timestamps for ads</p>
+          <SparkleIcon className="size-4 text-[#000000]" />
+          <p className="text-[13px] text-[#000000]">Segment the film into chapters and give timestamps for ads</p>
         </div>
       </Layer>
       <Layer on={step >= 3} className="absolute right-4 top-20 w-[220px]">
-        <Glass className="space-y-1.5 p-3 text-[12px] text-[#1D1C1B]">
+        <Glass className="space-y-1.5 p-3 text-[12px] text-[#000000]">
           <p className="flex items-center justify-between">Video analysis <span className="inline-flex items-center gap-1 font-medium">Complete <CheckIcon className="size-3" /></span></p>
           <p className="flex items-center justify-between">Generating report <span className="inline-flex items-center gap-1 font-medium">Complete <CheckIcon className="size-3" /></span></p>
           <p>Creating editable timeline</p>
@@ -128,15 +128,15 @@ function SegmentScene({ step }: { step: number }) {
           <span className="absolute left-[42%] h-full w-[8%] rounded-full bg-[#C6FF3D]" />
           <span className="absolute left-[70%] h-full w-[9%] rounded-full bg-[#C6FF3D]" />
         </div>
-        <div className="mt-1 flex justify-between text-[10px] font-medium text-[#1D1C1B]">
+        <div className="mt-1 flex justify-between text-[10px] font-medium text-[#000000]">
           <span>AD</span><span>AD</span><span>AD</span>
         </div>
       </Layer>
       <Layer on={step >= 5} className="absolute inset-x-3 bottom-3 grid grid-cols-2 gap-2 min-[500px]:grid-cols-4">
         {chapters.map(([label, time]) => (
           <div key={label} className="rounded-xl bg-white p-2 shadow-[0_6px_16px_rgba(29,28,27,0.08)]">
-            <p className="text-[10px] font-medium tracking-[0.04em] text-[#1D1C1B]">{label}</p>
-            <p className="mt-1 rounded-full border border-[#1D1C1B]/20 px-2 py-0.5 text-[9px] text-[#1D1C1B]">{time}</p>
+            <p className="text-[10px] font-medium tracking-[0.04em] text-[#000000]">{label}</p>
+            <p className="mt-1 rounded-full border border-[#000000]/20 px-2 py-0.5 text-[9px] text-[#000000]">{time}</p>
           </div>
         ))}
       </Layer>
@@ -155,12 +155,12 @@ function ComplianceScene({ step }: { step: number }) {
       <LazyVideo src={CLIP(2)} className="absolute inset-6 top-16 bottom-8 rounded-[28px] object-cover" />
       <Layer on={step >= 2} className="absolute left-4 top-3 right-6">
         <div className="flex items-center gap-2 rounded-full bg-white px-3 py-2 shadow-[0_8px_24px_rgba(29,28,27,0.08)]">
-          <SparkleIcon className="size-4 text-[#1D1C1B]" />
-          <p className="text-[13px] text-[#1D1C1B]">Identify and flag all video segments that violate content or platform policies</p>
+          <SparkleIcon className="size-4 text-[#000000]" />
+          <p className="text-[13px] text-[#000000]">Identify and flag all video segments that violate content or platform policies</p>
         </div>
       </Layer>
       <Layer on={step >= 3} className="absolute left-6 top-24 w-[230px]">
-        <Glass className="space-y-1.5 p-3 text-[12px] text-[#1D1C1B]">
+        <Glass className="space-y-1.5 p-3 text-[12px] text-[#000000]">
           <p>Video analysis: <strong>Complete</strong></p>
           <p>Generating report: <strong>Complete</strong></p>
           <p>Detected violations: <strong>3</strong></p>
@@ -170,10 +170,10 @@ function ComplianceScene({ step }: { step: number }) {
       <Layer on={step >= 4} className="absolute bottom-6 right-6 w-[280px]">
         <Glass className="space-y-2 p-3">
           {rows.map(([label, time]) => (
-            <div key={label} className="flex items-center gap-2 text-[10px] text-[#1D1C1B]">
+            <div key={label} className="flex items-center gap-2 text-[10px] text-[#000000]">
               <WarningIcon className="size-3.5 text-[#F97316]" />
               <span className="flex-1 font-medium">{label}</span>
-              <span className="rounded-full border border-[#1D1C1B]/25 px-1.5 py-0.5">{time}</span>
+              <span className="rounded-full border border-[#000000]/25 px-1.5 py-0.5">{time}</span>
             </div>
           ))}
         </Glass>
@@ -193,8 +193,8 @@ function HighlightsScene({ step }: { step: number }) {
     <div className="flex h-full flex-col gap-3 p-4">
       <Layer on={step >= 2}>
         <div className="flex items-center gap-2 rounded-full border border-[#E8E6E6] bg-white px-3 py-2 shadow-[0_8px_24px_rgba(29,28,27,0.08)]">
-          <SparkleIcon className="size-4 text-[#1D1C1B]" />
-          <p className="truncate text-[13px] text-[#1D1C1B]">Find key highlights showing the product to create an engaging social media ad</p>
+          <SparkleIcon className="size-4 text-[#000000]" />
+          <p className="truncate text-[13px] text-[#000000]">Find key highlights showing the product to create an engaging social media ad</p>
         </div>
       </Layer>
       <div className="grid flex-1 grid-cols-2 gap-2">
@@ -219,19 +219,19 @@ function InsightsScene({ step }: { step: number }) {
       <LazyVideo src={CLIP(7)} className="absolute inset-6 top-16 rounded-[28px] object-cover" />
       <Layer on={step >= 2} className="absolute left-4 top-3 right-6">
         <div className="flex items-center gap-2 rounded-full bg-white px-3 py-2 shadow-[0_8px_24px_rgba(29,28,27,0.08)]">
-          <SparkleIcon className="size-4 text-[#1D1C1B]" />
-          <p className="text-[13px] text-[#1D1C1B]">Analyze the video and generate performance report of what works and why</p>
+          <SparkleIcon className="size-4 text-[#000000]" />
+          <p className="text-[13px] text-[#000000]">Analyze the video and generate performance report of what works and why</p>
         </div>
       </Layer>
       <Layer on={step >= 3} className="absolute left-8 top-24 w-[230px]">
-        <Glass className="space-y-1.5 p-3 text-[12px] text-[#1D1C1B]">
+        <Glass className="space-y-1.5 p-3 text-[12px] text-[#000000]">
           <p className="flex items-center justify-between">Video analysis <span className="inline-flex items-center gap-1">Complete <CheckIcon className="size-3" /></span></p>
           <p className="flex items-center justify-between">Generating report <span className="inline-flex items-center gap-1">Complete <CheckIcon className="size-3" /></span></p>
           <span className="mt-1 block h-1 rounded-full bg-[#C6FF3D]" />
         </Glass>
       </Layer>
       <Layer on={step >= 4} className="absolute bottom-8 right-8">
-        <Glass className="px-3 py-2 text-[13px] text-[#1D1C1B]">Performance report</Glass>
+        <Glass className="px-3 py-2 text-[13px] text-[#000000]">Performance report</Glass>
       </Layer>
     </>
   );

@@ -31,8 +31,16 @@ export function SiteHeader() {
         light ? "bg-[#f5f7f2] text-[#1e1e1e]" : "bg-[#1e1e1e] text-[#f5f7f2]"
       }`}
     >
-      <div className="mx-auto grid w-full grid-cols-[1fr_auto_1fr] items-center">
-        <a href="/clone-website" className="relative z-[3] flex items-center">
+      <div className="relative mx-auto flex w-full items-center">
+        <nav className="hidden items-center gap-6 min-[900px]:flex">
+          {NAV_LINKS.map((link) => (
+            <a key={link.href} href={link.href} className="taste-mono text-[13px] leading-[22.4px] tracking-[-0.1px]">
+              <ScrambleText text={link.label} />
+            </a>
+          ))}
+        </nav>
+
+        <a href="/clone-website" className="absolute left-1/2 z-[3] -translate-x-1/2">
           <img
             src={`${ASSET}/images/${light ? "logo-black.svg" : "logo.svg"}`}
             alt="Taste"
@@ -42,15 +50,7 @@ export function SiteHeader() {
           />
         </a>
 
-        <nav className="hidden items-center justify-center gap-6 min-[900px]:flex">
-          {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="taste-mono text-[13px] leading-[22.4px] tracking-[-0.1px]">
-              <ScrambleText text={link.label} />
-            </a>
-          ))}
-        </nav>
-
-        <div className="hidden justify-self-end min-[900px]:block">
+        <div className="ml-auto hidden min-[900px]:block">
           <TasteButton href="#team" dark={light}>
             {HERO.cta}
           </TasteButton>

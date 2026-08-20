@@ -1,53 +1,42 @@
 import { SiteButton } from "../shared/SiteButton";
-import { ASSET } from "./content";
 import { HeroMosaic } from "./HeroMosaic";
 
 export function HeroSection() {
   return (
-    <section className="relative -mt-[131px] min-h-[100svh] overflow-hidden bg-[#0C0C0C] pt-[188px] text-[#F4F3F3] min-[1100px]:min-h-[920px]">
+    <section className="relative -mt-[131px] flex min-h-[100dvh] flex-col justify-center overflow-hidden bg-[#241833] pt-[120px] pb-12 text-[#EEEEEE] min-[768px]:pt-[132px] min-[1100px]:pb-14">
       <HeroMosaic />
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 pb-10 min-[768px]:px-10 min-[1100px]:flex min-[1100px]:min-h-[620px] min-[1100px]:items-end min-[1100px]:pb-28">
-        <div className="max-w-[640px] pt-4 min-[768px]:pt-8 min-[1100px]:pt-0">
+      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 min-[768px]:px-10">
+        <div className="relative max-w-[640px] pt-4 min-[768px]:pt-8 min-[1100px]:pt-0">
+          <div
+            className="pointer-events-none absolute -inset-x-6 -inset-y-6 -z-10 bg-[#241833]/20 backdrop-blur-[6px]"
+            style={{
+              maskImage: "linear-gradient(90deg, #000 55%, transparent)",
+              WebkitMaskImage: "linear-gradient(90deg, #000 55%, transparent)",
+            }}
+          />
+          <div className="mb-4 inline-flex items-center gap-2 text-[12px] tracking-[0.08em]">
+            <span className="font-mono text-[13px] leading-none text-[#cecff7]" aria-hidden>
+              {"</>"}
+            </span>
+            <span className="tl-preview-text">Multi-agent AI for performance marketing</span>
+          </div>
           <h1 className="text-[40px] leading-[1.16] tracking-[-0.02em] min-[768px]:text-[56px] min-[768px]:leading-[62.72px] min-[768px]:tracking-[-1.12px]">
-            See the unseen. Know the unknowable.
+          Your campaigns, built by AI.
+          Launched by you.
           </h1>
           <p className="mt-5 max-w-[640px] text-[16px] leading-6 tracking-[0.16px]">
-            Your video contains every insight, every event, every decision that mattered. Extracting it has been impossible. Until now.
-          </p>
+          Built for performance marketers and agency teams who need results they can defend to a client, or a CFO.
+            </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <SiteButton href="https://playground.twelvelabs.io" variant="primary" theme="dark">
-              Try on Playground
+              Request early access
             </SiteButton>
             <SiteButton href="https://www.twelvelabs.io/contact" theme="dark">
-              Talk to Sales
+              See it in action
             </SiteButton>
           </div>
         </div>
       </div>
-
-      <a
-        href="https://www.twelvelabs.io/jockey"
-        className="relative z-10 mx-auto mb-12 block w-[min(360px,calc(100%-40px))] cursor-pointer rounded-[20px] border border-white/10 p-6 min-[1100px]:absolute min-[1100px]:right-[max(40px,calc((100%-1600px)/2))] min-[1100px]:bottom-16 min-[1100px]:mb-0"
-        style={{
-          background: "rgba(65, 64, 62, 0.6)",
-          backdropFilter: "blur(4px)",
-          boxShadow: "inset 8px 8px 15px 7px rgba(72,72,72,0.6), inset -8px -8px 15px 0 rgba(84,84,84,0.6)",
-        }}
-      >
-        <img
-          src={`${ASSET}/images/jockey-ui.png`}
-          alt="Jockey AI interface summarizing insights across an advertising archive"
-          className="w-full rounded-[12px]"
-        />
-        <div className="tl-preview-ring mt-3 inline-flex rounded-full p-px">
-          <span className="rounded-full bg-[#0C0C0C] px-3 py-1 text-[11px] tracking-[0.12em]">
-            <span className="tl-preview-text">RESEARCH PREVIEW</span>
-          </span>
-        </div>
-        <p className="mt-2.5 text-[16px] leading-6 tracking-[0.1px] min-[768px]:text-[20px] min-[768px]:leading-7">
-          Meet Jockey, the first video intelligence AI agent
-        </p>
-      </a>
     </section>
   );
 }

@@ -28,10 +28,15 @@
   --font-heading: var(--font-sans);
   --font-milling: "Milling Duplex 1mm", sans-serif;
   --font-milling-bold: "Milling Triplex 1mm", sans-serif;
-  --color-tl-paper: #f4f3f3;
-  --color-tl-ink: #1d1c1b;
-  --color-tl-accent: #5864ed;
-  --color-tl-dark: #0c0c0c;
+  --color-tl-paper: #eeeeee;
+  --color-tl-ink: #000000;
+  --color-tl-accent: #7f7bc1;
+  --color-tl-dark: #000000;
+  --color-tl-mist: #cecff7;
+  --color-tl-lilac: #d8bceb;
+  --color-tl-rose: #e6bec6;
+  --color-tl-fog: #cac1cd;
+  --color-tl-violet: #7f7bc1;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -71,14 +76,14 @@
 }
 
 :root {
-  --background: #f4f3f3;
-  --foreground: #1d1c1b;
+  --background: #eeeeee;
+  --foreground: #000000;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: #1d1c1b;
-  --primary-foreground: #f4f3f3;
+  --primary: #000000;
+  --primary-foreground: #eeeeee;
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
@@ -153,8 +158,8 @@
 
 .tl-site {
   font-family: "Milling Duplex 1mm", sans-serif;
-  background: #f4f3f3;
-  color: #1d1c1b;
+  background: #eeeeee;
+  color: #000000;
 }
 
 .tl-page {
@@ -173,17 +178,17 @@
 }
 
 .tl-site a.tl-banner {
-  color: #1d1c1b;
+  color: #000000;
 }
 
 .tl-site a.tl-header-cta-solid {
-  color: #1d1c1b;
-  background: #f4f3f3;
+  color: #000000;
+  background: #eeeeee;
 }
 
 .tl-site a.tl-header-cta-outline {
-  color: #f4f3f3;
-  box-shadow: inset 0 0 0 1px #f4f3f3;
+  color: #eeeeee;
+  box-shadow: inset 0 0 0 1px #eeeeee;
 }
 
 @keyframes tl-marquee {
@@ -196,18 +201,18 @@
 }
 
 .tl-preview-ring {
-  background: linear-gradient(90deg, #c6ff3d, #22d3ee, #818cf8);
+  background: linear-gradient(90deg, #cecff7, #d8bceb, #7f7bc1);
 }
 
 .tl-preview-text {
-  background-image: linear-gradient(90deg, #c8ff4d, #5eead4, #a5b4fc);
+  background-image: linear-gradient(90deg, #cecff7, #e6bec6, #7f7bc1);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .tl-kpi-glow {
-  background-image: linear-gradient(90deg, #c8ff4d, #34d399, #22d3ee, #818cf8, #c8ff4d);
+  background-image: linear-gradient(90deg, #cecff7, #d8bceb, #7f7bc1, #e6bec6, #cecff7);
   background-size: 220% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -276,6 +281,59 @@
 
 .tl-secure-glow {
   background: radial-gradient(circle, rgba(198, 255, 61, 0.42) 0%, rgba(255, 236, 160, 0.22) 42%, transparent 72%);
+}
+
+@keyframes tl-step-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tl-step {
+  opacity: 0;
+  animation: tl-step-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes tl-step-ring {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+  4% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.85; }
+  16% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+}
+
+.tl-step-ring {
+  animation: tl-step-ring 8s ease-out infinite;
+}
+
+@keyframes tl-step-glow {
+  0%, 100% { opacity: 0; }
+  6%, 18% { opacity: 1; }
+  30% { opacity: 0; }
+}
+
+.tl-step-glow {
+  opacity: 0;
+  animation: tl-step-glow 8s ease-in-out infinite;
+}
+
+@keyframes tl-wave-ride {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(8px, -12px, 0); }
+  50% { transform: translate3d(14px, 0, 0); }
+  75% { transform: translate3d(8px, 12px, 0); }
+}
+
+.tl-wave-ride {
+  animation: tl-wave-ride 6.5s ease-in-out infinite;
+}
+
+.tl-wave-ride-inv {
+  animation: tl-wave-ride 7.2s ease-in-out infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-step { opacity: 1; animation: none; }
+  .tl-step-ring, .tl-step-glow { animation: none; opacity: 0; }
+  .tl-wave-ride, .tl-wave-ride-inv { animation: none; }
 }
 
 .tl-horse-body {

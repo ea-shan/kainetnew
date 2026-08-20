@@ -17,15 +17,13 @@ export function SiteButton({
   const isPrimary = variant === "primary";
   const isLarge = size === "l";
   const onDark = theme === "dark";
-  const ink = isPrimary ? "!text-[#1D1C1B]" : onDark ? "!text-[#F4F3F3]" : "!text-[#1D1C1B]";
-  const fill = isPrimary
-    ? "bg-[#F4F3F3]"
-    : "bg-transparent";
+  const ink = isPrimary ? "!text-[#000000]" : onDark ? "!text-[#EEEEEE]" : "!text-[#000000]";
+  const fill = isPrimary ? "bg-[#EEEEEE]" : "bg-transparent";
   const ring = isPrimary
     ? ""
     : onDark
-      ? "shadow-[inset_0_0_0_1px_#F4F3F3]"
-      : "shadow-[inset_0_0_0_1px_#1D1C1B]";
+      ? "shadow-[inset_0_0_0_1px_#EEEEEE]"
+      : "shadow-[inset_0_0_0_1px_#000000]";
 
   return (
     <a
@@ -40,12 +38,21 @@ export function SiteButton({
   );
 }
 
-export function LogoMark({ className }: { className?: string }) {
+export function LogoMark({
+  className,
+  tone = "dark",
+}: {
+  className?: string;
+  tone?: "dark" | "light";
+}) {
   return (
-    <img
-      src="/sites/www-twelvelabs-io-a368af44/shared/logo.svg"
-      alt="TwelveLabs"
-      className={className ?? "h-8 w-auto"}
-    />
+    <span className={`inline-flex items-center gap-[0.45em] ${className ?? "text-[20px]"}`}>
+      <img
+        src="/sites/www-twelvelabs-io-a368af44/shared/kainet.webp"
+        alt=""
+        className={`h-[1.15em] w-[1.15em] rounded-[22%] object-cover ${tone === "dark" ? "mix-blend-screen" : ""}`}
+      />
+      <span className="font-[family-name:var(--font-milling-bold)] leading-none tracking-[-0.04em]">kAInet</span>
+    </span>
   );
 }

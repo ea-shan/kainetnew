@@ -4,10 +4,10 @@ import { ASSET } from "./content";
 export function SecuritySection() {
   return (
     <section
-      className="relative overflow-hidden px-5 py-24 text-[#1D1C1B] min-[768px]:px-10"
+      className="relative overflow-hidden px-5 py-24 text-[#000000] min-[768px]:px-10"
       style={{
         background:
-          "radial-gradient(ellipse 72% 90% at 6% 12%, rgba(255, 168, 140, 0.82) 0%, transparent 60%), radial-gradient(ellipse 62% 80% at 20% 100%, rgba(196, 230, 56, 0.78) 0%, transparent 56%), radial-gradient(ellipse 42% 55% at 48% 94%, rgba(214, 236, 150, 0.42) 0%, transparent 64%), #F4F3F3",
+          "radial-gradient(ellipse 72% 90% at 6% 12%, rgba(230, 190, 198, 0.88) 0%, transparent 60%), radial-gradient(ellipse 62% 80% at 20% 100%, rgba(127, 123, 193, 0.62) 0%, transparent 56%), radial-gradient(ellipse 42% 55% at 48% 94%, rgba(206, 207, 247, 0.55) 0%, transparent 64%), #EEEEEE",
       }}
     >
       <div className="tl-page relative grid items-center gap-12 min-[900px]:grid-cols-[1.2fr_0.9fr] min-[900px]:gap-x-16">
@@ -20,7 +20,7 @@ export function SecuritySection() {
             className="h-auto w-full object-contain"
           />
         </div>
-        <div className="border-l border-[#1D1C1B]/15 pl-8 min-[900px]:pl-12">
+        <div className="border-l border-[#000000]/15 pl-8 min-[900px]:pl-12">
           <h2 className="max-w-[520px] text-[36px] leading-[1.14] tracking-[-0.02em] min-[768px]:text-[48px] min-[768px]:leading-[54.72px] min-[768px]:tracking-[-0.96px]">
             Secure by design
           </h2>

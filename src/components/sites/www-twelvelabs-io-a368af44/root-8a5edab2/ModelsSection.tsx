@@ -9,13 +9,13 @@ const icons = {
 
 export function ModelsSection() {
   return (
-    <section className="bg-[#0C0C0C] px-5 py-20 text-[#F4F3F3] md:px-10">
+    <section className="bg-[#000000] px-5 py-20 text-[#EEEEEE] md:px-10">
       <div className="tl-page grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-x-12 lg:gap-x-20">
         <h2 className="border-l border-white/15 pl-6 text-[36px] leading-[1.14] tracking-[-0.02em] md:text-[48px] md:leading-[54.72px] md:tracking-[-0.96px]">
           Video-native perception, reasoning, and orchestration
         </h2>
         <div className="max-w-[520px] border-l border-white/15 pl-6">
-          <p className="text-[16px] leading-6 tracking-[0.16px] text-[#F4F3F3]/80">
+          <p className="text-[16px] leading-6 tracking-[0.16px] text-[#EEEEEE]/80">
             LLMs made text computable. Twelve Labs does the same for video, image, and audio enabling discovery to analysis to action.
           </p>
           <div className="mt-6">
@@ -35,7 +35,7 @@ export function ModelsSection() {
               className="flex flex-col overflow-hidden rounded-[40px] bg-[#161616] px-8 py-12 md:rounded-[80px] md:px-16 md:py-16 lg:rounded-[100px] lg:px-20 lg:py-20"
             >
               <div className="flex items-center gap-3">
-                <Icon className="size-9 text-[#F4F3F3]" />
+                <Icon className="size-9 text-[#EEEEEE]" />
                 <h3 className="text-[28px] leading-9 tracking-[-0.02em]">{model.name}</h3>
               </div>
               <p className="mt-5 max-w-[65ch] text-[16px] leading-6 tracking-[0.16px]">

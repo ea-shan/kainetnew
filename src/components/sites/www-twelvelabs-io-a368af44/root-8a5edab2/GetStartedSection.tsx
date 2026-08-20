@@ -9,7 +9,7 @@ export function GetStartedSection() {
   const current = getStartedTabs.find((t) => t.id === active) ?? getStartedTabs[0];
 
   return (
-    <section className="relative bg-[#0C0C0C] px-5 py-20 text-[#F4F3F3] md:px-10">
+    <section className="relative bg-[#000000] px-5 py-20 text-[#EEEEEE] md:px-10">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="tl-page relative h-full">
           <span className="absolute inset-y-0 left-0 w-px bg-white/12" />
@@ -22,7 +22,7 @@ export function GetStartedSection() {
           Results in minutes.
         </h2>
         <div className="max-w-[520px] border-l border-white/15 pl-6">
-          <p className="text-[16px] leading-6 tracking-[0.16px] text-[#F4F3F3]/80">
+          <p className="text-[16px] leading-6 tracking-[0.16px] text-[#EEEEEE]/80">
             Infrastructure for video intelligence, turning raw video into searchable, AI-ready data at massive scale.
           </p>
           <div className="mt-6">
@@ -55,7 +55,7 @@ export function GetStartedSection() {
                 </button>
                 {isOn && tab.body ? (
                   <div className="mt-4">
-                    <p className="text-[16px] leading-6 tracking-[0.16px] text-[#F4F3F3]/80">{tab.body}</p>
+                    <p className="text-[16px] leading-6 tracking-[0.16px] text-[#EEEEEE]/80">{tab.body}</p>
                     {tab.href ? (
                       <div className="mt-6">
                         <SiteButton href={tab.href} size="s" theme="dark">

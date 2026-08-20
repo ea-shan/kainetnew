@@ -3,7 +3,7 @@ import { ASSET } from "./content";
 
 export function CtaSection() {
   return (
-    <section className="bg-[#F4F3F3] px-5 py-16 text-[#F4F3F3] min-[768px]:px-10">
+    <section className="bg-[#EEEEEE] px-5 py-16 text-[#EEEEEE] min-[768px]:px-10">
       <div className="tl-page relative min-h-[560px] overflow-hidden rounded-[48px] min-[900px]:min-h-[640px] min-[900px]:rounded-[64px]">
         <video
           className="pointer-events-none absolute inset-0 h-full w-full object-cover"
@@ -15,7 +15,7 @@ export function CtaSection() {
           src={`${ASSET}/videos/horse-cta.mp4`}
         />
         <div className="pointer-events-none absolute inset-0 bg-black/25" />
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-[#b8ff4a]/35 via-[#7affc4]/10 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-[#D8BCEB]/40 via-[#7F7BC1]/12 to-transparent" />
         <div className="relative flex min-h-[560px] flex-col items-center justify-center px-6 text-center min-[900px]:min-h-[640px]">
           <h2 className="max-w-[720px] text-[36px] leading-[1.14] tracking-[-0.02em] min-[768px]:text-[48px] min-[768px]:leading-[54.72px] min-[768px]:tracking-[-0.96px]">
             Ready to see what your archive actually knows?

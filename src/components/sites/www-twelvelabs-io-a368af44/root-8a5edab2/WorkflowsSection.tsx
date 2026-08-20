@@ -9,17 +9,17 @@ export function WorkflowsSection() {
 
   return (
     <section
-      className="px-5 pb-16 pt-20 text-[#1D1C1B] md:px-10"
+      className="px-5 pb-16 pt-20 text-[#000000] md:px-10"
       style={{
         background:
           "linear-gradient(90deg, rgb(220, 240, 215) 0%, rgb(250, 245, 210) 38%, rgb(255, 236, 220) 68%, rgb(255, 230, 240) 100%)",
       }}
     >
       <div className="tl-page grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-x-16">
-        <h2 className="max-w-[593px] border-l border-[#1D1C1B]/15 pl-6 text-[36px] leading-[1.14] tracking-[-0.02em] md:text-[48px] md:leading-[54.72px] md:tracking-[-0.96px]">
+        <h2 className="max-w-[593px] border-l border-[#000000]/15 pl-6 text-[36px] leading-[1.14] tracking-[-0.02em] md:text-[48px] md:leading-[54.72px] md:tracking-[-0.96px]">
           Built for the most demanding video workflows.
         </h2>
-        <p className="max-w-[420px] border-l border-[#1D1C1B]/15 pl-6 text-[16px] leading-6 tracking-[0.16px]">
+        <p className="max-w-[420px] border-l border-[#000000]/15 pl-6 text-[16px] leading-6 tracking-[0.16px]">
           Designed for organizations working with video at scale, turning raw, passive footage into a strategic asset teams can actually use.
         </p>
       </div>
@@ -36,11 +36,11 @@ export function WorkflowsSection() {
                   onClick={() => setActive(tab.id)}
                   className="block w-full cursor-pointer py-3 text-left"
                 >
-                  <h3 className={`text-[20px] leading-7 tracking-[0.1px] ${isOn ? "text-[#1D1C1B]" : "text-[#1D1C1B]/45"}`}>
+                  <h3 className={`text-[20px] leading-7 tracking-[0.1px] ${isOn ? "text-[#000000]" : "text-[#000000]/45"}`}>
                     {tab.title}
                   </h3>
                   {isOn && tab.body ? (
-                    <p className="mt-3 text-[16px] leading-6 tracking-[0.16px] text-[#1D1C1B]">
+                    <p className="mt-3 text-[16px] leading-6 tracking-[0.16px] text-[#000000]">
                       {tab.body}
                     </p>
                   ) : null}

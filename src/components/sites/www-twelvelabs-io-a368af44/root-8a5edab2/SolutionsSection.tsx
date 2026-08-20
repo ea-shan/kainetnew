@@ -56,16 +56,16 @@ export function SolutionsSection() {
   }
 
   return (
-    <section className="overflow-hidden bg-[#F4F3F3] py-16 text-[#1D1C1B] md:py-20">
+    <section className="overflow-hidden bg-[#EEEEEE] py-16 text-[#000000] md:py-20">
       <div className="px-5 md:px-10">
         <div className="tl-page relative">
-          <span aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-px bg-[#1D1C1B]/15" />
-          <span aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-px bg-[#1D1C1B]/15" />
+          <span aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-px bg-[#000000]/15" />
+          <span aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-px bg-[#000000]/15" />
           <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-0">
-            <h2 className="border-l border-[#1D1C1B]/15 pl-6 text-[36px] leading-[1.14] tracking-[-0.02em] md:text-[48px] md:leading-[54.72px] md:tracking-[-0.96px]">
+            <h2 className="border-l border-[#000000]/15 pl-6 text-[36px] leading-[1.14] tracking-[-0.02em] md:text-[48px] md:leading-[54.72px] md:tracking-[-0.96px]">
               Built for every video workflow.
             </h2>
-            <p className="max-w-[420px] border-l border-[#1D1C1B]/15 pl-6 text-[16px] leading-6 tracking-[0.16px]">
+            <p className="max-w-[420px] border-l border-[#000000]/15 pl-6 text-[16px] leading-6 tracking-[0.16px]">
               Video intelligence for teams in media, sports, advertising, government, security, and more.
             </p>
           </div>
@@ -83,7 +83,7 @@ export function SolutionsSection() {
               aria-selected={on}
               onClick={() => goTo(i)}
               className={`min-h-11 cursor-pointer rounded-full px-4 py-2 text-[14px] leading-6 tracking-[0.16px] transition-colors duration-200 ${
-                on ? "bg-[#1D1C1B] text-[#F4F3F3]" : "text-[#1D1C1B]/40 hover:text-[#1D1C1B]"
+                on ? "bg-[#000000] text-[#EEEEEE]" : "text-[#000000]/40 hover:text-[#000000]"
               }`}
             >
               {tab.title}
@@ -123,7 +123,7 @@ export function SolutionsSection() {
                 )}
                 <img src={card.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-transparent" />
-                <div className="pointer-events-none relative z-[2] flex h-full max-w-[440px] flex-col justify-center p-7 text-[#F4F3F3] md:p-12 lg:p-14">
+                <div className="pointer-events-none relative z-[2] flex h-full max-w-[440px] flex-col justify-center p-7 text-[#EEEEEE] md:p-12 lg:p-14">
                   <h3 className="text-[28px] leading-9 tracking-[-0.02em] md:text-[36px] md:leading-[42px]">{card.title}</h3>
                   <p className="mt-4 text-[16px] leading-6 tracking-[0.16px]">{card.body}</p>
                   <a

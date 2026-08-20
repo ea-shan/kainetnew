@@ -9,21 +9,15 @@ const WAVE_POSTER = `${ASSET}/videos/funnel-wave.jpg`;
 const PARTICLES_POSTER = `${ASSET}/videos/funnel-particles.jpg`;
 const GROUND = "#241833";
 
-function bindVideo(node: HTMLVideoElement | null, reduceMotion: boolean) {
-  if (!node) return;
+function playVideo(node: HTMLVideoElement, reduceMotion: boolean) {
   node.muted = true;
   node.defaultMuted = true;
   node.playsInline = true;
-  const play = () => {
-    node.muted = true;
-    if (reduceMotion) {
-      node.pause();
-      return;
-    }
-    void node.play().catch(() => undefined);
-  };
-  node.addEventListener("loadeddata", play);
-  play();
+  if (reduceMotion) {
+    node.pause();
+    return;
+  }
+  void node.play().catch(() => undefined);
 }
 
 type Pt = { x: number; y: number };
@@ -248,60 +242,69 @@ export function HeroMosaic() {
 
   useEffect(() => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const nodes = [waveRef.current, burstRef.current];
-    nodes.forEach((node) => bindVideo(node, reduceMotion));
-    const resume = () => nodes.forEach((node) => bindVideo(node, reduceMotion));
+    const nodes = [waveRef.current, burstRef.current].filter((n): n is HTMLVideoElement => Boolean(n));
+    const bound = nodes.map((node) => {
+      const play = () => playVideo(node, reduceMotion);
+      // re-arm when the media becomes ready again; browsers drop decoders after stalls
+      const events = ["loadeddata", "canplay", "stalled"] as const;
+      events.forEach((event) => node.addEventListener(event, play));
+      play();
+      return () => events.forEach((event) => node.removeEventListener(event, play));
+    });
+    const resume = () => nodes.forEach((node) => playVideo(node, reduceMotion));
     document.addEventListener("visibilitychange", resume);
     return () => {
       document.removeEventListener("visibilitychange", resume);
-      nodes.forEach((node) => node?.pause());
+      bound.forEach((unbind) => unbind());
     };
   }, []);
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" style={{ background: GROUND }} aria-hidden>
+      {/* `isolate` keeps the screen-blended layers blending against this element's own
+          gradient. Without it they blend against whatever backdrop root the compositor
+          hands them, and any backdrop-filter on the page washes the hero out to white. */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 isolate"
         style={{
           background:
             "radial-gradient(ellipse 90% 70% at 50% 48%, rgba(127,123,193,0.28) 0%, rgba(36,24,51,0.35) 48%, #241833 80%)",
         }}
-      />
+      >
+        {/* particles L→gap; wave gap→R — small dark split at the axis */}
+        <div className="absolute inset-y-0 left-0 w-[calc(50%-14px)]">
+          <video
+            ref={waveRef}
+            src={PARTICLES}
+            poster={PARTICLES_POSTER}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            className="h-full w-full object-cover object-right mix-blend-screen [mask-image:linear-gradient(90deg,#000_86%,transparent)] [filter:brightness(1.15)_contrast(1.08)]"
+          />
+        </div>
+        <div className="absolute inset-y-0 right-0 w-[calc(50%-14px)]">
+          <video
+            ref={burstRef}
+            src={WAVE}
+            poster={WAVE_POSTER}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            className="h-full w-full object-cover object-left mix-blend-screen [mask-image:linear-gradient(270deg,#000_86%,transparent)] [filter:brightness(1.7)_contrast(1.15)]"
+          />
+        </div>
 
-      {/* particles L→gap; wave gap→R — small dark split at the axis */}
-      <div className="absolute inset-y-0 left-0 w-[calc(50%-14px)]">
-        <video
-          ref={waveRef}
-          src={PARTICLES}
-          poster={PARTICLES_POSTER}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="h-full w-full object-contain object-right mix-blend-screen [mask-image:linear-gradient(90deg,#000_86%,transparent)] [filter:brightness(1.15)_contrast(1.08)]"
-        />
+        <HeroLightning />
       </div>
-      <div className="absolute inset-y-0 right-0 w-[calc(50%-14px)]">
-        <video
-          ref={burstRef}
-          src={WAVE}
-          poster={WAVE_POSTER}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="h-full w-full object-contain object-left mix-blend-screen [mask-image:linear-gradient(270deg,#000_86%,transparent)] [filter:brightness(1.7)_contrast(1.15)]"
-        />
-      </div>
-
-      <HeroLightning />
 
       <HeroSteps />
 
-      <div className="absolute inset-y-0 left-0 w-[32%] bg-[#241833]/15 backdrop-blur-[5px] [mask-image:linear-gradient(90deg,#000_50%,transparent)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(36,24,51,0.2)_0%,rgba(36,24,51,0.08)_22%,transparent_40%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(36,24,51,0.6)_0%,rgba(36,24,51,0.34)_18%,rgba(36,24,51,0.1)_32%,transparent_44%)]" />
       <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#241833]/80 to-transparent" />
       <div className="absolute top-[11%] bottom-0 left-1/2 w-px -translate-x-1/2 border-l border-dashed border-white/40" />
     </div>

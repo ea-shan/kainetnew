@@ -7,11 +7,12 @@ export function HeroSection() {
       <HeroMosaic />
       <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 min-[768px]:px-10">
         <div className="relative max-w-[640px] pt-4 min-[768px]:pt-8 min-[1100px]:pt-0">
+          {/* plain scrim, not backdrop-blur: backdrop-filter breaks the mosaic's blend layers */}
           <div
-            className="pointer-events-none absolute -inset-x-6 -inset-y-6 -z-10 bg-[#241833]/20 backdrop-blur-[6px]"
+            className="pointer-events-none absolute -inset-x-6 -inset-y-8 -z-10"
             style={{
-              maskImage: "linear-gradient(90deg, #000 55%, transparent)",
-              WebkitMaskImage: "linear-gradient(90deg, #000 55%, transparent)",
+              background:
+                "radial-gradient(ellipse 78% 62% at 22% 50%, rgba(36,24,51,0.72) 0%, rgba(36,24,51,0.42) 58%, transparent 100%)",
             }}
           />
           <div className="mb-4 inline-flex items-center gap-2 text-[12px] tracking-[0.08em]">

@@ -271,8 +271,14 @@ export function HeroMosaic() {
             "radial-gradient(ellipse 90% 70% at 50% 48%, rgba(127,123,193,0.28) 0%, rgba(36,24,51,0.35) 48%, #241833 80%)",
         }}
       >
-        {/* particles L→gap; wave gap→R — small dark split at the axis */}
-        <div className="absolute inset-y-0 left-0 w-[calc(50%-14px)]">
+        {/* Two-panel split (particles L→gap, wave gap→R) only where the step boxes exist.
+            Below that the halves are too narrow for a square source — cover would crop ~70%
+            of each frame — so the wave alone runs full-bleed. */}
+        {/* blend/mask/filter live on the wrappers, never on the <video>. Chrome promotes a
+            steadily playing video to a hardware overlay layer that cannot honour those
+            properties, and the layer then paints nothing — the hero goes blank a beat
+            after load. Compositing the wrapper keeps it on the normal paint path. */}
+        <div className="absolute inset-y-0 left-0 hidden w-[calc(50%-14px)] mix-blend-screen [filter:brightness(1.15)_contrast(1.08)] [mask-image:linear-gradient(90deg,#000_86%,transparent)] min-[1100px]:block">
           <video
             ref={waveRef}
             src={PARTICLES}
@@ -282,10 +288,10 @@ export function HeroMosaic() {
             loop
             playsInline
             preload="auto"
-            className="h-full w-full object-cover object-right mix-blend-screen [mask-image:linear-gradient(90deg,#000_86%,transparent)] [filter:brightness(1.15)_contrast(1.08)]"
+            className="h-full w-full object-cover object-right"
           />
         </div>
-        <div className="absolute inset-y-0 right-0 w-[calc(50%-14px)]">
+        <div className="absolute inset-y-0 right-0 w-full mix-blend-screen [filter:brightness(1.7)_contrast(1.15)] min-[1100px]:w-[calc(50%-14px)] min-[1100px]:[mask-image:linear-gradient(270deg,#000_86%,transparent)]">
           <video
             ref={burstRef}
             src={WAVE}
@@ -295,7 +301,7 @@ export function HeroMosaic() {
             loop
             playsInline
             preload="auto"
-            className="h-full w-full object-cover object-left mix-blend-screen [mask-image:linear-gradient(270deg,#000_86%,transparent)] [filter:brightness(1.7)_contrast(1.15)]"
+            className="h-full w-full object-cover object-center min-[1100px]:object-left"
           />
         </div>
 
@@ -306,7 +312,7 @@ export function HeroMosaic() {
 
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(36,24,51,0.6)_0%,rgba(36,24,51,0.34)_18%,rgba(36,24,51,0.1)_32%,transparent_44%)]" />
       <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#241833]/80 to-transparent" />
-      <div className="absolute top-[11%] bottom-0 left-1/2 w-px -translate-x-1/2 border-l border-dashed border-white/40" />
+      <div className="absolute top-[11%] bottom-0 left-1/2 hidden w-px -translate-x-1/2 border-l border-dashed border-white/40 min-[1100px]:block" />
     </div>
   );
 }

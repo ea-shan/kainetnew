@@ -3,12 +3,31 @@ import { CookieIcon, FooterBrandMark } from "./FooterBrandMark";
 
 const brandTitles = ["Capabilities", "Solutions", "Company", "Social"];
 
+const FOOTER_MESH = [
+  "radial-gradient(ellipse 85% 95% at 4% 72%, #CECFF7 0%, transparent 58%)",
+  "radial-gradient(ellipse 60% 75% at 30% 18%, #D8BCEB 0%, transparent 52%)",
+  "radial-gradient(ellipse 55% 65% at 50% 48%, #FFFFFF 0%, transparent 46%)",
+  "radial-gradient(ellipse 75% 90% at 92% 32%, #E6BEC6 0%, transparent 58%)",
+  "radial-gradient(ellipse 48% 58% at 72% 92%, #CAC1CD 0%, transparent 50%)",
+  "radial-gradient(ellipse 38% 48% at 58% 70%, rgba(127,123,193,0.32) 0%, transparent 44%)",
+].join(",");
+
+const FOOTER_FADE =
+  "linear-gradient(to bottom, #EEEEEE 0%, rgba(238,238,238,0.94) 10%, rgba(238,238,238,0.4) 28%, transparent 40%, transparent 70%, rgba(238,238,238,0.5) 86%, #EEEEEE 100%)";
+
 export function SiteFooter() {
   const brandCols = footerColumns.filter((col) => brandTitles.includes(col.title));
 
   return (
-    <footer className="bg-[#EEEEEE] text-[#000000]">
-      <div className="tl-page grid grid-cols-1 gap-0 px-5 py-16 md:px-10 min-[900px]:grid-cols-4">
+    <footer className="relative overflow-hidden bg-[#EEEEEE] text-[#000000]">
+      <div className="pointer-events-none absolute inset-0">
+        <div
+          className="absolute -inset-[20%]"
+          style={{ backgroundImage: FOOTER_MESH, filter: "blur(72px)" }}
+        />
+        <div className="absolute inset-0" style={{ background: FOOTER_FADE }} />
+      </div>
+      <div className="tl-page relative grid grid-cols-1 gap-0 px-5 py-16 md:px-10 min-[900px]:grid-cols-4">
         {brandCols.map((col, i) => (
           <div
             key={col.title}
@@ -34,16 +53,10 @@ export function SiteFooter() {
         ))}
       </div>
 
-      <div className="relative overflow-hidden px-6 pb-10 pt-24">
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background: "linear-gradient(90deg, #CECFF7 0%, #EEEEEE 48%, #E6BEC6 100%)",
-          }}
-        />
-        <div className="relative flex min-h-[280px] flex-col items-center justify-center gap-16 py-16 md:min-h-[340px] md:gap-20">
-          <FooterBrandMark className="text-[40px] text-[#000000] md:text-[56px] lg:text-[72px]" />
-          <p className="text-[13px] leading-[23.24px] tracking-[-0.28px] text-[#000000]/45">
+      <div className="relative">
+        <div className="relative mx-auto flex w-full max-w-[1600px] flex-col items-center px-5 pb-10 pt-20 min-[768px]:px-10 min-[768px]:pt-28">
+          <FooterBrandMark className="w-full justify-center whitespace-nowrap text-[clamp(64px,16.5vw,260px)] text-[#111111]" />
+          <p className="mt-14 text-[13px] leading-[23.24px] tracking-[-0.28px] text-[#111111]/45 min-[768px]:mt-20">
             © 2026 kAInet. All Rights Reserved
           </p>
         </div>

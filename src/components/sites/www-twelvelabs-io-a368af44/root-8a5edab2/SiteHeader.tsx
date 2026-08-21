@@ -11,7 +11,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 text-[#EEEEEE]">
       <div className="bg-[rgba(0,0,0,0.42)] backdrop-blur-[10px]">
-        <div className="px-5 pt-2 pb-1.5 min-[768px]:px-10">
+        {/* <div className="px-5 pt-2 pb-1.5 min-[768px]:px-10">
           <a
             href="https://www.twelvelabs.io/blog"
             className="tl-banner relative mx-auto flex min-h-[39px] w-full max-w-[1600px] items-center justify-center overflow-hidden rounded-full px-3 py-2 text-center text-[12px] leading-[18px] tracking-[-0.28px] text-[#000000] min-[768px]:h-[39px] min-[768px]:py-0 min-[768px]:text-[14px] min-[768px]:leading-[23.24px]"
@@ -25,12 +25,12 @@ export function SiteHeader() {
               </span>
             </span>
           </a>
-        </div>
+        </div> */}
 
         <div className="px-5 min-[768px]:px-10">
           <div className="tl-page flex h-[76px] items-center justify-between gap-3 overflow-visible">
           <a href="/" aria-label="kAInet" className="shrink-0">
-            <LogoMark />
+            <LogoMark className="text-[36px] leading-none" />
           </a>
 
           <nav className="hidden min-w-0 flex-1 items-center justify-center gap-5 text-[16px] leading-6 tracking-[0.16px] text-[#EEEEEE] min-[1100px]:flex">

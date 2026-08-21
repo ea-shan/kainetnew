@@ -12,10 +12,10 @@ export function HeroSection() {
         <div className="relative max-w-[640px] pt-4 min-[768px]:pt-8 min-[1100px]:pt-0">
           {/* plain scrim, not backdrop-blur: backdrop-filter breaks the mosaic's blend layers */}
           <div
-            className="pointer-events-none absolute -inset-x-6 -inset-y-8 -z-10"
+            className="pointer-events-none absolute -inset-x-8 -inset-y-10 -z-10"
             style={{
               background:
-                "radial-gradient(ellipse 78% 62% at 22% 50%, rgba(8,7,10,0.7) 0%, rgba(42,27,45,0.38) 58%, transparent 100%)",
+                "radial-gradient(ellipse 86% 78% at 22% 48%, rgba(8,7,10,0.94) 0%, rgba(8,7,10,0.78) 46%, rgba(8,7,10,0.28) 72%, transparent 100%)",
             }}
           />
           <div className="mb-4 inline-flex items-center gap-2 text-[12px] tracking-[0.08em]">
@@ -33,7 +33,7 @@ export function HeroSection() {
           <br />
           they can defend to a client, or a CFO.
             </p>
-          <div className="mt-8 flex flex-wrap items-start gap-3 min-[1100px]:hidden">
+          <div className="absolute top-full left-0 z-10 mt-8 flex flex-wrap items-start gap-3">
             <div className="flex flex-col">
               <SiteButton href="https://playground.twelvelabs.io" variant="primary" theme="dark">
                 Request early access
@@ -46,21 +46,6 @@ export function HeroSection() {
               See it in action
             </SiteButton>
           </div>
-        </div>
-      </div>
-      <div className="pointer-events-auto absolute inset-x-0 bottom-[20%] z-10 hidden justify-end px-5 min-[768px]:px-10 min-[1100px]:flex">
-        <div className="mx-auto flex w-full max-w-[1600px] items-start justify-end gap-3">
-          <div className="flex flex-col items-end">
-            <SiteButton href="https://playground.twelvelabs.io" variant="primary" theme="dark">
-              Request early access
-            </SiteButton>
-            <p className="mt-2 max-w-[280px] text-right text-[12px] leading-[1.4] tracking-[0.02em] text-[#EEEEEE]/55">
-              Get in within minutes - 14 days, full access, no credit card.
-            </p>
-          </div>
-          <SiteButton href="https://www.twelvelabs.io/contact" theme="dark">
-            See it in action
-          </SiteButton>
         </div>
       </div>
     </section>

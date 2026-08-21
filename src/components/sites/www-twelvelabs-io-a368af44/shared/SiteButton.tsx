@@ -41,9 +41,11 @@ export function SiteButton({
 export function LogoMark({
   className,
   tone = "dark",
+  wash = false,
 }: {
   className?: string;
   tone?: "dark" | "light";
+  wash?: boolean;
 }) {
   return (
     <span className={`inline-flex items-center gap-[0.45em] ${className ?? "text-[20px]"}`}>
@@ -52,7 +54,11 @@ export function LogoMark({
         alt=""
         className={`h-[1.15em] w-[1.15em] rounded-[22%] object-cover ${tone === "dark" ? "mix-blend-screen" : ""}`}
       />
-      <span className="font-[family-name:var(--font-milling-bold)] leading-none tracking-[-0.04em]">kAInet</span>
+      <span
+        className={`font-[family-name:var(--font-milling-bold)] leading-none tracking-[-0.04em] ${wash ? "tl-logo-wash" : ""}`}
+      >
+        kAInet
+      </span>
     </span>
   );
 }

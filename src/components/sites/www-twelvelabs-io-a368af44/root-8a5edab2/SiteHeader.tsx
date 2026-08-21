@@ -30,7 +30,7 @@ export function SiteHeader() {
         <div className="px-5 min-[768px]:px-10">
           <div className="tl-page flex h-[76px] items-center justify-between gap-3 overflow-visible">
           <a href="/" aria-label="kAInet" className="shrink-0">
-            <LogoMark className="text-[36px] leading-none" />
+            <LogoMark wash className="text-[30px] leading-none" />
           </a>
 
           <nav className="hidden min-w-0 flex-1 items-center justify-center gap-5 text-[16px] leading-6 tracking-[0.16px] text-[#EEEEEE] min-[1100px]:flex">

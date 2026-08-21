@@ -191,6 +191,24 @@
   box-shadow: inset 0 0 0 1px #eeeeee;
 }
 
+@keyframes tl-logo-wash {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.tl-logo-wash {
+  background-image: linear-gradient(90deg, #cecff7 0%, #7f7bc1 34%, #e6bec6 68%, #d8bceb 100%);
+  background-size: 220% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: tl-logo-wash 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-logo-wash { animation: none; background-position: 28% 50%; }
+}
+
 @keyframes tl-marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }

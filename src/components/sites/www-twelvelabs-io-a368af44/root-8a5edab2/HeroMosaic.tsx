@@ -25,6 +25,7 @@ const PARTICLE_VERT = /* glsl */ `
   uniform vec2 uMouse;
   varying float vT;
   varying float vFlow;
+  varying float vSeed;
 
   void main() {
     float t = clamp(aT, 0.0, 1.0);
@@ -35,14 +36,17 @@ const PARTICLE_VERT = /* glsl */ `
     vec3 p = vec3(mix(uLeft, uRight, t), aY0 * spread, aZ0 * spread * 0.4);
     p.xy += uMouse * (1.0 - aT) * 0.05;
     vT = aT;
+    vSeed = aSeed;
     vFlow = fract(uTime * aSpeed + aSeed);
     gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
   }
 `;
 
 const PARTICLE_FRAG = /* glsl */ `
+  uniform float uTime;
   varying float vT;
   varying float vFlow;
+  varying float vSeed;
 
   void main() {
     vec3 tail = vec3(0.35, 0.42, 0.92);
@@ -52,7 +56,9 @@ const PARTICLE_FRAG = /* glsl */ `
     col = mix(col, head, smoothstep(0.62, 1.0, vT));
     float pulse = 0.5 + 0.5 * smoothstep(0.14, 0.0, abs(vT - vFlow));
     float fade = 0.28 + 0.72 * pow(vT, 0.8);
-    gl_FragColor = vec4(col * pulse, fade);
+    float g = fract(uTime * 0.035 + vSeed);
+    float appear = smoothstep(0.16, 0.42, g) * (1.0 - smoothstep(0.78, 0.97, g));
+    gl_FragColor = vec4(col * pulse, fade * appear);
   }
 `;
 
@@ -98,7 +104,7 @@ const FLARE_VERT = /* glsl */ `
     float reach = 0.55 + aSeed * 1.85;
     float r = mix(0.14, reach, pow(life, 0.62));
 
-    float ang = aAngle + sin(uTime * 0.32 + aSeed * 6.28318) * 0.05 * aSpread;
+    float ang = aAngle + sin(uTime * 0.05 + aSeed * 6.28318) * 0.05 * aSpread;
     vec2 dir = vec2(cos(ang), sin(ang));
     vec2 p = dir * r;
 
@@ -187,7 +193,7 @@ function makeParticles(): { mesh: THREE.LineSegments; material: THREE.ShaderMate
     const g = Math.pow(Math.random(), 0.48);
     const y0 = (Math.random() > 0.5 ? 1 : -1) * g * 1.22;
     const z0 = (Math.random() - 0.5) * 0.45;
-    const speed = 0.08 + Math.random() * 0.16;
+    const speed = 0.012 + Math.random() * 0.018;
     for (let s = 0; s < segs - 1; s++) {
       for (const t of [s / (segs - 1), (s + 1) / (segs - 1)]) {
         aT[w] = t;
@@ -285,8 +291,8 @@ function writeWave(
         const open = t < 0.09 ? t / 0.09 : t > 0.92 ? Math.max(0, 1 - (t - 0.92) / 0.08) : 1;
         const env = (env1 + env2) * open;
         const osc =
-          Math.sin(t * spec.freq - time * 1.22 + spec.phase) * 0.065 +
-          Math.sin(t * spec.freq * 1.85 + time * 0.68 + spec.phase * 1.25) * 0.022;
+          Math.sin(t * spec.freq - time * 0.18 + spec.phase) * 0.065 +
+          Math.sin(t * spec.freq * 1.85 + time * 0.1 + spec.phase * 1.25) * 0.022;
         const y = (spec.line - 0.5) * spec.amp * env * 1.25 + osc * env;
         pos.setXYZ(w, left + (right - left) * t, y, (spec.line - 0.5) * 0.035);
         aX.setX(w, t);
@@ -345,12 +351,12 @@ function makeFlares(): { mesh: THREE.Points; material: THREE.ShaderMaterial } {
       aAngle[i] = base + (Math.random() - 0.5) * 0.15;
       aSpread[i] = 0.22;
       aSize[i] = 2.4 + Math.random() * 5.8;
-      aSpeed[i] = 0.11 + Math.random() * 0.2;
+      aSpeed[i] = 0.016 + Math.random() * 0.028;
     } else {
       aAngle[i] = Math.random() * Math.PI * 2;
       aSpread[i] = 1;
       aSize[i] = 1.15 + Math.random() * 2.6;
-      aSpeed[i] = 0.055 + Math.random() * 0.13;
+      aSpeed[i] = 0.008 + Math.random() * 0.016;
     }
   }
 
@@ -538,7 +544,7 @@ export function HeroMosaic() {
         <HeroField />
       </div>
 
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,7,10,0.55)_0%,rgba(42,27,45,0.28)_18%,rgba(8,7,10,0.08)_32%,transparent_44%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,7,10,0.88)_0%,rgba(8,7,10,0.62)_16%,rgba(8,7,10,0.22)_30%,transparent_44%)]" />
       <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#08070a]/80 to-transparent" />
     </div>
   );

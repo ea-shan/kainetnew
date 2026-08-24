@@ -452,6 +452,7 @@ function boot(host: HTMLDivElement, reduce: boolean): () => void {
   const { mesh: flares, material: flareMat } = makeFlares();
   const glow = makeGlow();
   scene.add(glow, particles, wave, flares);
+  flares.visible = false;
 
   const timer = new THREE.Timer();
   timer.connect(document);
@@ -496,6 +497,7 @@ function boot(host: HTMLDivElement, reduce: boolean): () => void {
     flareMat.uniforms.uTime.value = t;
     flareMat.uniforms.uMouse.value.copy(api.mouse);
     writeWave(wave, api.waveLines, api.waveSegs, api.waveLeft, api.waveRight, t);
+    wave.position.set(api.mouse.x * 0.06, api.mouse.y * 0.045, 0);
     camera.position.x = api.mouse.x * 0.12;
     camera.position.y = api.mouse.y * 0.08;
     camera.lookAt(0, 0, 0);
@@ -544,7 +546,13 @@ export function HeroMosaic() {
         <HeroField />
       </div>
 
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,7,10,0.88)_0%,rgba(8,7,10,0.62)_16%,rgba(8,7,10,0.22)_30%,transparent_44%)]" />
+      <div
+        className="absolute inset-y-0 left-0 w-[min(48vw,760px)]"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(8,7,10,0.98) 0%, rgba(8,7,10,0.94) 38%, rgba(8,7,10,0.7) 62%, rgba(8,7,10,0.28) 82%, transparent 100%)",
+        }}
+      />
       <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#08070a]/80 to-transparent" />
     </div>
   );

@@ -209,6 +209,52 @@
   .tl-logo-wash { animation: none; background-position: 28% 50%; }
 }
 
+@keyframes tl-footer-glow {
+  0%, 100% {
+    -webkit-text-stroke-color: rgba(206, 207, 247, 0.95);
+    filter: drop-shadow(0 0 18px rgba(206, 207, 247, 0.55));
+  }
+  40% {
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.88);
+    filter: drop-shadow(0 0 26px rgba(230, 190, 198, 0.48));
+  }
+  70% {
+    -webkit-text-stroke-color: rgba(255, 213, 128, 0.82);
+    filter: drop-shadow(0 0 22px rgba(255, 213, 128, 0.4));
+  }
+}
+
+@keyframes tl-footer-icon-glow {
+  0%, 100% {
+    opacity: 0.58;
+    filter: brightness(1.45) saturate(0.75) drop-shadow(0 0 16px rgba(206, 207, 247, 0.45));
+  }
+  50% {
+    opacity: 0.82;
+    filter: brightness(1.7) saturate(0.85) drop-shadow(0 0 24px rgba(255, 213, 128, 0.38));
+  }
+}
+
+.tl-footer-lockup {
+  mask-image: linear-gradient(to bottom, #000 68%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 68%, transparent 100%);
+}
+
+.tl-footer-mark {
+  color: rgba(255, 255, 255, 0.28);
+  -webkit-text-stroke: 2.25px rgba(206, 207, 247, 0.95);
+  animation: tl-footer-glow 8s ease-in-out infinite;
+}
+
+.tl-footer-icon {
+  animation: tl-footer-icon-glow 8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-footer-mark,
+  .tl-footer-icon { animation: none; }
+}
+
 @keyframes tl-marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }

@@ -1,9 +1,3 @@
-import { LogoMark } from "../shared/SiteButton";
-
-export function FooterBrandMark({ className }: { className?: string }) {
-  return <LogoMark tone="light" className={className} />;
-}
-
 export function CookieIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">

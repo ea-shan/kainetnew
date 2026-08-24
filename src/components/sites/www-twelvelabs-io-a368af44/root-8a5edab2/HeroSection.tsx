@@ -4,20 +4,12 @@ import { GROUND, GROUND_GLOW, HeroMosaic } from "./HeroMosaic";
 export function HeroSection() {
   return (
     <section
-      className="relative -mt-[131px] flex min-h-[100dvh] flex-col justify-center overflow-hidden pt-[120px] pb-12 text-[#EEEEEE] min-[768px]:pt-[132px] min-[1100px]:pb-14"
+      className="relative -mt-[131px] flex min-h-[calc(100dvh+131px)] flex-col justify-center overflow-hidden pt-[120px] pb-[calc(3rem+131px)] text-[#EEEEEE] min-[768px]:pt-[132px] min-[1100px]:pb-[calc(3.5rem+131px)]"
       style={{ backgroundColor: GROUND, backgroundImage: GROUND_GLOW }}
     >
       <HeroMosaic />
       <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 min-[768px]:px-10">
         <div className="relative max-w-[640px] pt-4 min-[768px]:pt-8 min-[1100px]:pt-0">
-          {/* plain scrim, not backdrop-blur: backdrop-filter breaks the mosaic's blend layers */}
-          <div
-            className="pointer-events-none absolute -inset-x-8 -inset-y-10 -z-10"
-            style={{
-              background:
-                "radial-gradient(ellipse 86% 78% at 22% 48%, rgba(8,7,10,0.94) 0%, rgba(8,7,10,0.78) 46%, rgba(8,7,10,0.28) 72%, transparent 100%)",
-            }}
-          />
           <div className="mb-4 inline-flex items-center gap-2 text-[12px] tracking-[0.08em]">
             <span className="font-mono text-[13px] leading-none text-[#cecff7]" aria-hidden>
               {"</>"}

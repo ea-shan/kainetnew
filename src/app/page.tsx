@@ -16,8 +16,10 @@ export default function Home() {
     <div className="tl-site">
       <SiteHeader />
       <main>
-        <HeroSection />
-        <GetStartedSection />
+        <div className="tl-hero-band">
+          <HeroSection />
+          <GetStartedSection />
+        </div>
         <WorkflowsSection />
         <KpisSection />
         <TrustedBySection />

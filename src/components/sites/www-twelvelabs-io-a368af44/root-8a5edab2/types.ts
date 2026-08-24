@@ -2,10 +2,17 @@ export type SiteButtonVariant = "primary" | "secondary";
 export type SiteButtonSize = "l" | "s";
 export type SiteTheme = "dark" | "light";
 
+export type NavChild = {
+  label: string;
+  href: string;
+  description?: string;
+  icon?: string;
+};
+
 export type NavItem = {
   label: string;
   href: string;
-  children?: { label: string; href: string }[];
+  children?: NavChild[];
 };
 
 export type FeatureTab = {

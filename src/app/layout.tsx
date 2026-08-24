@@ -19,9 +19,9 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "kAInet: Video Intelligence Platform & API",
+  title: "kAInet — Your campaigns, built by AI. Launched by you. | Agentic Adtech Platform",
   description:
-    "Infrastructure for video intelligence, turning raw video into searchable, AI-ready data at massive scale.",
+    "Describe your campaign in plain language. Six AI agents research, structure, and build it inside your own Google and Meta accounts — paused, until you approve it.",
   icons: {
     icon: "/sites/www-twelvelabs-io-a368af44/shared/kainet.webp",
     apple: "/sites/www-twelvelabs-io-a368af44/shared/kainet.webp",

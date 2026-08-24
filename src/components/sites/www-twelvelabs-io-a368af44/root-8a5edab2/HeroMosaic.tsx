@@ -11,7 +11,6 @@ export const GROUND_GLOW = [
   "radial-gradient(ellipse 34% 30% at 80% 76%, #2e2620 0%, transparent 48%)",
   "radial-gradient(ellipse 120% 95% at 50% 50%, transparent 36%, #08070a 84%)",
 ].join(",");
-const WIDE = "(min-width: 1100px)";
 
 const PARTICLE_VERT = /* glsl */ `
   attribute float aT;
@@ -172,8 +171,6 @@ type FieldApi = {
   waveSegs: number;
   waveLeft: number;
   waveRight: number;
-  mouse: THREE.Vector2;
-  target: THREE.Vector2;
 };
 
 function makeParticles(): { mesh: THREE.LineSegments; material: THREE.ShaderMaterial } {
@@ -293,7 +290,7 @@ function writeWave(
         const osc =
           Math.sin(t * spec.freq - time * 0.18 + spec.phase) * 0.065 +
           Math.sin(t * spec.freq * 1.85 + time * 0.1 + spec.phase * 1.25) * 0.022;
-        const y = (spec.line - 0.5) * spec.amp * env * 1.25 + osc * env;
+        const y = (spec.line - 0.5) * spec.amp * env * 0.85 + osc * env;
         pos.setXYZ(w, left + (right - left) * t, y, (spec.line - 0.5) * 0.035);
         aX.setX(w, t);
         w += 1;
@@ -386,8 +383,8 @@ function makeFlares(): { mesh: THREE.Points; material: THREE.ShaderMaterial } {
   return { mesh, material };
 }
 
-function layout(api: FieldApi, wide: boolean) {
-  const { renderer, camera, particles, glow, partMat, flareMat } = api;
+function layout(api: FieldApi) {
+  const { renderer, camera, particles, wave, glow, partMat, flareMat } = api;
   const el = renderer.domElement;
   const w = el.clientWidth || 1;
   const h = el.clientHeight || 1;
@@ -400,23 +397,24 @@ function layout(api: FieldApi, wide: boolean) {
   camera.right = aspect;
   camera.top = 1;
   camera.bottom = -1;
+  camera.position.set(0, 0, 8);
+  camera.rotation.set(0, 0, 0);
   camera.updateProjectionMatrix();
+  camera.lookAt(0, 0, 0);
 
   const gap = Math.min(0.028, 16 / w);
   const glowMat = glow.material as THREE.ShaderMaterial;
   if (glowMat.uniforms.uAspect) glowMat.uniforms.uAspect.value = aspect;
+  // Pinch stays at world origin = canvas center. Same left/right field on every width.
   partMat.uniforms.uLeft.value = -aspect;
   partMat.uniforms.uRight.value = -gap;
   flareMat.uniforms.uDpr.value = dpr;
-  if (wide) {
-    api.waveLeft = gap;
-    api.waveRight = aspect;
-    particles.visible = true;
-  } else {
-    api.waveLeft = -aspect * 0.15;
-    api.waveRight = aspect;
-    particles.visible = false;
-  }
+  api.waveLeft = gap;
+  api.waveRight = aspect;
+  particles.visible = true;
+  particles.position.set(0, 0, 0);
+  wave.position.set(0, 0, 0);
+  glow.position.set(0, 0, -1);
 }
 
 function boot(host: HTMLDivElement, reduce: boolean): () => void {
@@ -472,42 +470,26 @@ function boot(host: HTMLDivElement, reduce: boolean): () => void {
     waveSegs,
     waveLeft: 0.02,
     waveRight: 1.6,
-    mouse: new THREE.Vector2(),
-    target: new THREE.Vector2(),
   };
 
-  const wideMq = window.matchMedia(WIDE);
-  layout(api, wideMq.matches);
-
-  const onMove = (e: PointerEvent) => {
-    api.target.set((e.clientX / window.innerWidth) * 2 - 1, -((e.clientY / window.innerHeight) * 2 - 1));
-  };
-  const onWide = () => layout(api, wideMq.matches);
-  const ro = new ResizeObserver(() => layout(api, wideMq.matches));
+  const relayout = () => layout(api);
+  layout(api);
+  const ro = new ResizeObserver(relayout);
   ro.observe(host);
-  window.addEventListener("pointermove", onMove, { passive: true });
-  wideMq.addEventListener("change", onWide);
+  window.visualViewport?.addEventListener("resize", relayout);
 
   renderer.setAnimationLoop(() => {
     api.timer.update();
     const t = reduce ? 0 : api.timer.getElapsed();
-    api.mouse.lerp(api.target, 0.07);
     partMat.uniforms.uTime.value = t;
-    partMat.uniforms.uMouse.value.copy(api.mouse);
     flareMat.uniforms.uTime.value = t;
-    flareMat.uniforms.uMouse.value.copy(api.mouse);
     writeWave(wave, api.waveLines, api.waveSegs, api.waveLeft, api.waveRight, t);
-    wave.position.set(api.mouse.x * 0.06, api.mouse.y * 0.045, 0);
-    camera.position.x = api.mouse.x * 0.12;
-    camera.position.y = api.mouse.y * 0.08;
-    camera.lookAt(0, 0, 0);
     renderer.render(scene, camera);
   });
 
   return () => {
     renderer.setAnimationLoop(null);
-    window.removeEventListener("pointermove", onMove);
-    wideMq.removeEventListener("change", onWide);
+    window.visualViewport?.removeEventListener("resize", relayout);
     ro.disconnect();
     particles.geometry.dispose();
     wave.geometry.dispose();
@@ -538,7 +520,7 @@ function HeroField() {
 export function HeroMosaic() {
   return (
     <div
-      className="pointer-events-none absolute inset-0 overflow-hidden"
+      className="tl-hero-mosaic pointer-events-none absolute inset-x-0 top-0 h-[calc(100%+8rem)] -translate-y-16 overflow-x-clip min-[768px]:h-[calc(100%+16rem)] min-[768px]:-translate-y-32 min-[1100px]:h-[calc(100%+28rem)] min-[1100px]:-translate-y-56"
       style={{ backgroundColor: GROUND, backgroundImage: GROUND_GLOW }}
       aria-hidden
     >
@@ -547,13 +529,12 @@ export function HeroMosaic() {
       </div>
 
       <div
-        className="absolute inset-y-0 left-0 w-[min(48vw,760px)]"
+        className="absolute inset-y-0 left-0 w-[min(92%,760px)] min-[768px]:w-[min(56vw,760px)] min-[1100px]:w-[min(48vw,760px)]"
         style={{
           background:
             "linear-gradient(90deg, rgba(8,7,10,0.98) 0%, rgba(8,7,10,0.94) 38%, rgba(8,7,10,0.7) 62%, rgba(8,7,10,0.28) 82%, transparent 100%)",
         }}
       />
-      <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#08070a]/80 to-transparent" />
     </div>
   );
 }

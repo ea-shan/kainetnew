@@ -7,12 +7,14 @@ export function SiteButton({
   variant = "secondary",
   size = "l",
   theme = "dark",
+  orbit = false,
 }: {
   href: string;
   children: string;
   variant?: SiteButtonVariant;
   size?: SiteButtonSize;
   theme?: SiteTheme;
+  orbit?: boolean;
 }) {
   const isPrimary = variant === "primary";
   const isLarge = size === "l";
@@ -24,6 +26,20 @@ export function SiteButton({
     : onDark
       ? "shadow-[inset_0_0_0_1px_#EEEEEE]"
       : "shadow-[inset_0_0_0_1px_#000000]";
+
+  if (isPrimary || orbit) {
+    return (
+      <a
+        href={href}
+        className={`tl-header-cta ${isPrimary ? "tl-header-cta-solid" : "tl-header-cta-outline"} ${isLarge ? "tl-header-cta-lg" : ""} inline-flex shrink-0 cursor-pointer`}
+      >
+        <span>
+          {children}
+          <ArrowUpRightIcon className="size-4" />
+        </span>
+      </a>
+    );
+  }
 
   return (
     <a

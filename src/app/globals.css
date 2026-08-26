@@ -136,6 +136,8 @@
     color-mix(in srgb, var(--kai-grad-pink) 48%, var(--kai-yellow)) 74%,
     var(--kai-yellow) 100%
   );
+  --kai-grad-1: linear-gradient(180deg, var(--kai-grad-purple) 0%, var(--kai-grad-lavender) 100%);
+  --kai-grad-2: linear-gradient(180deg, var(--kai-grad-pink) 0%, var(--kai-grad-pink) 45%, var(--kai-grad-lavender) 100%);
 }
 
 .dark {
@@ -290,27 +292,98 @@
   pointer-events: none;
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--kai-lavender) 40%, var(--kai-white)) 0%,
-    color-mix(in srgb, var(--kai-grad-pink) 30%, var(--kai-white)) 48%,
-    color-mix(in srgb, var(--kai-yellow) 34%, var(--kai-white)) 100%
-  );
+  background:
+    radial-gradient(ellipse 52% 64% at 6% 86%, color-mix(in srgb, var(--kai-grad-purple) 36%, transparent), transparent 72%),
+    radial-gradient(ellipse 44% 52% at 42% 100%, color-mix(in srgb, var(--kai-grad-pink) 30%, transparent), transparent 70%),
+    radial-gradient(ellipse 50% 60% at 96% 88%, color-mix(in srgb, var(--kai-yellow) 26%, transparent), transparent 72%),
+    linear-gradient(180deg, var(--kai-white) 0%, color-mix(in srgb, var(--kai-white) 82%, var(--kai-grad-lavender)) 100%);
 }
 
 .tl-wf-card {
   background:
-    radial-gradient(ellipse 78% 88% at 10% 100%, color-mix(in srgb, var(--kai-lavender) 50%, transparent), transparent 72%),
-    radial-gradient(ellipse 68% 78% at 90% 100%, color-mix(in srgb, var(--kai-yellow) 38%, transparent), transparent 70%),
-    color-mix(in srgb, var(--kai-white) 84%, var(--kai-lavender));
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--kai-grad-purple) 38%, var(--kai-white)) 0%,
+      color-mix(in srgb, var(--kai-grad-lavender) 48%, var(--kai-white)) 100%
+    );
   border: 1px solid color-mix(in srgb, var(--kai-purple) 12%, transparent);
+  box-shadow: 0 0 60px color-mix(in srgb, var(--kai-purple) 10%, transparent);
 }
 
 .tl-wf-card-good {
   background:
-    radial-gradient(ellipse 78% 88% at 8% 100%, color-mix(in srgb, var(--kai-grad-pink) 48%, transparent), transparent 72%),
-    radial-gradient(ellipse 68% 78% at 92% 100%, color-mix(in srgb, var(--kai-yellow) 42%, transparent), transparent 70%),
-    color-mix(in srgb, var(--kai-white) 86%, var(--kai-grad-pink));
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--kai-grad-pink) 42%, var(--kai-white)) 0%,
+      color-mix(in srgb, var(--kai-grad-pink) 34%, var(--kai-white)) 45%,
+      color-mix(in srgb, var(--kai-grad-lavender) 46%, var(--kai-white)) 100%
+    );
+  box-shadow: 0 0 50px color-mix(in srgb, var(--kai-yellow) 12%, transparent);
+}
+
+.tl-wf-grad {
+  background-image: var(--kai-cta-grad);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.tl-wf-mark {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 20px;
+  background: var(--kai-grad-1);
+  box-shadow: 0 0 40px color-mix(in srgb, var(--kai-purple) 18%, transparent);
+}
+
+.tl-wf-mark-good {
+  background: var(--kai-grad-2);
+  box-shadow: 0 0 40px color-mix(in srgb, var(--kai-grad-pink) 22%, transparent);
+}
+
+.tl-wf-mark svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.tl-wf-stroke {
+  fill: none;
+  stroke: var(--kai-white);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 28;
+  stroke-dashoffset: 0;
+  animation: tl-wf-draw 5.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.tl-wf-stroke-late {
+  animation-delay: 0.18s;
+}
+
+@keyframes tl-wf-draw {
+  0% { stroke-dashoffset: 28; }
+  12% { stroke-dashoffset: 0; }
+  86% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 28; }
+}
+
+@media (min-width: 768px) {
+  .tl-wf-mark {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-wf-stroke {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
 }
 
 .tl-pipe {

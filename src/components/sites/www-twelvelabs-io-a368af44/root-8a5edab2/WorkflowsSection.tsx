@@ -1,5 +1,21 @@
-import { CheckIcon, CloseIcon } from "../shared/icons";
 import { comparePanels } from "./content";
+
+function CompareMark({ good }: { good: boolean }) {
+  return (
+    <span className={`tl-wf-mark${good ? " tl-wf-mark-good" : ""}`} aria-hidden>
+      <svg viewBox="0 0 24 24">
+        {good ? (
+          <path className="tl-wf-stroke" d="M5 12.4l5 5L20 7" />
+        ) : (
+          <>
+            <path className="tl-wf-stroke" d="M6 6l12 12" />
+            <path className="tl-wf-stroke tl-wf-stroke-late" d="M18 6L6 18" />
+          </>
+        )}
+      </svg>
+    </span>
+  );
+}
 
 export function WorkflowsSection() {
   return (
@@ -8,7 +24,8 @@ export function WorkflowsSection() {
       <div className="tl-page relative">
         <header className="mx-auto max-w-[40rem] text-center">
           <h2 className="text-[36px] leading-[1.14] tracking-[-0.02em] md:text-[48px] md:leading-[1.14] md:tracking-[-0.96px]">
-            There are two bad ways to do AI marketing. We&apos;re not doing either.
+            There are two bad ways to do AI marketing.{" "}
+            <span className="tl-wf-grad">We&apos;re not doing either.</span>
           </h2>
           <p className="mt-5 text-[16px] leading-6 tracking-[0.16px] text-[var(--kai-light-muted)]">
             You&apos;ve probably been burned by one of them. Here&apos;s what we think went wrong, and what we do instead.
@@ -22,15 +39,14 @@ export function WorkflowsSection() {
           />
           {comparePanels.map((panel) => {
             const good = panel.kind === "good";
-            const Icon = good ? CheckIcon : CloseIcon;
             return (
               <article
                 key={panel.heading}
-                className={`tl-wf-card ${good ? "tl-wf-card-good" : ""} flex h-full items-center gap-5 rounded-[40px] px-6 py-8 md:gap-7 md:rounded-[48px] md:px-8 md:py-10`}
+                className={`tl-wf-card ${good ? "tl-wf-card-good" : ""} flex h-full items-start gap-5 rounded-[28px] px-6 py-8 md:items-center md:gap-7 md:rounded-[32px] md:px-8 md:py-10`}
               >
-                <Icon className="size-12 shrink-0 text-[var(--kai-light-text)] md:size-14" />
+                <CompareMark good={good} />
                 <div className="min-w-0">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--kai-light-muted)]">
+                  <p className="tl-wf-grad text-[11px] font-semibold uppercase tracking-[0.12em]">
                     {good ? "The good kind" : "The bad kind"}
                   </p>
                   <h3 className="mt-2 text-[20px] font-[family-name:var(--font-milling-bold)] font-bold leading-7 tracking-[0.1px]">
@@ -45,7 +61,7 @@ export function WorkflowsSection() {
 
         <p className="mx-auto mt-12 max-w-[52rem] text-center text-[16px] leading-6 tracking-[0.16px] text-[var(--kai-light-muted)] md:mt-14">
           Your account. Your approval. Your call — every time. And every change kAInet makes is written to your account&apos;s change log, so you can always answer the only question that matters when something moves:{" "}
-          <em>what changed, and who changed it</em>.
+          <em className="tl-wf-grad">what changed, and who changed it</em>.
         </p>
       </div>
     </section>

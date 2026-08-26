@@ -21,6 +21,9 @@ const PARTICLE_VERT = /* glsl */ `
   uniform float uTime;
   uniform float uLeft;
   uniform float uRight;
+  uniform float uSpread;
+  uniform float uLift;
+  uniform float uPinch;
   uniform vec2 uMouse;
   varying float vT;
   varying float vFlow;
@@ -31,8 +34,8 @@ const PARTICLE_VERT = /* glsl */ `
     // Cosine body = circular sides. Late needle restores the point without a mid-body kink.
     float body = pow(max(cos(t * 1.57079632679), 0.0), 0.72);
     float needle = 1.0 - pow(smoothstep(0.78, 1.0, t), 1.45);
-    float spread = 1.12 * body * needle;
-    vec3 p = vec3(mix(uLeft, uRight, t), aY0 * spread, aZ0 * spread * 0.4);
+    float spread = uSpread * body * mix(0.72, needle, uPinch);
+    vec3 p = vec3(mix(uLeft, uRight, t), aY0 * spread + t * uLift, aZ0 * spread * 0.4);
     p.xy += uMouse * (1.0 - aT) * 0.05;
     vT = aT;
     vSeed = aSeed;
@@ -216,6 +219,9 @@ function makeParticles(): { mesh: THREE.LineSegments; material: THREE.ShaderMate
       uTime: { value: 0 },
       uLeft: { value: -1.6 },
       uRight: { value: -0.02 },
+      uSpread: { value: 1.12 },
+      uLift: { value: 0 },
+      uPinch: { value: 1 },
       uMouse: { value: new THREE.Vector2() },
     },
     vertexShader: PARTICLE_VERT,
@@ -402,17 +408,22 @@ function layout(api: FieldApi) {
   camera.updateProjectionMatrix();
   camera.lookAt(0, 0, 0);
 
+  const compact = w < 768;
   const gap = Math.min(0.028, 16 / w);
   const glowMat = glow.material as THREE.ShaderMaterial;
   if (glowMat.uniforms.uAspect) glowMat.uniforms.uAspect.value = aspect;
-  // Pinch stays at world origin = canvas center. Same left/right field on every width.
+  // Desktop: pinch at canvas center. Compact: left stream fills edge-to-edge and lifts diagonally.
   partMat.uniforms.uLeft.value = -aspect;
-  partMat.uniforms.uRight.value = -gap;
+  partMat.uniforms.uRight.value = compact ? aspect * 0.96 : -gap;
+  partMat.uniforms.uSpread.value = compact ? 1.58 : 1.12;
+  partMat.uniforms.uLift.value = compact ? 0.36 : 0;
+  partMat.uniforms.uPinch.value = compact ? 0.28 : 1;
   flareMat.uniforms.uDpr.value = dpr;
+  wave.visible = !compact;
   api.waveLeft = gap;
   api.waveRight = aspect;
   particles.visible = true;
-  particles.position.set(0, 0, 0);
+  particles.position.set(0, compact ? -0.12 : 0, 0);
   wave.position.set(0, 0, 0);
   glow.position.set(0, 0, -1);
 }
@@ -483,7 +494,7 @@ function boot(host: HTMLDivElement, reduce: boolean): () => void {
     const t = reduce ? 0 : api.timer.getElapsed();
     partMat.uniforms.uTime.value = t;
     flareMat.uniforms.uTime.value = t;
-    writeWave(wave, api.waveLines, api.waveSegs, api.waveLeft, api.waveRight, t);
+    if (wave.visible) writeWave(wave, api.waveLines, api.waveSegs, api.waveLeft, api.waveRight, t);
     renderer.render(scene, camera);
   });
 
@@ -529,7 +540,14 @@ export function HeroMosaic() {
       </div>
 
       <div
-        className="absolute inset-y-0 left-0 w-[min(92%,760px)] min-[768px]:w-[min(56vw,760px)] min-[1100px]:w-[min(48vw,760px)]"
+        className="absolute inset-0 min-[768px]:hidden"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(8,7,10,0.42) 0%, rgba(8,7,10,0.18) 38%, rgba(8,7,10,0.52) 100%)",
+        }}
+      />
+      <div
+        className="absolute inset-y-0 left-0 hidden w-[min(56vw,760px)] min-[768px]:block min-[1100px]:w-[min(48vw,760px)]"
         style={{
           background:
             "linear-gradient(90deg, rgba(8,7,10,0.98) 0%, rgba(8,7,10,0.94) 38%, rgba(8,7,10,0.7) 62%, rgba(8,7,10,0.28) 82%, transparent 100%)",

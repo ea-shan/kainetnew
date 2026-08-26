@@ -16,9 +16,9 @@ const KAI = {
 
 const CUBE_TONES = [KAI.yellow, KAI.yellow, KAI.yellow, KAI.yellow, KAI.lavender, KAI.gradPink] as const;
 const HEX_TONES = [KAI.gradLavender, KAI.purple, KAI.lavender, KAI.gradPink] as const;
-const R = 1.05;
-const R_IN = 0.78;
-const LEN = 3.8;
+const R = 1.22;
+const R_IN = 0.9;
+const LEN = 1.95;
 
 function roundSlab(w: number, h: number, d: number, r: number) {
   const s = new THREE.Shape();
@@ -47,16 +47,16 @@ function boot(host: HTMLDivElement, reduce: boolean) {
 
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 40);
-  camera.position.set(0.15, 0.55, 12);
+  camera.position.set(0.1, 0.12, 12);
   camera.lookAt(0, 0, 0);
 
   const root = new THREE.Group();
-  root.rotation.set(0.18, -0.62, -0.38);
+  root.rotation.set(0.24, -0.72, 0.58);
   scene.add(root);
 
-  const cylGeo = new THREE.CylinderGeometry(R, R, LEN, 18, 7, true);
+  const cylGeo = new THREE.CylinderGeometry(R, R, LEN, 16, 4, true);
   cylGeo.rotateZ(Math.PI / 2);
-  const innerGeo = new THREE.CylinderGeometry(R_IN, R_IN, LEN, 18, 7, true);
+  const innerGeo = new THREE.CylinderGeometry(R_IN, R_IN, LEN, 16, 4, true);
   innerGeo.rotateZ(Math.PI / 2);
 
   const body = new THREE.Mesh(
@@ -158,7 +158,7 @@ function boot(host: HTMLDivElement, reduce: boolean) {
     const h = Math.max(host.clientHeight, 1);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setSize(w, h, false);
-    const view = 2.9;
+    const view = 2.55;
     const aspect = w / h;
     camera.left = -view * aspect;
     camera.right = view * aspect;
@@ -193,9 +193,9 @@ function boot(host: HTMLDivElement, reduce: boolean) {
 
     slabs.forEach((g) => {
       const p = ((t * 0.18 + g.userData.phase) % 1 + 1) % 1;
-      const x = -LEN / 2 - 2.15 + p * 1.85;
+      const x = -LEN / 2 - 1.42 + p * 1.28;
       g.position.set(x, 0, 0);
-      g.rotation.y = 0.08;
+      g.rotation.y = 0.04;
       const fade = p < 0.08 ? p / 0.08 : p > 0.88 ? (1 - p) / 0.12 : 1;
       g.scale.setScalar(0.92 + fade * 0.08);
       g.visible = fade > 0.04;
@@ -204,11 +204,11 @@ function boot(host: HTMLDivElement, reduce: boolean) {
     hexSeed.forEach((h, i) => {
       const p = ((t * 0.16 + h.t) % 1 + 1) % 1;
       dummy.position.set(
-        LEN / 2 + 0.2 + p * 1.15,
-        (h.row - 4) * 0.118,
-        (h.col - 2.5) * 0.132,
+        LEN / 2 + 0.1 + p * 0.92,
+        (h.row - 4) * 0.108,
+        (h.col - 2.5) * 0.12,
       );
-      dummy.rotation.set(0.4, 0.6, 0);
+      dummy.rotation.set(0.12, 0.18, 0);
       dummy.scale.setScalar(0.85 + p * 0.2);
       dummy.updateMatrix();
       hexes.setMatrixAt(i, dummy.matrix);

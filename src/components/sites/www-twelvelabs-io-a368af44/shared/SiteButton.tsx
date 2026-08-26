@@ -19,33 +19,29 @@ export function SiteButton({
   const isPrimary = variant === "primary";
   const isLarge = size === "l";
   const onDark = theme === "dark";
-  const ink = isPrimary ? "!text-[#000000]" : onDark ? "!text-[#EEEEEE]" : "!text-[#000000]";
-  const fill = isPrimary ? "bg-[#EEEEEE]" : "bg-transparent";
-  const ring = isPrimary
-    ? ""
-    : onDark
-      ? "shadow-[inset_0_0_0_1px_#EEEEEE]"
-      : "shadow-[inset_0_0_0_1px_#000000]";
 
   if (isPrimary || orbit) {
     return (
       <a
         href={href}
-        className={`tl-header-cta ${isPrimary ? "tl-header-cta-solid" : "tl-header-cta-outline"} ${isLarge ? "tl-header-cta-lg" : ""} inline-flex shrink-0 cursor-pointer`}
+        className={`tl-header-cta ${isPrimary ? "tl-header-cta-solid" : "tl-header-cta-outline"} inline-flex shrink-0 cursor-pointer`}
       >
         <span>
           {children}
-          <ArrowUpRightIcon className="size-4" />
+          <ArrowUpRightIcon className="size-3.5" />
         </span>
       </a>
     );
   }
 
+  const ink = onDark ? "!text-[#EEEEEE]" : "!text-[#000000]";
+  const fill = onDark ? "bg-[#08070a]" : "bg-[#eeeeee]";
+
   return (
     <a
       href={href}
-      className={`inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap text-[16px] leading-6 tracking-[0.16px] transition-opacity hover:opacity-80 ${ink} ${fill} ${ring} ${
-        isLarge ? "h-[60px] rounded-[18px] px-6" : "h-11 rounded-[14px] px-4"
+      className={`inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap text-[16px] leading-6 tracking-[0.16px] transition-opacity hover:opacity-80 ${ink} ${fill} ${
+        isLarge ? "h-11 rounded-full px-6" : "h-11 rounded-full px-4"
       }`}
     >
       {children}

@@ -45,7 +45,7 @@ export const getStartedTabs: FeatureTab[] = [
     title: "1. Audience Research Agent",
     body: "Search demand, competitor bids, and audience segments, read before you brief.",
     href: "#",
-    image: `${ASSET}/images/nUghrpRDrBnm65VAzyao7IjxRno.avif`,
+    image: `${ASSET}/images/ai-orchestration.jpg`,
   },
   {
     id: "campaign-strategy",
@@ -61,27 +61,27 @@ export const getStartedTabs: FeatureTab[] = [
     href: "#",
     image: `${ASSET}/images/HOxj8HlO2OZ5zG747yPiJuucbXI.webp`,
   },
-    {
-      id: "campaign-execution",
-      title: "4. Campaign Execution Agent",
-      body: "Your whole campaign, built in your own ad account and left paused.",
-      href: "#",
-      image: `${ASSET}/images/HOxj8HlO2OZ5zG747yPiJuucbXI.webp`,
-    },
-    {
-      id: "performance-analysis",
-      title: "5. Performance Analysis Agent",
-      body: "What's working and what's burning budget. Every day.",
-      href: "#",
-      image: `${ASSET}/images/HOxj8HlO2OZ5zG747yPiJuucbXI.webp`,
-    },
-    {
-      id: "optimization",
-      title: "6. Optimization Agent",
-      body: "Tests, budget shifts, and fixes, queued for your approval.",
-      href: "#",
-      image: `${ASSET}/images/HOxj8HlO2OZ5zG747yPiJuucbXI.webp`,
-    },
+  {
+    id: "campaign-execution",
+    title: "4. Campaign Execution Agent",
+    body: "Your whole campaign, built in your own ad account and left paused.",
+    href: "#",
+    image: `${ASSET}/images/workflow-a.png`,
+  },
+  {
+    id: "performance-analysis",
+    title: "5. Performance Analysis Agent",
+    body: "What's working and what's burning budget. Every day.",
+    href: "#",
+    image: `${ASSET}/images/workflow-b.png`,
+  },
+  {
+    id: "optimization",
+    title: "6. Optimization Agent",
+    body: "Tests, budget shifts, and fixes, queued for your approval.",
+    href: "#",
+    image: `${ASSET}/images/workflow-c.png`,
+  },
 ];
 
 export const workflowTabs: FeatureTab[] = [

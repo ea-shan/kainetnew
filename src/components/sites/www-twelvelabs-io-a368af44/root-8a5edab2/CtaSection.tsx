@@ -1,4 +1,6 @@
-import type { CSSProperties, ReactNode } from "react";
+"use client";
+
+import { useCallback, useEffect, useRef, type CSSProperties, type ReactNode, type RefObject } from "react";
 import { SiteButton } from "../shared/SiteButton";
 import { ASSET } from "./content";
 
@@ -9,19 +11,99 @@ const PLATFORMS: { name: string; mark: ReactNode }[] = [
   { name: "Instagram", mark: <InstagramMark /> },
 ];
 
+const FOLLOW = 0.12;
+
 export function CtaSection() {
+  const frameRef = useRef<HTMLDivElement>(null);
+  const waveRef = useRef<HTMLVideoElement>(null);
+  const dustRef = useRef<HTMLVideoElement>(null);
+  const state = useRef({ x: 0, y: 0, tx: 0, ty: 0, raf: 0, live: false });
+
+  const tick = useCallback(() => {
+    const s = state.current;
+    const el = frameRef.current;
+    s.x += (s.tx - s.x) * FOLLOW;
+    s.y += (s.ty - s.y) * FOLLOW;
+    if (el) {
+      el.style.setProperty("--px", s.x.toFixed(3));
+      el.style.setProperty("--py", s.y.toFixed(3));
+    }
+    if (Math.abs(s.tx - s.x) > 0.002 || Math.abs(s.ty - s.y) > 0.002) {
+      s.raf = requestAnimationFrame(tick);
+      return;
+    }
+    s.live = false;
+  }, []);
+
+  const start = useCallback(() => {
+    const s = state.current;
+    if (s.live) return;
+    s.live = true;
+    s.raf = requestAnimationFrame(tick);
+  }, [tick]);
+
+  const fine = () =>
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  useEffect(() => {
+    const el = frameRef.current;
+    if (!el) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const films = [waveRef.current, dustRef.current];
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        const on = entry.isIntersecting;
+        el.classList.toggle("is-live", on);
+        if (on) el.classList.add("is-in");
+        for (const v of films) {
+          if (!v) continue;
+          if (reduced || !on) v.pause();
+          else void v.play().catch(() => {});
+        }
+      },
+      { threshold: 0.16, rootMargin: "80px" },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(state.current.raf);
+    };
+  }, []);
+
+  const point = (clientX: number, clientY: number) => {
+    const el = frameRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    state.current.tx = ((clientX - r.left) / r.width - 0.5) * 2;
+    state.current.ty = ((clientY - r.top) / r.height - 0.5) * 2;
+    start();
+  };
+
   return (
     <section className="bg-[#EEEEEE] px-5 py-16 text-[#111111] min-[768px]:px-10">
-      <div className="tl-page relative min-h-[560px] overflow-hidden rounded-[48px] min-[900px]:min-h-[640px] min-[900px]:rounded-[64px]">
-        <CtaStage />
-        <div className="relative flex min-h-[560px] flex-col items-center justify-center px-6 text-center min-[900px]:min-h-[640px]">
-          <h2 className="max-w-[720px] text-[36px] leading-[1.14] tracking-[-0.02em] min-[768px]:text-[48px] min-[768px]:leading-[54.72px] min-[768px]:tracking-[-0.96px]">
+      <div
+        ref={frameRef}
+        className="tl-cta-frame tl-page relative min-h-[560px] overflow-hidden rounded-[48px] min-[900px]:min-h-[640px] min-[900px]:rounded-[64px]"
+        onPointerMove={(e) => {
+          if (!fine()) return;
+          point(e.clientX, e.clientY);
+        }}
+        onPointerLeave={() => {
+          state.current.tx = 0;
+          state.current.ty = 0;
+          start();
+        }}
+      >
+        <CtaStage waveRef={waveRef} dustRef={dustRef} />
+        <div className="tl-cta-copy relative flex min-h-[560px] flex-col items-center justify-center px-6 text-center min-[900px]:min-h-[640px]">
+          <h2 className="tl-cta-rise max-w-[720px] text-[36px] leading-[1.14] tracking-[-0.02em] min-[768px]:text-[48px] min-[768px]:leading-[54.72px] min-[768px]:tracking-[-0.96px]">
             Ready to see what your archive actually knows?
           </h2>
-          <p className="mt-5 text-[16px] leading-6 tracking-[0.16px] text-[#111111]/70">
+          <p className="tl-cta-rise mt-5 text-[16px] leading-6 tracking-[0.16px] text-[#111111]/70">
             Try it out in Playground, or talk to our Sales team.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <div className="tl-cta-rise mt-8 flex flex-wrap justify-center gap-3">
             <SiteButton href="https://playground.twelvelabs.io" variant="primary" theme="dark">
               Start Building
             </SiteButton>
@@ -35,33 +117,61 @@ export function CtaSection() {
   );
 }
 
-function CtaStage() {
+function CtaStage({
+  waveRef,
+  dustRef,
+}: {
+  waveRef: RefObject<HTMLVideoElement | null>;
+  dustRef: RefObject<HTMLVideoElement | null>;
+}) {
   return (
     <div className="tl-cta-stage pointer-events-none absolute inset-0" aria-hidden>
-      <div className="tl-cta-mesh" />
-      <video
-        className="tl-cta-film tl-cta-film-wave"
-        src={`${ASSET}/videos/funnel-wave.mp4`}
-        muted
-        loop
-        playsInline
-        autoPlay
-      />
-      <video
-        className="tl-cta-film tl-cta-film-dust"
-        src={`${ASSET}/videos/funnel-particles.mp4`}
-        muted
-        loop
-        playsInline
-        autoPlay
-      />
-      <div className="tl-cta-mist" />
+      <div className="tl-cta-base" />
+      <div className="tl-cta-par" style={{ "--d": 2 } as CSSProperties}>
+        <div className="tl-cta-mesh" />
+      </div>
+      <div className="tl-cta-par tl-cta-edge" style={{ "--d": 4 } as CSSProperties}>
+        <video
+          ref={waveRef}
+          className="tl-cta-film tl-cta-film-wave"
+          src={`${ASSET}/videos/funnel-wave.mp4`}
+          muted
+          loop
+          playsInline
+          autoPlay
+        />
+      </div>
+      <div className="tl-cta-par tl-cta-edge-soft" style={{ "--d": 6 } as CSSProperties}>
+        <video
+          ref={dustRef}
+          className="tl-cta-film tl-cta-film-dust"
+          src={`${ASSET}/videos/funnel-particles.mp4`}
+          muted
+          loop
+          playsInline
+          autoPlay
+        />
+      </div>
+      <div className="tl-cta-par" style={{ "--d": 3 } as CSSProperties}>
+        <div className="tl-cta-mist" />
+      </div>
+      <div className="tl-cta-par tl-cta-rings-wrap" style={{ "--d": 8 } as CSSProperties}>
+        <svg className="tl-cta-rings" viewBox="0 0 100 62" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="tl-cta-ring" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stopColor="#fff" stopOpacity="0" />
+              <stop offset=".42" stopColor="#fff" stopOpacity=".55" />
+              <stop offset="1" stopColor="#fff" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <ellipse cx="50" cy="31" rx="44" ry="26" />
+          <ellipse cx="50" cy="31" rx="34" ry="19" />
+          <ellipse cx="50" cy="31" rx="24" ry="13" />
+        </svg>
+      </div>
       <div className="tl-cta-grain" />
-      <svg className="tl-cta-rings" viewBox="0 0 100 62" preserveAspectRatio="xMidYMid slice">
-        <ellipse cx="50" cy="31" rx="40" ry="24" />
-        <ellipse cx="50" cy="31" rx="30" ry="17" />
-      </svg>
-      <div className="tl-cta-orbit">
+      <div className="tl-cta-veil" />
+      <div className="tl-cta-par tl-cta-orbit" style={{ "--d": 14 } as CSSProperties}>
         {PLATFORMS.map((p, i) => (
           <div key={p.name} className="tl-cta-slot" style={{ "--i": i } as CSSProperties}>
             <div className="tl-cta-chip">

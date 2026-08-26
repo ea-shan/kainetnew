@@ -290,7 +290,7 @@ function writeWave(
         const osc =
           Math.sin(t * spec.freq - time * 0.18 + spec.phase) * 0.065 +
           Math.sin(t * spec.freq * 1.85 + time * 0.1 + spec.phase * 1.25) * 0.022;
-        const y = (spec.line - 0.5) * spec.amp * env * 0.85 + osc * env;
+        const y = (spec.line - 0.5) * spec.amp * env * 0.95 + osc * env;
         pos.setXYZ(w, left + (right - left) * t, y, (spec.line - 0.5) * 0.035);
         aX.setX(w, t);
         w += 1;

@@ -81,6 +81,33 @@ export function LockIcon({ className }: { className?: string }) {
   );
 }
 
+export function ClockIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="8" cy="8" r="5.4" stroke="currentColor" strokeWidth="1.2" />
+      <path d="M8 5.2V8l2 1.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function CardIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <rect x="2.2" y="4.2" width="11.6" height="7.6" rx="1.4" stroke="currentColor" strokeWidth="1.2" />
+      <path d="M2.2 7h11.6" stroke="currentColor" strokeWidth="1.2" />
+    </svg>
+  );
+}
+
+export function PauseCircleIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="8" cy="8" r="5.4" stroke="currentColor" strokeWidth="1.2" />
+      <path d="M6.6 5.8v4.4M9.4 5.8v4.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function HorseIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 48 48" fill="currentColor" aria-hidden="true">

@@ -13,7 +13,7 @@ function MegaLink({ item }: { item: NavChild }) {
       className="flex min-h-11 cursor-pointer items-start gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-white/8"
     >
       {item.icon ? (
-        <span className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-white/8 text-[#cecff7]">
+        <span className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-white/8 text-[#d3a7d9]">
           <IconsaxOutline name={item.icon} className="size-5" />
         </span>
       ) : null}
@@ -41,7 +41,7 @@ export function SiteHeader() {
               <LogoMark wash className="text-[23px] leading-none" />
             </a>
 
-            <nav className="hidden min-w-0 flex-1 items-center justify-center gap-5 text-[16px] leading-6 tracking-[0.16px] text-[#EEEEEE] min-[1100px]:flex">
+            <nav className="hidden min-w-0 flex-1 items-center justify-center gap-4 text-[13px] font-medium leading-5 tracking-[0.12px] text-[#EEEEEE] min-[1100px]:flex">
               {navItems.map((item) => {
                 const mega = item.children && item.children.length > 0;
                 const cols = item.children && item.children.length > 3;
@@ -77,13 +77,13 @@ export function SiteHeader() {
             <div className="flex shrink-0 items-center gap-2.5">
               <a
                 href="https://auth.twelvelabs.io/u/login"
-                className="tl-header-cta tl-header-cta-solid inline-flex min-h-11 cursor-pointer"
+                className="tl-header-cta tl-header-cta-solid inline-flex cursor-pointer"
               >
                 <span>Try for Free</span>
               </a>
               <a
                 href="https://www.twelvelabs.io/contact"
-                className="tl-header-cta tl-header-cta-outline hidden min-h-11 cursor-pointer min-[480px]:inline-flex"
+                className="tl-header-cta tl-header-cta-outline hidden cursor-pointer min-[480px]:inline-flex"
               >
                 <span>Log in</span>
               </a>

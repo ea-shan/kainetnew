@@ -1,57 +1,52 @@
-"use client";
-
-import { useState } from "react";
-import { workflowTabs } from "./content";
-import { WorkflowVisual } from "./WorkflowVisual";
+import { CheckIcon, CloseIcon } from "../shared/icons";
+import { comparePanels } from "./content";
 
 export function WorkflowsSection() {
-  const [active, setActive] = useState(workflowTabs[0].id);
-
   return (
-    <section
-      className="px-5 pb-16 pt-20 text-[#000000] md:px-10"
-      style={{
-        background:
-          "linear-gradient(90deg, rgb(220, 240, 215) 0%, rgb(250, 245, 210) 38%, rgb(255, 236, 220) 68%, rgb(255, 230, 240) 100%)",
-      }}
-    >
-      <div className="tl-page grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-x-16">
-        <h2 className="max-w-[593px] border-l border-[#000000]/15 pl-6 text-[36px] leading-[1.14] tracking-[-0.02em] md:text-[48px] md:leading-[54.72px] md:tracking-[-0.96px]">
-          Built for the most demanding video workflows.
-        </h2>
-        <p className="max-w-[420px] border-l border-[#000000]/15 pl-6 text-[16px] leading-6 tracking-[0.16px]">
-          Designed for organizations working with video at scale, turning raw, passive footage into a strategic asset teams can actually use.
-        </p>
-      </div>
+    <section className="relative overflow-hidden px-5 pb-16 pt-20 text-[var(--kai-light-text)] md:px-10 md:pb-20">
+      <div className="tl-wf-wash" aria-hidden />
+      <div className="tl-page relative">
+        <header className="mx-auto max-w-[40rem] text-center">
+          <h2 className="text-[36px] leading-[1.14] tracking-[-0.02em] md:text-[48px] md:leading-[1.14] md:tracking-[-0.96px]">
+            There are two bad ways to do AI marketing. We&apos;re not doing either.
+          </h2>
+          <p className="mt-5 text-[16px] leading-6 tracking-[0.16px] text-[var(--kai-light-muted)]">
+            You&apos;ve probably been burned by one of them. Here&apos;s what we think went wrong, and what we do instead.
+          </p>
+        </header>
 
-      <div className="tl-page mt-16 overflow-hidden rounded-[40px] bg-white px-8 py-12 md:rounded-[80px] md:px-16 md:py-16 lg:rounded-[100px] lg:px-20 lg:py-20">
-        <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-x-16">
-          <div className="min-w-0 md:pl-6">
-            {workflowTabs.map((tab) => {
-              const isOn = tab.id === active;
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => setActive(tab.id)}
-                  className="block w-full cursor-pointer py-3 text-left"
-                >
-                  <h3 className={`text-[20px] leading-7 tracking-[0.1px] ${isOn ? "text-[#000000]" : "text-[#000000]/45"}`}>
-                    {tab.title}
+        <div className="relative mt-14 grid grid-cols-1 gap-6 md:mt-16 md:auto-rows-fr md:grid-cols-2 md:gap-x-12 md:gap-y-8">
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 bg-[var(--kai-purple)]/15 md:block"
+          />
+          {comparePanels.map((panel) => {
+            const good = panel.kind === "good";
+            const Icon = good ? CheckIcon : CloseIcon;
+            return (
+              <article
+                key={panel.heading}
+                className={`tl-wf-card ${good ? "tl-wf-card-good" : ""} flex h-full items-center gap-5 rounded-[40px] px-6 py-8 md:gap-7 md:rounded-[48px] md:px-8 md:py-10`}
+              >
+                <Icon className="size-12 shrink-0 text-[var(--kai-light-text)] md:size-14" />
+                <div className="min-w-0">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--kai-light-muted)]">
+                    {good ? "The good kind" : "The bad kind"}
+                  </p>
+                  <h3 className="mt-2 text-[20px] font-[family-name:var(--font-milling-bold)] font-bold leading-7 tracking-[0.1px]">
+                    {panel.heading}
                   </h3>
-                  {isOn && tab.body ? (
-                    <p className="mt-3 text-[16px] leading-6 tracking-[0.16px] text-[#000000]">
-                      {tab.body}
-                    </p>
-                  ) : null}
-                </button>
-              );
-            })}
-          </div>
-          <div className="mx-auto w-full max-w-[590px] min-w-0 md:mx-0 md:pl-6">
-            <WorkflowVisual active={active} />
-          </div>
+                  <p className="mt-3 text-[16px] leading-6 tracking-[0.16px]">{panel.body}</p>
+                </div>
+              </article>
+            );
+          })}
         </div>
+
+        <p className="mx-auto mt-12 max-w-[52rem] text-center text-[16px] leading-6 tracking-[0.16px] text-[var(--kai-light-muted)] md:mt-14">
+          Your account. Your approval. Your call — every time. And every change kAInet makes is written to your account&apos;s change log, so you can always answer the only question that matters when something moves:{" "}
+          <em>what changed, and who changed it</em>.
+        </p>
       </div>
     </section>
   );

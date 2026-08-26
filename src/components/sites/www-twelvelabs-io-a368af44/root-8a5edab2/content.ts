@@ -84,38 +84,28 @@ export const getStartedTabs: FeatureTab[] = [
   },
 ];
 
-export const workflowTabs: FeatureTab[] = [
+export const comparePanels = [
   {
-    id: "search",
-    title: "Search & Discover",
-    body: "Search entire video libraries using natural language. Locate specific actions, scenes, dialogue, and even human emotions across hours or years of footage, no tags needed. One index. Every modality. SOTA composite accuracy.",
-    image: `${ASSET}/images/workflow-a.png`,
+    kind: "bad" as const,
+    heading: "AI that spends while you sleep.",
+    body: "It optimizes overnight. It pauses your best-performing campaign at 2am because of a data blip, or quietly moves budget into an audience you'd never have picked. You find out in the morning — or you find out in the invoice. The efficiency is real. So is the money it burned proving a point nobody approved.",
   },
   {
-    id: "segment",
-    title: "Segment Content",
-    body: "Automatically identify natural breaks, scene changes, and pacing shifts in long-form video, grounded in what actually happened. Not a transcript reader. A video reasoner. #1 on Video-MME.",
-    image: `${ASSET}/images/workflow-b.png`,
+    kind: "good" as const,
+    heading: "AI that does the work, then stops.",
+    body: "The research, the structure, the keywords, the assets, the build — done. Then it stops, because every campaign kAInet builds is built paused. You open it, see exactly what's about to run, change what you want, and launch it yourself. Nothing moves your money until you decide it does.",
   },
   {
-    id: "compliance",
-    title: "Ensure Compliance",
-    body: "Identify policy risks, sensitive content, and brand safety issues at scale with explainable AI, so teams can review faster, with confidence in every decision.",
-    image: `${ASSET}/images/workflow-c.png`,
+    kind: "bad" as const,
+    heading: "AI that's a template wearing a new name.",
+    body: "You fill in a form. You get back the same three headlines everyone else got, with your product name dropped in. It's fast because it isn't thinking. And somewhere out there, your competitor is running the identical ad, because they filled in the same form.",
   },
   {
-    id: "highlights",
-    title: "Create Highlights",
-    body: "Describe what you need, a rough cut from 200 hours of dailies, every scored goal this season, thematic clips organized by subject. Finds the material, assembles it, and exports directly into your editing workflow.",
-    image: `${ASSET}/images/workflow-a.png`,
+    kind: "good" as const,
+    heading: "AI that actually did the work on your account.",
+    body: "Six specialist agents work your brief the way a team would — Audience Research Agent finds who's worth reaching, Campaign Strategy Agent structures the spend, Creative Assets Agent drafts what the ads say, Campaign Execution Agent builds it. On your account, from your data, for your brief. Not pulled from a template library.",
   },
-  {
-    id: "insights",
-    title: "Generate Insights",
-    body: "Analyze video at scale to surface patterns and signals, so teams can quickly see what's working and make better creative and editorial decisions.",
-    image: `${ASSET}/images/workflow-b.png`,
-  },
-];
+] as const;
 
 export const kpis: KpiItem[] = [
   { value: "+13.1%", caption: "Pegasus 1.5 over Gemini 3.1 Pro on Multimodal Prompting" },

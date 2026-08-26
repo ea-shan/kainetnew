@@ -9,7 +9,7 @@ const PLATFORMS = [
 
 export function CtaSection() {
   return (
-    <section className="bg-[#0c0a10] px-5 py-8 text-[#f4f1ea] min-[768px]:px-10 min-[768px]:py-10">
+    <section className="bg-[#0c0a10] px-5 py-8 text-[var(--kai-white)] min-[768px]:px-10 min-[768px]:py-10">
       <div className="tl-page tl-cta-plate relative overflow-hidden rounded-[28px] px-6 pt-7 pb-0 min-[768px]:rounded-[36px] min-[768px]:px-12 min-[768px]:pt-8 min-[1100px]:px-16">
         <div className="tl-cta-glow" aria-hidden />
         <div className="tl-cta-dots" aria-hidden />

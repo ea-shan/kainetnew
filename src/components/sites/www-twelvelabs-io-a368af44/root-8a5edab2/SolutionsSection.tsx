@@ -83,7 +83,7 @@ export function SolutionsSection() {
               aria-selected={on}
               onClick={() => goTo(i)}
               className={`min-h-11 cursor-pointer rounded-full px-4 py-2 text-[14px] leading-6 tracking-[0.16px] transition-colors duration-200 ${
-                on ? "bg-[#000000] text-[#EEEEEE]" : "text-[#000000]/40 hover:text-[#000000]"
+                on ? "bg-[#000000] text-[var(--kai-white)]" : "text-[#000000]/40 hover:text-[#000000]"
               }`}
             >
               {tab.title}
@@ -123,7 +123,7 @@ export function SolutionsSection() {
                 )}
                 <img src={card.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-transparent" />
-                <div className="pointer-events-none relative z-[2] flex h-full max-w-[440px] flex-col justify-center p-7 text-[#EEEEEE] md:p-12 lg:p-14">
+                <div className="pointer-events-none relative z-[2] flex h-full max-w-[440px] flex-col justify-center p-7 text-[var(--kai-white)] md:p-12 lg:p-14">
                   <h3 className="text-[28px] leading-9 tracking-[-0.02em] md:text-[36px] md:leading-[42px]">{card.title}</h3>
                   <p className="mt-4 text-[16px] leading-6 tracking-[0.16px]">{card.body}</p>
                   <a

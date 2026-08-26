@@ -34,8 +34,8 @@ export function SiteButton({
     );
   }
 
-  const ink = onDark ? "!text-[#EEEEEE]" : "!text-[#000000]";
-  const fill = onDark ? "bg-[#08070a]" : "bg-[#eeeeee]";
+  const ink = onDark ? "!text-[var(--kai-white)]" : "!text-[var(--kai-black)]";
+  const fill = onDark ? "bg-[#08070a] border border-white" : "bg-[#eeeeee] border border-black";
 
   return (
     <a

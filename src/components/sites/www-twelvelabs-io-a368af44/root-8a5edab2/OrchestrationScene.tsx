@@ -2,273 +2,259 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
-import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
-import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
-import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 
-const CUBES = [
-  { x: -2.15, y: 0.85, z: 0.35, a: "#d3a7d9", b: "#8b5cf6" },
-  { x: -1.95, y: -0.9, z: 0.25, a: "#f4b4d4", b: "#bf8080" },
-  { x: 2.1, y: 0.7, z: 0.45, a: "#f2c07a", b: "#f59e0b" },
-  { x: 2.0, y: -0.75, z: 0.2, a: "#f0b070", b: "#ea7a3a" },
-] as const;
+const KAI = {
+  dark: 0x08080d,
+  darkSurface: 0x14111c,
+  purple: 0x9a5ca3,
+  lavender: 0xd9b3e2,
+  yellow: 0xf4c05f,
+  gradLavender: 0xcac1cd,
+  gradPink: 0xd5a6c8,
+  white: 0xffffff,
+} as const;
 
-function gradTex(a: string, b: string) {
-  const c = document.createElement("canvas");
-  c.width = c.height = 64;
-  const g = c.getContext("2d")!;
-  const lg = g.createLinearGradient(0, 0, 64, 64);
-  lg.addColorStop(0, a);
-  lg.addColorStop(1, b);
-  g.fillStyle = lg;
-  g.fillRect(0, 0, 64, 64);
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
-}
+const CUBE_TONES = [KAI.yellow, KAI.yellow, KAI.yellow, KAI.yellow, KAI.lavender, KAI.gradPink] as const;
+const HEX_TONES = [KAI.gradLavender, KAI.purple, KAI.lavender, KAI.gradPink] as const;
+const R = 1.05;
+const R_IN = 0.78;
+const LEN = 3.8;
 
-function dotTex() {
-  const c = document.createElement("canvas");
-  c.width = c.height = 64;
-  const g = c.getContext("2d")!;
-  const rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
-  rg.addColorStop(0, "rgba(255,255,255,1)");
-  rg.addColorStop(0.35, "rgba(255,230,250,0.7)");
-  rg.addColorStop(1, "rgba(255,255,255,0)");
-  g.fillStyle = rg;
-  g.fillRect(0, 0, 64, 64);
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
-}
-
-function petalTex() {
-  const s = 256;
-  const c = document.createElement("canvas");
-  c.width = c.height = s;
-  const g = c.getContext("2d")!;
-  const cx = s / 2;
-  const cy = s / 2;
-  const glow = g.createRadialGradient(cx, cy, 4, cx, cy, 90);
-  glow.addColorStop(0, "rgba(255,190,230,0.95)");
-  glow.addColorStop(1, "rgba(180,70,180,0)");
-  g.fillStyle = glow;
-  g.fillRect(0, 0, s, s);
-  for (let i = 0; i < 4; i++) {
-    g.save();
-    g.translate(cx, cy);
-    g.rotate((i * Math.PI) / 2 + Math.PI / 4);
-    const lg = g.createLinearGradient(0, -74, 0, 12);
-    lg.addColorStop(0, "#f6c4dc");
-    lg.addColorStop(0.45, "#e070b0");
-    lg.addColorStop(1, "#8b4fc0");
-    g.fillStyle = lg;
-    g.beginPath();
-    g.moveTo(0, 8);
-    g.bezierCurveTo(28, -8, 24, -54, 0, -74);
-    g.bezierCurveTo(-24, -54, -28, -8, 0, 8);
-    g.fill();
-    g.restore();
-  }
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
+function roundSlab(w: number, h: number, d: number, r: number) {
+  const s = new THREE.Shape();
+  const x = w / 2;
+  const y = h / 2;
+  s.moveTo(-x + r, -y);
+  s.lineTo(x - r, -y);
+  s.quadraticCurveTo(x, -y, x, -y + r);
+  s.lineTo(x, y - r);
+  s.quadraticCurveTo(x, y, x - r, y);
+  s.lineTo(-x + r, y);
+  s.quadraticCurveTo(-x, y, -x, y - r);
+  s.lineTo(-x, -y + r);
+  s.quadraticCurveTo(-x, -y, -x + r, -y);
+  const g = new THREE.ExtrudeGeometry(s, { depth: d, bevelEnabled: false, curveSegments: 5 });
+  g.translate(0, 0, -d / 2);
+  return g;
 }
 
 function boot(host: HTMLDivElement, reduce: boolean) {
-  const renderer = new THREE.WebGLRenderer({
-    antialias: true,
-    alpha: false,
-    powerPreference: "high-performance",
-  });
-  renderer.setClearColor(0x0c0b10, 1);
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
+  renderer.setClearColor(KAI.dark, 1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.82;
   renderer.domElement.style.display = "block";
   host.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 40);
-  camera.position.set(0, 0.08, 5.4);
-
-  scene.add(new THREE.AmbientLight(0xded0f2, 0.35));
-  scene.add(new THREE.HemisphereLight(0xf4b4d4, 0x1a1220, 0.45));
-  const core = new THREE.PointLight(0xec8ec8, 1.6, 8, 2);
-  scene.add(core);
-  const left = new THREE.PointLight(0xb48ad4, 1.1, 7, 2);
-  left.position.set(-2.2, 0.4, 1.2);
-  scene.add(left);
-  const right = new THREE.PointLight(0xf2af5c, 1.1, 7, 2);
-  right.position.set(2.2, -0.2, 1.2);
-  scene.add(right);
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 40);
+  camera.position.set(0.15, 0.55, 12);
+  camera.lookAt(0, 0, 0);
 
   const root = new THREE.Group();
+  root.rotation.set(0.18, -0.62, -0.38);
   scene.add(root);
 
-  const ico = new THREE.IcosahedronGeometry(1.58, 2);
-  const wire = new THREE.LineSegments(
-    new THREE.WireframeGeometry(ico),
-    new THREE.LineBasicMaterial({ color: 0xd8d0e8, transparent: true, opacity: 0.22 }),
-  );
-  const dots = new THREE.Points(
-    ico,
-    new THREE.PointsMaterial({
-      map: dotTex(),
-      size: 0.055,
+  const cylGeo = new THREE.CylinderGeometry(R, R, LEN, 18, 7, true);
+  cylGeo.rotateZ(Math.PI / 2);
+  const innerGeo = new THREE.CylinderGeometry(R_IN, R_IN, LEN, 18, 7, true);
+  innerGeo.rotateZ(Math.PI / 2);
+
+  const body = new THREE.Mesh(
+    cylGeo,
+    new THREE.MeshBasicMaterial({
+      color: KAI.darkSurface,
       transparent: true,
+      opacity: 0.14,
+      side: THREE.DoubleSide,
       depthWrite: false,
-      blending: THREE.AdditiveBlending,
-      sizeAttenuation: true,
     }),
   );
-  const hull = new THREE.Mesh(
-    ico,
-    new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.012, side: THREE.DoubleSide }),
+  const mesh = new THREE.LineSegments(
+    new THREE.WireframeGeometry(cylGeo),
+    new THREE.LineBasicMaterial({ color: KAI.white, transparent: true, opacity: 0.7 }),
   );
-  root.add(hull, wire, dots);
-
   const inner = new THREE.LineSegments(
-    new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(1.02, 1)),
-    new THREE.LineBasicMaterial({ color: 0xe8c4f0, transparent: true, opacity: 0.12 }),
+    new THREE.WireframeGeometry(innerGeo),
+    new THREE.LineBasicMaterial({ color: KAI.white, transparent: true, opacity: 0.22 }),
   );
-  root.add(inner);
+  root.add(body, mesh, inner);
 
-  const logoMap = petalTex();
-  const logo = new THREE.Sprite(
-    new THREE.SpriteMaterial({ map: logoMap, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }),
+  const ringGeo = new THREE.EdgesGeometry(new THREE.RingGeometry(R_IN, R, 28));
+  const ringMat = new THREE.LineBasicMaterial({ color: KAI.white, transparent: true, opacity: 0.78 });
+  const mouth = new THREE.LineSegments(ringGeo, ringMat);
+  mouth.rotation.y = Math.PI / 2;
+  mouth.position.x = -LEN / 2;
+  const exit = mouth.clone();
+  exit.position.x = LEN / 2;
+  root.add(mouth, exit);
+
+  const cubeN = 160;
+  const cubeGeo = new THREE.BoxGeometry(0.11, 0.11, 0.11);
+  const cubes = new THREE.InstancedMesh(
+    cubeGeo,
+    new THREE.MeshBasicMaterial(),
+    cubeN,
   );
-  logo.scale.set(0.78, 0.78, 1);
-  scene.add(logo);
-
-  const dustGeo = new THREE.BufferGeometry();
-  const dustN = 180;
-  const dustPos = new Float32Array(dustN * 3);
-  for (let i = 0; i < dustN; i++) {
-    const r = 1.2 + Math.random() * 2.8;
-    const u = Math.random() * Math.PI * 2;
-    const v = Math.acos(2 * Math.random() - 1);
-    dustPos[i * 3] = r * Math.sin(v) * Math.cos(u);
-    dustPos[i * 3 + 1] = r * Math.sin(v) * Math.sin(u);
-    dustPos[i * 3 + 2] = r * Math.cos(v);
-  }
-  dustGeo.setAttribute("position", new THREE.BufferAttribute(dustPos, 3));
-  const dust = new THREE.Points(
-    dustGeo,
-    new THREE.PointsMaterial({
-      map: dotTex(),
-      size: 0.035,
-      transparent: true,
-      opacity: 0.55,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending,
-    }),
-  );
-  scene.add(dust);
-
-  const cubeGeo = new THREE.BoxGeometry(0.42, 0.42, 0.42);
-  const cubes = CUBES.map((c) => {
-    const map = gradTex(c.a, c.b);
-    const mesh = new THREE.Mesh(
-      cubeGeo,
-      new THREE.MeshStandardMaterial({
-        map,
-        roughness: 0.32,
-        metalness: 0.18,
-        emissive: new THREE.Color(c.b),
-        emissiveIntensity: 0.28,
-      }),
-    );
-    mesh.position.set(c.x, c.y, c.z);
-    mesh.rotation.set(0.4, 0.6, 0.2);
-    scene.add(mesh);
-    const lineGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), mesh.position]);
-    const line = new THREE.Line(
-      lineGeo,
-      new THREE.LineDashedMaterial({ color: 0xffffff, dashSize: 0.09, gapSize: 0.07, transparent: true, opacity: 0.32 }),
-    );
-    line.computeLineDistances();
-    scene.add(line);
-    return { mesh, home: new THREE.Vector3(c.x, c.y, c.z), line };
+  cubes.frustumCulled = false;
+  cubes.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(cubeN * 3), 3);
+  const cubeSeed = Array.from({ length: cubeN }, () => ({
+    a: Math.random() * Math.PI * 2,
+    r: 0.1 + Math.random() * (R_IN - 0.18),
+    x: (Math.random() - 0.5) * LEN * 0.86,
+    s: 0.7 + Math.random() * 0.7,
+    spin: 0.4 + Math.random() * 1.2,
+  }));
+  const color = new THREE.Color();
+  cubeSeed.forEach((_, i) => {
+    color.setHex(CUBE_TONES[i % CUBE_TONES.length]);
+    cubes.setColorAt(i, color);
   });
+  cubes.instanceColor.needsUpdate = true;
+  root.add(cubes);
+
+  const slabN = 6;
+  const slabGeo = roundSlab(0.62, 0.82, 0.13, 0.16);
+  const slabFill = new THREE.MeshBasicMaterial({
+    color: KAI.darkSurface,
+    transparent: true,
+    opacity: 0.72,
+  });
+  const slabEdge = new THREE.LineSegments(
+    new THREE.EdgesGeometry(slabGeo),
+    new THREE.LineBasicMaterial({ color: KAI.white, transparent: true, opacity: 0.62 }),
+  );
+  const slabs = Array.from({ length: slabN }, (_, i) => {
+    const g = new THREE.Group();
+    g.add(new THREE.Mesh(slabGeo, slabFill), slabEdge.clone());
+    g.userData.phase = i / slabN;
+    root.add(g);
+    return g;
+  });
+
+  const hexN = 54;
+  const hexGeo = new THREE.CylinderGeometry(0.058, 0.058, 0.032, 6);
+  hexGeo.rotateX(Math.PI / 2);
+  const hexes = new THREE.InstancedMesh(
+    hexGeo,
+    new THREE.MeshBasicMaterial(),
+    hexN,
+  );
+  hexes.frustumCulled = false;
+  hexes.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(hexN * 3), 3);
+  const hexSeed = Array.from({ length: hexN }, (_, i) => {
+    const col = i % 6;
+    const row = Math.floor(i / 6) % 9;
+    color.setHex(HEX_TONES[col % HEX_TONES.length]);
+    hexes.setColorAt(i, color);
+    return { col, row, t: Math.random() };
+  });
+  hexes.instanceColor.needsUpdate = true;
+  root.add(hexes);
+
+  const dummy = new THREE.Object3D();
 
   const layout = () => {
     const w = Math.max(host.clientWidth, 1);
     const h = Math.max(host.clientHeight, 1);
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    renderer.setPixelRatio(dpr);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setSize(w, h, false);
-    composer.setPixelRatio(dpr);
-    composer.setSize(w, h);
-    camera.aspect = w / h;
+    const view = 2.9;
+    const aspect = w / h;
+    camera.left = -view * aspect;
+    camera.right = view * aspect;
+    camera.top = view;
+    camera.bottom = -view;
     camera.updateProjectionMatrix();
   };
-
-  const composer = new EffectComposer(renderer);
-  composer.addPass(new RenderPass(scene, camera));
-  composer.addPass(new UnrealBloomPass(new THREE.Vector2(1, 1), 0.36, 0.28, 0.52));
-  composer.addPass(new OutputPass());
   layout();
 
   const timer = new THREE.Timer();
   timer.connect(document);
-
-  let mx = 0;
-  let my = 0;
-  const onMove = (e: PointerEvent) => {
-    const r = host.getBoundingClientRect();
-    mx = ((e.clientX - r.left) / r.width) * 2 - 1;
-    my = -(((e.clientY - r.top) / r.height) * 2 - 1);
-  };
-  host.addEventListener("pointermove", onMove);
   const ro = new ResizeObserver(layout);
   ro.observe(host);
 
   renderer.setAnimationLoop(() => {
     timer.update();
     const t = reduce ? 0 : timer.getElapsed();
-    root.rotation.y = t * 0.12;
-    inner.rotation.y = -t * 0.18;
-    dust.rotation.y = t * 0.04;
-    logo.scale.setScalar(0.74 + Math.sin(t * 1.6) * 0.04);
-    cubes.forEach((c, i) => {
-      const bob = reduce ? 0 : Math.sin(t * 1.1 + i * 1.4) * 0.12;
-      c.mesh.position.set(c.home.x, c.home.y + bob, c.home.z);
-      c.mesh.rotation.x = 0.4 + t * 0.25;
-      c.mesh.rotation.y = 0.6 + t * 0.32;
-      const pos = c.line.geometry.attributes.position as THREE.BufferAttribute;
-      pos.setXYZ(1, c.mesh.position.x, c.mesh.position.y, c.mesh.position.z);
-      pos.needsUpdate = true;
-      c.line.computeLineDistances();
+    mesh.rotation.x = t * 0.35;
+    inner.rotation.x = t * 0.35;
+    body.rotation.x = t * 0.35;
+
+    cubeSeed.forEach((c, i) => {
+      const ang = c.a + t * 0.55;
+      const x = ((c.x + t * 0.42 + LEN / 2) % LEN) - LEN / 2;
+      dummy.position.set(x, Math.cos(ang) * c.r, Math.sin(ang) * c.r);
+      dummy.rotation.set(t * c.spin, t * c.spin * 0.7, t * 0.3);
+      dummy.scale.setScalar(c.s);
+      dummy.updateMatrix();
+      cubes.setMatrixAt(i, dummy.matrix);
     });
-    camera.position.x += (mx * 0.32 - camera.position.x) * 0.05;
-    camera.position.y += (0.08 + my * 0.18 - camera.position.y) * 0.05;
-    camera.lookAt(0, 0, 0);
-    composer.render();
+    cubes.instanceMatrix.needsUpdate = true;
+
+    slabs.forEach((g) => {
+      const p = ((t * 0.18 + g.userData.phase) % 1 + 1) % 1;
+      const x = -LEN / 2 - 2.15 + p * 1.85;
+      g.position.set(x, 0, 0);
+      g.rotation.y = 0.08;
+      const fade = p < 0.08 ? p / 0.08 : p > 0.88 ? (1 - p) / 0.12 : 1;
+      g.scale.setScalar(0.92 + fade * 0.08);
+      g.visible = fade > 0.04;
+    });
+
+    hexSeed.forEach((h, i) => {
+      const p = ((t * 0.16 + h.t) % 1 + 1) % 1;
+      dummy.position.set(
+        LEN / 2 + 0.2 + p * 1.15,
+        (h.row - 4) * 0.118,
+        (h.col - 2.5) * 0.132,
+      );
+      dummy.rotation.set(0.4, 0.6, 0);
+      dummy.scale.setScalar(0.85 + p * 0.2);
+      dummy.updateMatrix();
+      hexes.setMatrixAt(i, dummy.matrix);
+    });
+    hexes.instanceMatrix.needsUpdate = true;
+
+    renderer.render(scene, camera);
   });
 
   return () => {
     renderer.setAnimationLoop(null);
-    host.removeEventListener("pointermove", onMove);
     ro.disconnect();
-    composer.dispose();
     scene.traverse((obj) => {
-      const mesh = obj as THREE.Mesh;
-      mesh.geometry?.dispose();
-      const mats = mesh.material ? (Array.isArray(mesh.material) ? mesh.material : [mesh.material]) : [];
-      mats.forEach((m) => {
-        const map = (m as THREE.MeshBasicMaterial).map;
-        if (map && typeof map.dispose === "function") map.dispose();
-        m.dispose();
-      });
+      const m = obj as THREE.Mesh;
+      m.geometry?.dispose();
+      const mats = m.material ? (Array.isArray(m.material) ? m.material : [m.material]) : [];
+      mats.forEach((mat) => mat.dispose());
     });
-    ico.dispose();
+    cylGeo.dispose();
+    innerGeo.dispose();
     cubeGeo.dispose();
+    slabGeo.dispose();
+    hexGeo.dispose();
+    ringGeo.dispose();
     renderer.dispose();
     renderer.domElement.remove();
   };
 }
+
+const NOTES = [
+  {
+    k: "speed",
+    label: "SPEED",
+    body: "~60x real-time ratio: ~1 min to index 1H video; tracking to 100x ratio.",
+  },
+  {
+    k: "scale",
+    label: "SCALE",
+    body: "10k+ hrs/day today; roadmap to 1M+ hrs/day.",
+  },
+  {
+    k: "prop",
+    label: "PROPRIETARY",
+    body: "Patented end-to-end video processing + inference system.",
+  },
+] as const;
 
 export function OrchestrationScene() {
   const ref = useRef<HTMLDivElement>(null);
@@ -280,5 +266,16 @@ export function OrchestrationScene() {
     return boot(host, reduce);
   }, []);
 
-  return <div ref={ref} className="tl-orch-scene" aria-hidden />;
+  return (
+    <div className="tl-pipe" aria-hidden>
+      <div ref={ref} className="tl-pipe-stage" />
+      <span className="tl-pipe-star" />
+      {NOTES.map((n) => (
+        <p key={n.k} className={`tl-pipe-note tl-pipe-note-${n.k}`}>
+          <span>{n.label}</span>
+          {n.body}
+        </p>
+      ))}
+    </div>
+  );
 }

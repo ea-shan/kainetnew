@@ -1042,10 +1042,16 @@ html:has(.taste-site) body {
   }
 }
 
+@property --tl-cta-border {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
 .tl-cta-plate {
   isolation: isolate;
   background: #100e16;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(211, 167, 217, 0.18);
 }
 
 .tl-cta-plate::after {
@@ -1056,9 +1062,15 @@ html:has(.taste-site) body {
   z-index: 4;
   border-radius: inherit;
   padding: 1px;
-  background-image: linear-gradient(90deg, #d3a7d9 0%, #bf8080 32%, #d9a679 64%, #f2af5c 100%, #d3a7d9);
-  background-size: 220% 100%;
-  animation: tl-logo-wash 7s ease-in-out infinite;
+  background: conic-gradient(
+    from var(--tl-cta-border),
+    #d3a7d9 0deg,
+    #bf8080 32deg,
+    #d9a679 52deg,
+    #f2af5c 72deg,
+    transparent 110deg
+  );
+  animation: tl-cta-border-orbit 5s linear infinite;
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
@@ -1067,6 +1079,12 @@ html:has(.taste-site) body {
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   mask-composite: exclude;
+}
+
+@keyframes tl-cta-border-orbit {
+  to {
+    --tl-cta-border: 360deg;
+  }
 }
 
 .tl-cta-row {
@@ -1465,6 +1483,6 @@ html:has(.taste-site) body {
   }
 
   .tl-cta-plate::after {
-    background-position: 28% 50%;
+    --tl-cta-border: 28deg;
   }
 }

@@ -1,115 +1,86 @@
-"use client";
-
-import { useCallback, useEffect, useRef, type CSSProperties, type ReactNode, type RefObject } from "react";
 import { SiteButton } from "../shared/SiteButton";
 import { ASSET } from "./content";
 
-const PLATFORMS: { name: string; mark: ReactNode }[] = [
-  { name: "Google Ads", mark: <GoogleAdsMark /> },
-  { name: "YouTube", mark: <YouTubeMark /> },
-  { name: "Meta", mark: <MetaMark /> },
-  { name: "Instagram", mark: <InstagramMark /> },
-];
-
-const FOLLOW = 0.12;
+const PLATFORMS = [
+  { name: "Google Ads", sub: "Sync campaigns, keywords, conversions and more.", mark: <GoogleAdsMark /> },
+  { name: "Instagram Ads", sub: "Track performance, audiences and creative insights.", mark: <InstagramMark /> },
+  { name: "Meta Ads", sub: "All your Meta campaigns in perfect sync.", mark: <MetaMark /> },
+] as const;
 
 export function CtaSection() {
-  const frameRef = useRef<HTMLDivElement>(null);
-  const waveRef = useRef<HTMLVideoElement>(null);
-  const dustRef = useRef<HTMLVideoElement>(null);
-  const state = useRef({ x: 0, y: 0, tx: 0, ty: 0, raf: 0, live: false });
-
-  const tick = useCallback(() => {
-    const s = state.current;
-    const el = frameRef.current;
-    s.x += (s.tx - s.x) * FOLLOW;
-    s.y += (s.ty - s.y) * FOLLOW;
-    if (el) {
-      el.style.setProperty("--px", s.x.toFixed(3));
-      el.style.setProperty("--py", s.y.toFixed(3));
-    }
-    if (Math.abs(s.tx - s.x) > 0.002 || Math.abs(s.ty - s.y) > 0.002) {
-      s.raf = requestAnimationFrame(tick);
-      return;
-    }
-    s.live = false;
-  }, []);
-
-  const start = useCallback(() => {
-    const s = state.current;
-    if (s.live) return;
-    s.live = true;
-    s.raf = requestAnimationFrame(tick);
-  }, [tick]);
-
-  const fine = () =>
-    !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
-    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-
-  useEffect(() => {
-    const el = frameRef.current;
-    if (!el) return;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const films = [waveRef.current, dustRef.current];
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        const on = entry.isIntersecting;
-        el.classList.toggle("is-live", on);
-        if (on) el.classList.add("is-in");
-        for (const v of films) {
-          if (!v) continue;
-          if (reduced || !on) v.pause();
-          else void v.play().catch(() => {});
-        }
-      },
-      { threshold: 0.16, rootMargin: "80px" },
-    );
-    io.observe(el);
-    return () => {
-      io.disconnect();
-      cancelAnimationFrame(state.current.raf);
-    };
-  }, []);
-
-  const point = (clientX: number, clientY: number) => {
-    const el = frameRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    state.current.tx = ((clientX - r.left) / r.width - 0.5) * 2;
-    state.current.ty = ((clientY - r.top) / r.height - 0.5) * 2;
-    start();
-  };
-
   return (
-    <section className="bg-[#EEEEEE] px-5 py-16 text-[#111111] min-[768px]:px-10">
-      <div
-        ref={frameRef}
-        className="tl-cta-frame tl-page relative min-h-[560px] overflow-hidden rounded-[48px] min-[900px]:min-h-[640px] min-[900px]:rounded-[64px]"
-        onPointerMove={(e) => {
-          if (!fine()) return;
-          point(e.clientX, e.clientY);
-        }}
-        onPointerLeave={() => {
-          state.current.tx = 0;
-          state.current.ty = 0;
-          start();
-        }}
-      >
-        <CtaStage waveRef={waveRef} dustRef={dustRef} />
-        <div className="tl-cta-copy relative flex min-h-[560px] flex-col items-center justify-center px-6 text-center min-[900px]:min-h-[640px]">
-          <h2 className="tl-cta-rise max-w-[720px] text-[36px] leading-[1.14] tracking-[-0.02em] min-[768px]:text-[48px] min-[768px]:leading-[54.72px] min-[768px]:tracking-[-0.96px]">
-            Ready to see what your archive actually knows?
+    <section className="bg-[#0c0a10] px-5 py-8 text-[#f4f1ea] min-[768px]:px-10 min-[768px]:py-10">
+      <div className="tl-page tl-cta-plate relative overflow-hidden rounded-[28px] px-6 pt-7 pb-0 min-[768px]:rounded-[36px] min-[768px]:px-12 min-[768px]:pt-8 min-[1100px]:px-16">
+        <div className="tl-cta-glow" aria-hidden />
+        <div className="tl-cta-dots" aria-hidden />
+
+        <div className="tl-cta-row">
+        <div className="tl-cta-copy">
+          <p className="tl-cta-badge">Connect. Sync. Scale.</p>
+          <h2 className="text-[32px] leading-[1.1] font-semibold tracking-[-0.035em] min-[768px]:text-[50px] min-[768px]:leading-[1.06]">
+            Connect your
+            <br />
+            ad platforms.
+            <br /><br />
+            <span className="tl-hero-grad">Unify your data.</span>
           </h2>
-          <p className="tl-cta-rise mt-5 text-[16px] leading-6 tracking-[0.16px] text-[#111111]/70">
-            Try it out in Playground, or talk to our Sales team.
+          <p className="tl-cta-lede">
+            Bring your ad data together in one place, get real-time insights and scale what works.
           </p>
-          <div className="tl-cta-rise mt-8 flex flex-wrap justify-center gap-3">
-            <SiteButton href="https://playground.twelvelabs.io" variant="primary" theme="dark">
-              Start Building
+          <div className="tl-cta-actions">
+            <SiteButton href="https://auth.twelvelabs.io/u/login" variant="primary" size="s" theme="dark">
+              Connect Platforms
             </SiteButton>
-            <SiteButton href="https://www.twelvelabs.io/contact" theme="light">
-              Talk to Sales
-            </SiteButton>
+            <p className="tl-cta-trust">
+              <ShieldMark />
+              Secure. Private. Built for growth.
+            </p>
+          </div>
+        </div>
+
+        <div className="tl-cta-board relative">
+            <svg className="tl-cta-paths" viewBox="0 0 720 480" preserveAspectRatio="none" aria-hidden>
+              <path d="M210 240 C 320 240, 400 78, 548 86" />
+              <path d="M210 240 C 340 240, 420 240, 548 240" />
+              <path d="M210 240 C 320 240, 400 400, 548 394" />
+              <circle className="tl-cta-node" cx="210" cy="240" r="4.2" />
+              <circle className="tl-cta-node" cx="548" cy="86" r="3.4" />
+              <circle className="tl-cta-node" cx="548" cy="240" r="3.4" />
+              <circle className="tl-cta-node" cx="548" cy="394" r="3.4" />
+            </svg>
+
+            <div className="tl-cta-figure">
+              <span className="tl-cta-figure-glow" aria-hidden />
+              <img
+                src={`${ASSET}/images/girl_cta.webp`}
+                alt="Marketer reviewing live ad-platform data on a laptop"
+                className="tl-cta-portrait"
+                width={720}
+                height={900}
+              />
+              <span className="tl-cta-chip tl-cta-chip-a" aria-hidden>
+                <BarChip />
+              </span>
+              <span className="tl-cta-chip tl-cta-chip-b" aria-hidden>
+                <DonutChip />
+              </span>
+            </div>
+
+            <ul className="tl-cta-cards">
+              {PLATFORMS.map((p) => (
+                <li key={p.name} className="tl-cta-card">
+                  <span className="tl-cta-card-mark">{p.mark}</span>
+                  <span>
+                    <strong>{p.name}</strong>
+                    <em>{p.sub}</em>
+                  </span>
+                  <span className="tl-cta-live">
+                    <i />
+                    Connected
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
@@ -117,99 +88,55 @@ export function CtaSection() {
   );
 }
 
-function CtaStage({
-  waveRef,
-  dustRef,
-}: {
-  waveRef: RefObject<HTMLVideoElement | null>;
-  dustRef: RefObject<HTMLVideoElement | null>;
-}) {
+function ShieldMark() {
   return (
-    <div className="tl-cta-stage pointer-events-none absolute inset-0" aria-hidden>
-      <div className="tl-cta-base" />
-      <div className="tl-cta-par" style={{ "--d": 2 } as CSSProperties}>
-        <div className="tl-cta-mesh" />
-      </div>
-      <div className="tl-cta-par tl-cta-edge" style={{ "--d": 4 } as CSSProperties}>
-        <video
-          ref={waveRef}
-          className="tl-cta-film tl-cta-film-wave"
-          src={`${ASSET}/videos/funnel-wave.mp4`}
-          muted
-          loop
-          playsInline
-          autoPlay
-        />
-      </div>
-      <div className="tl-cta-par tl-cta-edge-soft" style={{ "--d": 6 } as CSSProperties}>
-        <video
-          ref={dustRef}
-          className="tl-cta-film tl-cta-film-dust"
-          src={`${ASSET}/videos/funnel-particles.mp4`}
-          muted
-          loop
-          playsInline
-          autoPlay
-        />
-      </div>
-      <div className="tl-cta-par" style={{ "--d": 3 } as CSSProperties}>
-        <div className="tl-cta-mist" />
-      </div>
-      <div className="tl-cta-par tl-cta-rings-wrap" style={{ "--d": 8 } as CSSProperties}>
-        <svg className="tl-cta-rings" viewBox="0 0 100 62" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <linearGradient id="tl-cta-ring" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stopColor="#fff" stopOpacity="0" />
-              <stop offset=".42" stopColor="#fff" stopOpacity=".55" />
-              <stop offset="1" stopColor="#fff" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <ellipse cx="50" cy="31" rx="44" ry="26" />
-          <ellipse cx="50" cy="31" rx="34" ry="19" />
-          <ellipse cx="50" cy="31" rx="24" ry="13" />
-        </svg>
-      </div>
-      <div className="tl-cta-grain" />
-      <div className="tl-cta-veil" />
-      <div className="tl-cta-par tl-cta-orbit" style={{ "--d": 14 } as CSSProperties}>
-        {PLATFORMS.map((p, i) => (
-          <div key={p.name} className="tl-cta-slot" style={{ "--i": i } as CSSProperties}>
-            <div className="tl-cta-chip">
-              {p.mark}
-              <span>{p.name}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    <svg viewBox="0 0 20 20" className="size-4" aria-hidden>
+      <path
+        d="M10 2.2 16.4 4.6v5.2c0 4-2.7 6.8-6.4 8-3.7-1.2-6.4-4-6.4-8V4.6L10 2.2Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
+      <path d="M7.2 10.1 9.1 12l3.8-4.2" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function BarChip() {
+  return (
+    <svg viewBox="0 0 24 24" className="size-5" aria-hidden>
+      <rect x="4" y="13" width="3.2" height="7" rx="1" fill="#c084fc" />
+      <rect x="10.4" y="8" width="3.2" height="12" rx="1" fill="#e9d5ff" />
+      <rect x="16.8" y="4" width="3.2" height="16" rx="1" fill="#a855f7" />
+    </svg>
+  );
+}
+
+function DonutChip() {
+  return (
+    <svg viewBox="0 0 24 24" className="size-5" aria-hidden>
+      <circle cx="12" cy="12" r="7.2" fill="none" stroke="#6b21a8" strokeWidth="3.4" />
+      <circle cx="12" cy="12" r="7.2" fill="none" stroke="#c084fc" strokeWidth="3.4" strokeDasharray="18 28" strokeLinecap="round" />
+    </svg>
   );
 }
 
 function GoogleAdsMark() {
   return (
-    <svg viewBox="0 0 24 24" className="size-6" aria-hidden>
-      <path fill="#FBBC04" d="M7.4 20.2 16.2 3.8a2.4 2.4 0 0 1 4.2 2.3L11.6 22.5a2.4 2.4 0 1 1-4.2-2.3Z" />
-      <path fill="#4285F4" d="M12.6 20.2 3.8 3.8A2.4 2.4 0 0 1 8 1.5l8.8 16.4a2.4 2.4 0 1 1-4.2 2.3Z" />
-      <circle cx="6.2" cy="19.4" r="2.6" fill="#34A853" />
-    </svg>
-  );
-}
-
-function YouTubeMark() {
-  return (
-    <svg viewBox="0 0 24 24" className="size-6" aria-hidden>
-      <rect width="22" height="16" x="1" y="4" rx="4" fill="#FF0033" />
-      <path fill="#fff" d="M10 9.2v5.6l5.2-2.8Z" />
+    <svg viewBox="0 0 48 48" className="size-6" aria-hidden>
+      <path fill="#4285F4" d="M36.3 6 18.4 37.1a4.8 4.8 0 1 1-8.3-4.8L28 1.2A4.8 4.8 0 1 1 36.3 6Z" />
+      <path fill="#FBBC04" d="M11.7 6 29.6 37.1a4.8 4.8 0 1 0 8.3-4.8L20 1.2A4.8 4.8 0 1 0 11.7 6Z" />
+      <circle cx="8.4" cy="39.6" r="6.3" fill="#34A853" />
     </svg>
   );
 }
 
 function MetaMark() {
   return (
-    <svg viewBox="0 0 24 24" className="size-6" aria-hidden>
+    <svg viewBox="0 0 36 24" className="h-4 w-6" aria-hidden>
       <path
         fill="#0081FB"
-        d="M12.8 8.6c.8-1.6 2-2.6 3.5-2.6 2.4 0 3.9 2.6 3.9 6.7 0 4.6-1.8 7.3-4.2 7.3-1.3 0-2.4-1-3.4-2.8l-.7-1.2-.8 1.3c-1.1 1.8-2.2 2.7-3.6 2.7-2.3 0-4.1-2.7-4.1-7.3 0-4.2 1.6-6.7 4-6.7 1.5 0 2.7 1 3.5 2.6l.9 1.6.8-1.6Zm-2.2 1.5C9.8 8.6 9 7.8 8 7.8c-1.4 0-2.3 1.8-2.3 5.1 0 3.2.8 5 2.2 5 1 0 1.8-.8 2.7-2.3l1.2-2-1.2-2.5Zm5.5 5.3c.9 1.5 1.7 2.3 2.6 2.3 1.4 0 2.3-1.8 2.3-5 0-3.3-.9-5.1-2.3-5.1-1 0-1.8.8-2.6 2.3l-1.1 2 1.1 3.5Z"
+        d="M13.58 8.26c.8-1.6 1.99-2.6 3.48-2.6 2.39 0 3.89 2.6 3.89 6.7 0 4.59-1.79 7.28-4.18 7.28-1.3 0-2.39-1-3.38-2.79l-.7-1.2-.8 1.3c-1.09 1.79-2.19 2.69-3.58 2.69-2.29 0-4.08-2.69-4.08-7.28 0-4.19 1.59-6.7 3.98-6.7 1.5 0 2.69 1 3.49 2.6l.88 1.6.8-1.6Zm-2.19 1.5c-.8-1.5-1.6-2.3-2.59-2.3-1.4 0-2.3 1.8-2.3 5.1 0 3.19.8 4.99 2.2 4.99 1 0 1.79-.8 2.69-2.3l1.19-1.99-1.19-2.5Zm5.48 5.29c.9 1.5 1.7 2.3 2.59 2.3 1.4 0 2.3-1.8 2.3-4.99 0-3.3-.9-5.1-2.3-5.1-1 0-1.79.8-2.59 2.3l-1.1 1.99 1.1 3.5Z"
       />
     </svg>
   );
@@ -218,12 +145,12 @@ function MetaMark() {
 function InstagramMark() {
   return (
     <svg viewBox="0 0 24 24" className="size-6" aria-hidden>
-      <rect width="22" height="22" x="1" y="1" rx="6" fill="url(#tl-ig)" />
+      <rect width="22" height="22" x="1" y="1" rx="6" fill="url(#tl-cta-ig)" />
       <rect width="14" height="14" x="5" y="5" rx="4" fill="none" stroke="#fff" strokeWidth="1.6" />
       <circle cx="12" cy="12" r="3.2" fill="none" stroke="#fff" strokeWidth="1.6" />
       <circle cx="16.6" cy="7.4" r="1" fill="#fff" />
       <defs>
-        <linearGradient id="tl-ig" x1="4" y1="20" x2="20" y2="4">
+        <linearGradient id="tl-cta-ig" x1="4" y1="20" x2="20" y2="4">
           <stop stopColor="#F58529" />
           <stop offset=".45" stopColor="#DD2A7B" />
           <stop offset="1" stopColor="#8134AF" />

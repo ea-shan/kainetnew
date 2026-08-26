@@ -77,27 +77,30 @@ function petalTex() {
 }
 
 function boot(host: HTMLDivElement, reduce: boolean) {
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+  const renderer = new THREE.WebGLRenderer({
+    antialias: true,
+    alpha: false,
+    powerPreference: "high-performance",
+  });
   renderer.setClearColor(0x0c0b10, 1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.95;
+  renderer.toneMappingExposure = 0.82;
   renderer.domElement.style.display = "block";
   host.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x0c0b10, 0.045);
   const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 40);
-  camera.position.set(0, 0.08, 6.1);
+  camera.position.set(0, 0.08, 5.4);
 
   scene.add(new THREE.AmbientLight(0xded0f2, 0.35));
   scene.add(new THREE.HemisphereLight(0xf4b4d4, 0x1a1220, 0.45));
-  const core = new THREE.PointLight(0xec8ec8, 4.2, 8, 2);
+  const core = new THREE.PointLight(0xec8ec8, 1.6, 8, 2);
   scene.add(core);
-  const left = new THREE.PointLight(0xb48ad4, 2.2, 7, 2);
+  const left = new THREE.PointLight(0xb48ad4, 1.1, 7, 2);
   left.position.set(-2.2, 0.4, 1.2);
   scene.add(left);
-  const right = new THREE.PointLight(0xf2af5c, 2.2, 7, 2);
+  const right = new THREE.PointLight(0xf2af5c, 1.1, 7, 2);
   right.position.set(2.2, -0.2, 1.2);
   scene.add(right);
 
@@ -107,13 +110,13 @@ function boot(host: HTMLDivElement, reduce: boolean) {
   const ico = new THREE.IcosahedronGeometry(1.58, 2);
   const wire = new THREE.LineSegments(
     new THREE.WireframeGeometry(ico),
-    new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.22 }),
+    new THREE.LineBasicMaterial({ color: 0xd8d0e8, transparent: true, opacity: 0.22 }),
   );
   const dots = new THREE.Points(
     ico,
     new THREE.PointsMaterial({
       map: dotTex(),
-      size: 0.07,
+      size: 0.055,
       transparent: true,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
@@ -122,7 +125,7 @@ function boot(host: HTMLDivElement, reduce: boolean) {
   );
   const hull = new THREE.Mesh(
     ico,
-    new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.03, side: THREE.DoubleSide }),
+    new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.012, side: THREE.DoubleSide }),
   );
   root.add(hull, wire, dots);
 
@@ -190,45 +193,39 @@ function boot(host: HTMLDivElement, reduce: boolean) {
     return { mesh, home: new THREE.Vector3(c.x, c.y, c.z), line };
   });
 
+  const layout = () => {
+    const w = Math.max(host.clientWidth, 1);
+    const h = Math.max(host.clientHeight, 1);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    renderer.setPixelRatio(dpr);
+    renderer.setSize(w, h, false);
+    composer.setPixelRatio(dpr);
+    composer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  };
+
   const composer = new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene, camera));
-  const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.55, 0.42, 0.18);
-  composer.addPass(bloom);
+  composer.addPass(new UnrealBloomPass(new THREE.Vector2(1, 1), 0.36, 0.28, 0.52));
   composer.addPass(new OutputPass());
+  layout();
 
   const timer = new THREE.Timer();
   timer.connect(document);
 
   let mx = 0;
   let my = 0;
-  let live = true;
   const onMove = (e: PointerEvent) => {
     const r = host.getBoundingClientRect();
     mx = ((e.clientX - r.left) / r.width) * 2 - 1;
     my = -(((e.clientY - r.top) / r.height) * 2 - 1);
   };
   host.addEventListener("pointermove", onMove);
-  const io = new IntersectionObserver(([e]) => {
-    live = e.isIntersecting;
-  });
-  io.observe(host);
-
-  const layout = () => {
-    const w = host.clientWidth || 1;
-    const h = host.clientHeight || 1;
-    const dpr = Math.min(window.devicePixelRatio, 2);
-    renderer.setPixelRatio(dpr);
-    renderer.setSize(w, h, false);
-    composer.setSize(w, h);
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-  };
-  layout();
   const ro = new ResizeObserver(layout);
   ro.observe(host);
 
   renderer.setAnimationLoop(() => {
-    if (!live) return;
     timer.update();
     const t = reduce ? 0 : timer.getElapsed();
     root.rotation.y = t * 0.12;
@@ -254,7 +251,6 @@ function boot(host: HTMLDivElement, reduce: boolean) {
   return () => {
     renderer.setAnimationLoop(null);
     host.removeEventListener("pointermove", onMove);
-    io.disconnect();
     ro.disconnect();
     composer.dispose();
     scene.traverse((obj) => {
@@ -262,8 +258,8 @@ function boot(host: HTMLDivElement, reduce: boolean) {
       mesh.geometry?.dispose();
       const mats = mesh.material ? (Array.isArray(mesh.material) ? mesh.material : [mesh.material]) : [];
       mats.forEach((m) => {
-        const rec = m as unknown as Record<string, { dispose?: () => void }>;
-        Object.values(rec).forEach((v) => v?.dispose?.());
+        const map = (m as THREE.MeshBasicMaterial).map;
+        if (map && typeof map.dispose === "function") map.dispose();
         m.dispose();
       });
     });

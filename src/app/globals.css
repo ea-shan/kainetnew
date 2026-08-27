@@ -321,7 +321,7 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 32% 28% at 50% 18%, color-mix(in srgb, var(--kai-yellow) 26%, transparent), transparent 72%),
+    radial-gradient(ellipse 32% 28% at 82% 22%, color-mix(in srgb, var(--kai-yellow) 26%, transparent), transparent 72%),
     radial-gradient(ellipse 58% 42% at 8% 0%, var(--kai-periwinkle), transparent 56%),
     radial-gradient(ellipse 46% 36% at 94% 4%, var(--kai-lilac-mist), transparent 52%),
     linear-gradient(
@@ -337,9 +337,9 @@
 .tl-wf-wash::after {
   content: "";
   position: absolute;
-  inset: 4% 28% 58% 30%;
+  inset: 6% 2% 52% 58%;
   background: radial-gradient(
-    ellipse 44% 38% at 48% 40%,
+    ellipse 44% 38% at 70% 38%,
     color-mix(in srgb, var(--kai-yellow) 42%, transparent),
     color-mix(in srgb, var(--kai-yellow) 12%, transparent) 44%,
     transparent 76%

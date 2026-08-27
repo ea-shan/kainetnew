@@ -3,13 +3,12 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-export const GROUND = "#08070a";
+export const GROUND = "#08080d";
 export const GROUND_GLOW = [
-  "radial-gradient(ellipse 72% 58% at 38% 48%, #2a1b2d 0%, transparent 68%)",
-  "radial-gradient(ellipse 50% 46% at 72% 52%, #3d2b1f 0%, transparent 62%)",
-  "radial-gradient(ellipse 38% 32% at 22% 28%, #4a3728 0%, transparent 52%)",
-  "radial-gradient(ellipse 34% 30% at 80% 76%, #2e2620 0%, transparent 48%)",
-  "radial-gradient(ellipse 120% 95% at 50% 50%, transparent 36%, #08070a 84%)",
+  "radial-gradient(ellipse 68% 54% at 46% 42%, color-mix(in srgb, var(--kai-purple) 26%, transparent), transparent 68%)",
+  "radial-gradient(ellipse 40% 36% at 80% 36%, color-mix(in srgb, var(--kai-yellow) 20%, transparent), transparent 60%)",
+  "radial-gradient(ellipse 34% 30% at 22% 28%, color-mix(in srgb, var(--kai-lavender) 12%, transparent), transparent 52%)",
+  "radial-gradient(ellipse 120% 95% at 50% 50%, transparent 36%, var(--kai-dark) 84%)",
 ].join(",");
 
 const PARTICLE_VERT = /* glsl */ `
@@ -435,7 +434,7 @@ function boot(host: HTMLDivElement, reduce: boolean): () => void {
     powerPreference: "high-performance",
     preserveDrawingBuffer: true,
   });
-  renderer.setClearColor(0x08070a, 0);
+  renderer.setClearColor(0x08080d, 0);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.NoToneMapping;
   renderer.domElement.style.width = "100%";
@@ -539,13 +538,7 @@ export function HeroMosaic() {
         <HeroField />
       </div>
 
-      <div
-        className="absolute inset-0 min-[768px]:hidden"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(8,7,10,0.42) 0%, rgba(8,7,10,0.18) 38%, rgba(8,7,10,0.52) 100%)",
-        }}
-      />
+      <div className="tl-hero-veil" />
       <div
         className="absolute inset-y-0 left-0 hidden w-[min(56vw,760px)] min-[768px]:block min-[1100px]:w-[min(48vw,760px)]"
         style={{

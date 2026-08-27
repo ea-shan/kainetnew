@@ -5,6 +5,7 @@ import { LockIcon } from "../shared/icons";
 import { SiteButton } from "../shared/SiteButton";
 import { getStartedTabs } from "./content";
 import { OrchestrationScene } from "./OrchestrationScene";
+import { StrategyScene } from "./StrategyScene";
 
 export function GetStartedSection() {
   const [active, setActive] = useState(getStartedTabs[0].id);
@@ -30,7 +31,7 @@ export function GetStartedSection() {
           <h2 className="mt-3 text-[32px] leading-[1.12] tracking-[-0.03em] md:text-[44px] md:leading-[1.1] md:tracking-[-0.04em]">
             One brief. <span className="tl-hero-grad">Six specialists.</span>
           </h2>
-          <p className="mt-4 max-w-[62ch] text-[14px] italic leading-[1.55] tracking-[0.01em] text-[var(--kai-lavender)]/62">
+          <p className="mt-4 max-w-[62ch] text-[14px] italic leading-[1.55] tracking-[0.01em] text-[var(--kai-white)]/82">
             Take a kitchen renovation. Someone measures the room. Someone draws the layout.
             Someone works out what goes where and what it costs. Someone orders the units.
             Fitters put it in. Someone comes back at the end to check the doors line up.
@@ -39,7 +40,7 @@ export function GetStartedSection() {
             plans and said yes.
           </p>
           <p className="mt-4 max-w-[62ch] text-[15px] leading-[1.6] tracking-[0.01em] text-[var(--kai-white)]/82">
-            <span className="font-semibold">kAInet</span> works the same way. Six specialist
+          <span className="tl-hero-grad font-semibold">kAInet</span> works the same way. Six specialist
             agents, one plain-language brief, each doing one part of the job properly. The
             whole campaign gets built in your own Google and Meta accounts — and none of it
             runs until you&apos;ve seen it and said yes.
@@ -105,6 +106,8 @@ export function GetStartedSection() {
           <div className="tl-gs-visual">
             {current.id === "audience-research" ? (
               <OrchestrationScene />
+            ) : current.id === "campaign-strategy" ? (
+              <StrategyScene />
             ) : (
               <img
                 key={current.id}

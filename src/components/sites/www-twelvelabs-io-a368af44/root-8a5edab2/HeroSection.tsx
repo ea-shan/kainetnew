@@ -41,10 +41,10 @@ export function HeroSection() {
             <br />
             Launched by <span className="tl-hero-grad">you.</span>
           </h1>
-          <p className="mt-6 max-w-[58ch] text-[16px] leading-[1.65] tracking-[0.01em] text-[var(--kai-lavender)]/72">
+          <p className="mt-6 max-w-[58ch] text-[16px] leading-[1.65] tracking-[0.01em] text-[var(--kai-white)]/82">
             Right now you get two options. Build every campaign by hand — audience, keywords, structure, creative, a week gone per client. Or hand it to an AI that spends your budget while you&apos;re asleep and shows you the damage after.
           </p>
-          <p className="mt-6 max-w-[58ch] text-[16px] leading-[1.65] tracking-[0.01em] text-[var(--kai-lavender)]/72">
+          <p className="mt-6 max-w-[58ch] text-[16px] leading-[1.65] tracking-[0.01em] text-[var(--kai-white)]/82">
           Every campaign is <span className="tl-hero-grad font-semibold">built paused.</span> Nothing spends until you say so.
           </p>
           {/* <div className="mt-5 flex max-w-[420px] items-center gap-2.5">

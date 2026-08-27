@@ -27,12 +27,12 @@ export function WorkflowsSection() {
     <section className="relative overflow-hidden px-5 pb-16 pt-20 text-[var(--kai-light-text)] md:px-10 md:pb-20">
       <div className="tl-wf-wash" aria-hidden />
       <div className="tl-page relative">
-        <header className="mx-auto max-w-[40rem] text-center">
-          <h2 className="text-[36px] leading-[1.14] tracking-[-0.02em] md:text-[48px] md:leading-[1.14] md:tracking-[-0.96px]">
+        <header className="grid grid-cols-1 items-start gap-6 md:grid-cols-2 md:gap-0">
+          <h2 className="border-l border-[#000000]/15 pl-6 text-[36px] leading-[1.14] tracking-[-0.02em] md:text-[48px] md:leading-[1.14] md:tracking-[-0.96px]">
             There are two bad ways to do AI marketing.{" "}
             <span className="tl-wf-grad">We&apos;re not doing either.</span>
           </h2>
-          <p className="mt-5 text-[16px] leading-6 tracking-[0.16px] text-[var(--kai-light-muted)]">
+          <p className="max-w-[420px] border-l border-[#000000]/15 pl-6 text-[16px] leading-6 tracking-[0.16px] text-[var(--kai-light-muted)]">
             You&apos;ve probably been burned by one of them. Here&apos;s what we think went wrong, and what we do instead.
           </p>
         </header>

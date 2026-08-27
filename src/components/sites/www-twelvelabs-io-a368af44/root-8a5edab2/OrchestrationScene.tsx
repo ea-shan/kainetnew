@@ -294,6 +294,7 @@ export function OrchestrationScene() {
   return (
     <div className="tl-pipe" aria-hidden>
       <div ref={ref} className="tl-pipe-stage" />
+      <p className="tl-pipe-title">Audience Research Agent</p>
       <span className="tl-pipe-star" />
       {NOTES.map((n) => (
         <p key={n.k} className={`tl-pipe-note tl-pipe-note-${n.k}`}>

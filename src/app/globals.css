@@ -467,6 +467,7 @@
 .tl-pipe {
   position: absolute;
   inset: 0;
+  container-type: inline-size;
 }
 
 .tl-pipe-stage,
@@ -536,6 +537,33 @@
     max-width: 42%;
     font-size: 10px;
   }
+}
+
+.tl-pipe-title {
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+  top: 5%;
+  left: 3.5%;
+  margin: 0;
+  color: var(--kai-white);
+  font-size: clamp(8px, 2.4cqi, 11px);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tl-strat .tl-pipe-note-speed {
+  top: 14%;
+  left: auto;
+  right: 6%;
+  text-align: right;
+}
+
+.tl-strat .tl-pipe-note-speed span {
+  margin-left: auto;
 }
 
 .tl-solutions-track {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import * as THREE from "three";
 
 const KAI = {
@@ -24,6 +24,7 @@ const IN_START = -LEN / 2 - 1.72;
 const IN_END = -LEN / 2 + 0.08;
 const OUT_START = LEN / 2 - 0.04;
 const OUT_END = LEN / 2 + 1.55;
+const TILT0 = { x: 0.88, y: 0.5, z: 0.26 };
 
 function roundSlab(w: number, h: number, d: number, r: number) {
   const s = new THREE.Shape();
@@ -40,6 +41,7 @@ function roundSlab(w: number, h: number, d: number, r: number) {
   s.quadraticCurveTo(-x, -y, -x + r, -y);
   const g = new THREE.ExtrudeGeometry(s, { depth: d, bevelEnabled: false, curveSegments: 5 });
   g.translate(0, 0, -d / 2);
+  g.rotateX(-Math.PI / 2);
   return g;
 }
 
@@ -64,7 +66,7 @@ function cylGrid(r: number, len: number, rings: number, meridians: number) {
   return g;
 }
 
-function boot(host: HTMLDivElement, reduce: boolean) {
+function boot(host: HTMLDivElement, reduce: boolean, tilt: { x: number; y: number; z: number }) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
   renderer.setClearColor(KAI.dark, 1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -73,23 +75,23 @@ function boot(host: HTMLDivElement, reduce: boolean) {
 
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 40);
-  camera.position.set(-0.2, 0.28, 12);
-  camera.lookAt(0.12, 0.04, 0);
+  camera.position.set(-0.06, 1.12, 12);
+  camera.lookAt(0.18, -0.1, 0);
 
   const root = new THREE.Group();
-  root.rotation.set(0.32, 0.78, 0.5);
+  root.rotation.set(tilt.x, tilt.y, tilt.z);
   scene.add(root);
 
-  const cylGeo = new THREE.CylinderGeometry(R, R, LEN, 28, 1, true);
+  const cylGeo = new THREE.CylinderGeometry(R, R, LEN, 12, 4, true);
   cylGeo.rotateZ(Math.PI / 2);
   const shell = new THREE.Mesh(
     cylGeo,
     new THREE.MeshBasicMaterial({ color: KAI.shell, side: THREE.FrontSide }),
   );
-  const gridGeo = cylGrid(R + 0.004, LEN, 5, 14);
+  const gridGeo = cylGrid(R + 0.006, LEN, 4, 12);
   const grid = new THREE.LineSegments(
     gridGeo,
-    new THREE.LineBasicMaterial({ color: KAI.white, transparent: true, opacity: 0.82 }),
+    new THREE.LineBasicMaterial({ color: KAI.white, transparent: true, opacity: 0.94 }),
   );
   root.add(shell, grid);
 
@@ -116,10 +118,10 @@ function boot(host: HTMLDivElement, reduce: boolean) {
   const frameEdge = new THREE.LineBasicMaterial({ color: KAI.white, transparent: true, opacity: 0.5 });
   for (let i = 0; i < 5; i++) {
     const s = 1 - i * 0.07;
-    const geo = roundSlab(0.58 * s, 0.78 * s, 0.03, 0.14 * s);
+    const geo = roundSlab(0.62 * s, 0.5 * s, 0.03, 0.1 * s);
     frameGeos.push(geo);
     const frame = new THREE.LineSegments(new THREE.EdgesGeometry(geo), frameEdge);
-    frame.position.set(IN_START + 0.18 + i * 0.26, DECK_Y + 0.4 * s, 0);
+    frame.position.set(IN_START + 0.18 + i * 0.26, DECK_Y + 0.032, 0);
     frame.rotation.y = 0.03;
     root.add(frame);
   }
@@ -145,7 +147,7 @@ function boot(host: HTMLDivElement, reduce: boolean) {
   root.add(cubes);
 
   const slabN = 5;
-  const slabGeo = roundSlab(0.56, 0.74, 0.11, 0.15);
+  const slabGeo = roundSlab(0.64, 0.5, 0.09, 0.1);
   const slabFill = new THREE.MeshBasicMaterial({ color: KAI.shell, transparent: true, opacity: 0.86 });
   const slabEdge = new THREE.LineSegments(
     new THREE.EdgesGeometry(slabGeo),
@@ -155,7 +157,7 @@ function boot(host: HTMLDivElement, reduce: boolean) {
     const g = new THREE.Group();
     g.add(new THREE.Mesh(slabGeo, slabFill), slabEdge.clone());
     g.userData.phase = i / slabN;
-    g.position.y = DECK_Y + 0.4;
+    g.position.y = DECK_Y + 0.062;
     root.add(g);
     return g;
   });
@@ -235,6 +237,7 @@ function boot(host: HTMLDivElement, reduce: boolean) {
       hexes.setMatrixAt(i, dummy.matrix);
     });
     hexes.instanceMatrix.needsUpdate = true;
+    root.rotation.set(tilt.x, tilt.y, tilt.z);
 
     renderer.render(scene, camera);
   });
@@ -281,24 +284,47 @@ const NOTES = [
 
 export function OrchestrationScene() {
   const ref = useRef<HTMLDivElement>(null);
+  const tilt = useRef({ ...TILT0 });
+  const [vals, setVals] = useState(TILT0);
 
   useEffect(() => {
     const host = ref.current;
     if (!host) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    return boot(host, reduce);
+    return boot(host, reduce, tilt.current);
   }, []);
 
+  const slide = (axis: keyof typeof TILT0) => (e: ChangeEvent<HTMLInputElement>) => {
+    const n = Number(e.target.value);
+    tilt.current[axis] = n;
+    setVals((v) => ({ ...v, [axis]: n }));
+  };
+
   return (
-    <div className="tl-pipe" aria-hidden>
-      <div ref={ref} className="tl-pipe-stage" />
-      <span className="tl-pipe-star" />
+    <div className="tl-pipe">
+      <div ref={ref} className="tl-pipe-stage" aria-hidden />
+      <span className="tl-pipe-star" aria-hidden />
       {NOTES.map((n) => (
-        <p key={n.k} className={`tl-pipe-note tl-pipe-note-${n.k}`}>
+        <p key={n.k} className={`tl-pipe-note tl-pipe-note-${n.k}`} aria-hidden>
           <span>{n.label}</span>
           {n.body}
         </p>
       ))}
+      <div className="tl-pipe-tilt">
+        {(["x", "y", "z"] as const).map((axis) => (
+          <label key={axis}>
+            {axis} {vals[axis].toFixed(2)}
+            <input
+              type="range"
+              min="-0.2"
+              max="1.6"
+              step="0.01"
+              value={vals[axis]}
+              onChange={slide(axis)}
+            />
+          </label>
+        ))}
+      </div>
     </div>
   );
 }

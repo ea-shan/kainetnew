@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ChangeEvent } from "react";
+import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 const KAI = {
@@ -24,7 +24,7 @@ const IN_START = -LEN / 2 - 1.72;
 const IN_END = -LEN / 2 + 0.08;
 const OUT_START = LEN / 2 - 0.04;
 const OUT_END = LEN / 2 + 1.55;
-const TILT0 = { x: 0.88, y: 0.5, z: 0.26 };
+const TILT0 = { x: 0.12, y: 0.91, z: 0.1 };
 
 function roundSlab(w: number, h: number, d: number, r: number) {
   const s = new THREE.Shape();
@@ -66,7 +66,7 @@ function cylGrid(r: number, len: number, rings: number, meridians: number) {
   return g;
 }
 
-function boot(host: HTMLDivElement, reduce: boolean, tilt: { x: number; y: number; z: number }) {
+function boot(host: HTMLDivElement, reduce: boolean) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
   renderer.setClearColor(KAI.dark, 1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -79,7 +79,7 @@ function boot(host: HTMLDivElement, reduce: boolean, tilt: { x: number; y: numbe
   camera.lookAt(0.18, -0.1, 0);
 
   const root = new THREE.Group();
-  root.rotation.set(tilt.x, tilt.y, tilt.z);
+  root.rotation.set(TILT0.x, TILT0.y, TILT0.z);
   scene.add(root);
 
   const cylGeo = new THREE.CylinderGeometry(R, R, LEN, 12, 4, true);
@@ -237,7 +237,6 @@ function boot(host: HTMLDivElement, reduce: boolean, tilt: { x: number; y: numbe
       hexes.setMatrixAt(i, dummy.matrix);
     });
     hexes.instanceMatrix.needsUpdate = true;
-    root.rotation.set(tilt.x, tilt.y, tilt.z);
 
     renderer.render(scene, camera);
   });
@@ -284,47 +283,24 @@ const NOTES = [
 
 export function OrchestrationScene() {
   const ref = useRef<HTMLDivElement>(null);
-  const tilt = useRef({ ...TILT0 });
-  const [vals, setVals] = useState(TILT0);
 
   useEffect(() => {
     const host = ref.current;
     if (!host) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    return boot(host, reduce, tilt.current);
+    return boot(host, reduce);
   }, []);
 
-  const slide = (axis: keyof typeof TILT0) => (e: ChangeEvent<HTMLInputElement>) => {
-    const n = Number(e.target.value);
-    tilt.current[axis] = n;
-    setVals((v) => ({ ...v, [axis]: n }));
-  };
-
   return (
-    <div className="tl-pipe">
-      <div ref={ref} className="tl-pipe-stage" aria-hidden />
-      <span className="tl-pipe-star" aria-hidden />
+    <div className="tl-pipe" aria-hidden>
+      <div ref={ref} className="tl-pipe-stage" />
+      <span className="tl-pipe-star" />
       {NOTES.map((n) => (
-        <p key={n.k} className={`tl-pipe-note tl-pipe-note-${n.k}`} aria-hidden>
+        <p key={n.k} className={`tl-pipe-note tl-pipe-note-${n.k}`}>
           <span>{n.label}</span>
           {n.body}
         </p>
       ))}
-      <div className="tl-pipe-tilt">
-        {(["x", "y", "z"] as const).map((axis) => (
-          <label key={axis}>
-            {axis} {vals[axis].toFixed(2)}
-            <input
-              type="range"
-              min="-0.2"
-              max="1.6"
-              step="0.01"
-              value={vals[axis]}
-              onChange={slide(axis)}
-            />
-          </label>
-        ))}
-      </div>
     </div>
   );
 }

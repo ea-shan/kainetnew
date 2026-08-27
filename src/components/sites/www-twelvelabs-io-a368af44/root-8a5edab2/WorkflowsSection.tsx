@@ -5,9 +5,14 @@ function CompareMark({ good }: { good: boolean }) {
     <span className={`tl-wf-mark${good ? " tl-wf-mark-good" : ""}`} aria-hidden>
       <svg viewBox="0 0 24 24">
         {good ? (
-          <path className="tl-wf-stroke" d="M5 12.4l5 5L20 7" />
+          <>
+            <path className="tl-wf-shade" d="M5 12.4l5 5L20 7" />
+            <path className="tl-wf-stroke" d="M5 12.4l5 5L20 7" />
+          </>
         ) : (
           <>
+            <path className="tl-wf-shade" d="M6 6l12 12" />
+            <path className="tl-wf-shade" d="M18 6L6 18" />
             <path className="tl-wf-stroke" d="M6 6l12 12" />
             <path className="tl-wf-stroke tl-wf-stroke-late" d="M18 6L6 18" />
           </>

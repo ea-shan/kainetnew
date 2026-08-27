@@ -9,6 +9,7 @@ import { SiteHeader } from "@/components/sites/www-twelvelabs-io-a368af44/root-8
 import { SolutionsSection } from "@/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/SolutionsSection";
 import { TestimonialsSection } from "@/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/TestimonialsSection";
 import { TrustedBySection } from "@/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/TrustedBySection";
+import { AgentExperienceSection } from "@/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/AgentExperienceSection";
 import { WorkflowsSection } from "@/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/WorkflowsSection";
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
           <GetStartedSection />
         </div>
         <WorkflowsSection />
+        <AgentExperienceSection />
         <KpisSection />
         <TrustedBySection />
         <SolutionsSection />

@@ -34,3 +34,14 @@ Rules:
 - Mark deliberate simplifications that cut a real corner with a known ceiling (global lock, O(n²) scan, naive heuristic) with a `ponytail:` comment naming the ceiling and upgrade path.
 
 Not lazy about: understanding the problem (read it fully and trace the real flow before picking a rung, a small diff you don't understand is just laziness dressed up as efficiency), input validation at trust boundaries, error handling that prevents data loss, security, accessibility, the calibration real hardware needs (the platform is never the spec ideal, a clock drifts, a sensor reads off), anything explicitly requested. Lazy code without its check is unfinished: non-trivial logic leaves ONE runnable check behind, the smallest thing that fails if the logic breaks (an assert-based demo/self-check or one small test file; no frameworks, no fixtures). Trivial one-liners need no test.
+
+# Kainet reference animation
+
+When implementing motion from an attached video:
+
+1. Video is the motion source of truth; screenshots are composition.
+2. Watch the complete video before coding. Do not approximate.
+3. Keep the central product as the visual anchor; context stays subordinate.
+4. Prefer staggered fade/translate/scale. Hybrid DOM + WebGL when fidelity is higher.
+5. Use Kainet tokens. Never copy another company's branding or ship the reference MP4 as the implementation.
+6. Validate in the browser and do one refinement pass after seeing it render.

@@ -5,7 +5,7 @@ export function SiteFooter() {
   return (
     <footer className="relative overflow-hidden bg-white text-[var(--kai-light-text)]">
       <div className="tl-foot-wash" aria-hidden />
-      <div className="tl-page relative grid grid-cols-1 gap-10 px-5 pb-6 pt-16 md:px-10 min-[900px]:grid-cols-4 min-[900px]:gap-0 min-[900px]:pb-2 min-[900px]:pt-20">
+      <div className="tl-page relative grid grid-cols-1 gap-10 px-5 pb-1 pt-16 md:px-10 min-[900px]:grid-cols-4 min-[900px]:gap-0 min-[900px]:pb-0 min-[900px]:pt-20">
         {footerColumns.map((col, i) => (
           <div
             key={col.title}
@@ -25,7 +25,7 @@ export function SiteFooter() {
         ))}
       </div>
 
-      <div className="tl-foot-hero relative mt-8 min-[768px]:mt-12">
+      <div className="tl-foot-hero relative mt-2 min-[768px]:mt-3">
         <FooterBrandMark className="w-full justify-center whitespace-nowrap text-[clamp(64px,16.5vw,260px)]" />
       </div>
 

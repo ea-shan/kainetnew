@@ -2,20 +2,45 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import { ArrowUpRightIcon, ChevronDownIcon, SparkleIcon } from "../shared/icons";
+import { ChevronDownIcon, SparkleIcon } from "../shared/icons";
 import { ASSET } from "./content";
 
-type Beat = "chat" | "integration" | "empty" | "analysis" | "code";
+type Beat = "prompt" | "think" | "write" | "reply" | "ads";
 
 const BEATS: { id: Beat; ms: number }[] = [
-  { id: "chat", ms: 5200 },
-  { id: "integration", ms: 4200 },
-  { id: "empty", ms: 3800 },
-  { id: "analysis", ms: 8000 },
-  { id: "code", ms: 4200 },
+  { id: "prompt", ms: 1800 },
+  { id: "think", ms: 2600 },
+  { id: "write", ms: 2400 },
+  { id: "reply", ms: 3000 },
+  { id: "ads", ms: 7200 },
 ];
 
 const LOOP = BEATS.reduce((sum, beat) => sum + beat.ms, 0);
+
+const LEAD: Record<Beat, string> = {
+  prompt: "Ask your accounts from the brief you already wrote.",
+  think: "Audience Research Agent is reading live demand.",
+  write: "Creative Assets Agent is drafting the ads.",
+  reply: "Two paused ads, written against Manchester search.",
+  ads: "Nothing spends until you say so.",
+};
+
+const ADS = [
+  {
+    src: `${ASSET}/images/ai-orchestration.jpg`,
+    platform: "Google Search",
+    headline: "Kitchen renovation quotes, Manchester",
+    desc: "Units, labour, and a start date — built paused in your account.",
+    cta: "Get a quote",
+  },
+  {
+    src: `${ASSET}/images/cta-hub-operator.jpg`,
+    platform: "Meta Ads",
+    headline: "Your kitchen, planned before you call",
+    desc: "Home improvers 8km out. One continuous take. No studio light.",
+    cta: "See the plan",
+  },
+] as const;
 
 export function beatAt(ms: number): Beat {
   let t = ((ms % LOOP) + LOOP) % LOOP;
@@ -23,33 +48,27 @@ export function beatAt(ms: number): Beat {
     if (t < beat.ms) return beat.id;
     t -= beat.ms;
   }
-  return "chat";
+  return "prompt";
 }
 
 if (process.env.NODE_ENV !== "production") {
-  console.assert(beatAt(0) === "chat");
-  console.assert(beatAt(5199) === "chat");
-  console.assert(beatAt(5200) === "integration");
-  console.assert(beatAt(9400) === "empty");
-  console.assert(beatAt(13200) === "analysis");
-  console.assert(beatAt(21200) === "code");
-  console.assert(beatAt(25400) === "chat");
+  console.assert(beatAt(0) === "prompt");
+  console.assert(beatAt(1799) === "prompt");
+  console.assert(beatAt(1800) === "think");
+  console.assert(beatAt(4400) === "write");
+  console.assert(beatAt(6800) === "reply");
+  console.assert(beatAt(9800) === "ads");
+  console.assert(beatAt(17000) === "prompt");
 }
-
-const CLIPS = [
-  { src: `${ASSET}/images/ai-orchestration.jpg`, title: "Home improvers 35–54", meta: "Search + YouTube" },
-  { src: `${ASSET}/images/cta-hub-operator.jpg`, title: "Local trades, 8km", meta: "Meta Advantage+" },
-  { src: `${ASSET}/images/girl_cta.webp`, title: "Renovation intent", meta: "In-market, high bid" },
-] as const;
 
 function lockedBeat(): Beat | null {
   const q = new URLSearchParams(window.location.search).get("beat");
-  return q === "chat" || q === "integration" || q === "empty" || q === "analysis" || q === "code" ? q : null;
+  return q === "prompt" || q === "think" || q === "write" || q === "reply" || q === "ads" ? q : null;
 }
 
 export function AgentExperienceSection() {
   const stageRef = useRef<HTMLDivElement>(null);
-  const [beat, setBeat] = useState<Beat>("chat");
+  const [beat, setBeat] = useState<Beat>("prompt");
   const [reduce, setReduce] = useState(false);
 
   useEffect(() => {
@@ -61,7 +80,10 @@ export function AgentExperienceSection() {
   }, []);
 
   useEffect(() => {
-    if (reduce) return;
+    if (reduce) {
+      setBeat("ads");
+      return;
+    }
     const pin = lockedBeat();
     if (pin) {
       setBeat(pin);
@@ -98,12 +120,12 @@ export function AgentExperienceSection() {
     };
   }, [reduce]);
 
-  const showResults = beat === "chat" || beat === "analysis";
-  const showField = beat === "chat" || beat === "analysis";
-  const deep = beat === "analysis";
+  const live = reduce ? "ads" : beat;
+  const showField = live !== "prompt";
+  const thinking = live === "think" || live === "write";
 
   return (
-    <section className="tl-agent" data-state={reduce ? "chat" : beat} aria-labelledby="tl-agent-title">
+    <section className="tl-agent" data-state={live} aria-labelledby="tl-agent-title">
       <h2 id="tl-agent-title" className="sr-only">
         kAlnet campaign intelligence
       </h2>
@@ -111,32 +133,20 @@ export function AgentExperienceSection() {
         <DustField />
         <div className="tl-agent-dots" aria-hidden />
 
+        <p className="tl-agent-lead" aria-live="polite">
+          <span key={live} className="tl-agent-lead-line">
+            {LEAD[live]}
+          </span>
+        </p>
+
         <aside className={`tl-agent-field tl-agent-field-l${showField ? " is-on" : ""}`} aria-hidden={!showField}>
-          <p className="tl-agent-kicker">{deep ? "Library" : "Structure"}</p>
+          <p className="tl-agent-kicker">Structure</p>
           <ul>
-            {deep ? (
-              <>
-                <li>Kitchen / NW England</li>
-                <li>In-market, 35–54</li>
-                <li>Held 68% past 0:03</li>
-              </>
-            ) : (
-              <>
-                <li>Research 0–12s</li>
-                <li>Strategy 12–40s</li>
-                <li>Creative 40–70s</li>
-                <li>Launch, paused</li>
-              </>
-            )}
+            <li>Research 0–12s</li>
+            <li>Strategy 12–40s</li>
+            <li>Creative 40–70s</li>
+            <li>Launch, paused</li>
           </ul>
-          <p className="tl-agent-kicker">Hook reel</p>
-          <div className="tl-agent-thumb">
-            <img src={`${ASSET}/videos/funnel-wave.jpg`} alt="" />
-            <div>
-              <p>Campaign_kitchen_v3</p>
-              <p>47.2k views · 68% hold</p>
-            </div>
-          </div>
           <p className="tl-agent-kicker">Connected</p>
           <p className="tl-agent-ok">
             <i />
@@ -149,166 +159,75 @@ export function AgentExperienceSection() {
         </aside>
 
         <aside className={`tl-agent-field tl-agent-field-r${showField ? " is-on" : ""}`} aria-hidden={!showField}>
-          <p className="tl-agent-kicker tl-agent-live">{deep ? "Reading the library" : "Reading accounts"}</p>
+          <p className="tl-agent-kicker tl-agent-live">
+            {live === "think" ? "Reading accounts" : live === "write" ? "Writing ads" : "Done"}
+          </p>
           <ul>
             <li>Demand + bid landscape</li>
-            <li>Summarising segments</li>
-            <li className="tl-agent-ok">Done</li>
+            <li>Home improvers 35–54</li>
+            <li className={live === "ads" || live === "reply" ? "tl-agent-ok" : undefined}>
+              {live === "ads" || live === "reply" ? "Ads ready, paused" : "Drafting…"}
+            </li>
           </ul>
-          <div className="tl-agent-strip">
-            {CLIPS.map((clip) => (
-              <img key={clip.title} src={clip.src} alt="" />
-            ))}
-            <img src={`${ASSET}/videos/funnel-wave.jpg`} alt="" />
+        </aside>
+
+        <article className="tl-agent-card">
+          <header className="tl-agent-card-bar">
+            <p>
+              kAlnet
+              <ChevronDownIcon className="size-3.5" />
+            </p>
+            <span>Share</span>
+          </header>
+          <div className="tl-agent-thread">
+            <p className="tl-agent-ask">Build a kitchen renovation campaign for Manchester.</p>
+
+            {thinking ? (
+              <p className="tl-agent-think">
+                <span className="tl-agent-pulse" aria-hidden />
+                {live === "think"
+                  ? "Audience Research Agent is reading Manchester search and Meta demand…"
+                  : "Creative Assets Agent is writing two paused ads from that brief…"}
+              </p>
+            ) : null}
+
+            {live === "reply" || live === "ads" ? (
+              <p className="tl-agent-say">
+                Two ads are in your accounts, paused. Search covers quote intent; Meta covers homeowners already looking. Review, edit, then launch.
+              </p>
+            ) : null}
+
+            {live === "ads" ? (
+              <div className="tl-agent-ads">
+                {ADS.map((ad) => (
+                  <figure key={ad.headline} className="tl-agent-ad">
+                    <img src={ad.src} alt="" />
+                    <figcaption>
+                      <em>{ad.platform}</em>
+                      <strong>{ad.headline}</strong>
+                      <span>{ad.desc}</span>
+                      <b>{ad.cta}</b>
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            ) : null}
           </div>
-          <p className="tl-agent-kicker">Next campaign</p>
-          <p>Drive quote requests from homeowners already searching.</p>
-          <p>One continuous take. Handheld. 15–30s. No studio light.</p>
-        </aside>
-
-        <aside className={`tl-agent-field tl-agent-field-bl${showField ? " is-on" : ""}`} aria-hidden={!showField}>
-          <p>01:12 · North-West creatives</p>
-          <p>Vibe: handheld, warm tungsten</p>
-          <p>02:41 · Trade press stills</p>
-          <p>Vibe: proof, quote-led</p>
-        </aside>
-
-        <aside className={`tl-agent-field tl-agent-field-b${showField ? " is-on" : ""}`} aria-hidden={!showField}>
-          <p>Sentiment across the first 2:30</p>
-          <svg viewBox="0 0 320 48" className="tl-agent-graph">
-            <path d="M4 30 C40 10, 70 38, 110 22 S180 8, 220 28 280 14, 316 20" />
-          </svg>
-        </aside>
-
-        <article className={`tl-agent-card${beat === "integration" ? " is-away" : ""}`}>
-          {beat === "code" ? <CodeFace /> : <ChatFace showResults={showResults} />}
+          <div className="tl-agent-reply">
+            <span>+</span>
+            <p>Reply to kAlnet</p>
+            <em>Research 1.0</em>
+            <button type="button" aria-label="Send">
+              ↑
+            </button>
+          </div>
         </article>
 
-        <div className={`tl-agent-integ${beat === "integration" ? " is-on" : ""}`} aria-hidden={beat !== "integration"}>
-          <p className="tl-agent-pill">Integration</p>
-          <p className="tl-agent-display">Ask your accounts from the brief you already wrote.</p>
-          <p className="tl-agent-sub">
-            Connect Google and Meta, then ask for demand, structure, or creative inside kAlnet. Nothing spends until you say so.
-          </p>
-          <p className="tl-agent-url">
-            https://api.kainet.ai/v1/brief
-            <CopyMark />
-          </p>
-        </div>
-
-        {beat === "code" ? (
-          <div className="tl-agent-code-copy">
-            <p className="tl-agent-pill">API</p>
-            <p className="tl-agent-display">Bring kAlnet into your own stack.</p>
-            <div className="tl-agent-ctas">
-              <a href="#" className="tl-agent-cta tl-agent-cta-fill">
-                Get an API key
-                <ArrowUpRightIcon className="size-3.5" />
-              </a>
-              <a href="#" className="tl-agent-cta">
-                Reference
-                <ArrowUpRightIcon className="size-3.5" />
-              </a>
-            </div>
-          </div>
-        ) : null}
-
-        <span className={`tl-agent-spark${beat === "integration" ? " is-off" : ""}`} aria-hidden>
+        <span className={`tl-agent-spark${thinking ? " is-on" : ""}`} aria-hidden>
           <SparkleIcon />
         </span>
       </div>
     </section>
-  );
-}
-
-function ChatFace({ showResults }: { showResults: boolean }) {
-  return (
-    <>
-      <header className="tl-agent-card-bar">
-        <p>
-          kAlnet
-          <ChevronDownIcon className="size-3.5" />
-        </p>
-        <span>Share</span>
-      </header>
-      <div className="tl-agent-thread">
-        <p className="tl-agent-ask">Build a kitchen renovation campaign for Manchester.</p>
-        {showResults ? (
-          <>
-            <p className="tl-agent-say">
-              Audience Research Agent found three segments worth the spend. Keep any you want in the brief.
-            </p>
-            <div className="tl-agent-clips">
-              {CLIPS.slice(0, 2).map((clip) => (
-                <figure key={clip.title}>
-                  <img src={clip.src} alt="" />
-                  <figcaption>
-                    <strong>{clip.title}</strong>
-                    <span>{clip.meta}</span>
-                  </figcaption>
-                </figure>
-              ))}
-              <button type="button" className="tl-agent-next" aria-label="More segments">
-                <ChevronDownIcon className="size-3.5 -rotate-90" />
-              </button>
-            </div>
-            <div className="tl-agent-tools">
-              <ToolIcons />
-              <SparkleIcon className="tl-agent-mark" />
-            </div>
-          </>
-        ) : null}
-      </div>
-      <div className="tl-agent-reply">
-        <span>+</span>
-        <p>Reply to kAlnet</p>
-        <em>Research 1.0</em>
-        <button type="button" aria-label="Send">
-          ↑
-        </button>
-      </div>
-    </>
-  );
-}
-
-function CodeFace() {
-  return (
-    <>
-      <header className="tl-agent-card-bar">
-        <p>kAlnet</p>
-        <span>Copy</span>
-      </header>
-      <pre className="tl-agent-pre">
-        <span className="c-p">from</span> kainet <span className="c-p">import</span> Client{"\n\n"}
-        client = Client(key=<span className="c-y">&quot;kn_live_…&quot;</span>){"\n"}
-        brief = client.briefs.create({"\n"}
-        {"  "}query=<span className="c-y">&quot;kitchen renovation, Manchester&quot;</span>,{"\n"}
-        {"  "}accounts=[<span className="c-y">&quot;google&quot;</span>, <span className="c-y">&quot;meta&quot;</span>],{"\n"}
-        {"  "}paused=<span className="c-l">True</span>,{"\n"}
-        ){"\n"}
-        print(brief.segments)
-      </pre>
-    </>
-  );
-}
-
-function ToolIcons() {
-  return (
-    <span className="tl-agent-ico" aria-hidden>
-      <svg viewBox="0 0 16 16"><path d="M4 8.2l2.4 2.4L12 5" /></svg>
-      <svg viewBox="0 0 16 16"><path d="M4 5h8M4 8h8M4 11h5" /></svg>
-      <svg viewBox="0 0 16 16"><path d="M4 4h8v8H4z" /></svg>
-      <svg viewBox="0 0 16 16"><path d="M8 3v10M5 6l3-3 3 3" /></svg>
-    </span>
-  );
-}
-
-function CopyMark() {
-  return (
-    <svg viewBox="0 0 16 16" aria-hidden>
-      <rect x="5" y="5" width="8" height="8" rx="1.2" />
-      <rect x="3" y="3" width="8" height="8" rx="1.2" />
-    </svg>
   );
 }
 

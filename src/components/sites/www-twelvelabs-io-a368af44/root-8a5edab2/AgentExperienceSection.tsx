@@ -5,14 +5,15 @@ import * as THREE from "three";
 import { ChevronDownIcon, SparkleIcon } from "../shared/icons";
 import { ASSET } from "./content";
 
-type Beat = "prompt" | "think" | "write" | "reply" | "ads";
+type Beat = "prompt" | "think" | "write" | "reply" | "ads" | "code";
 
 const BEATS: { id: Beat; ms: number }[] = [
   { id: "prompt", ms: 1800 },
   { id: "think", ms: 2600 },
   { id: "write", ms: 2400 },
   { id: "reply", ms: 3000 },
-  { id: "ads", ms: 7200 },
+  { id: "ads", ms: 5200 },
+  { id: "code", ms: 5600 },
 ];
 
 const LOOP = BEATS.reduce((sum, beat) => sum + beat.ms, 0);
@@ -23,6 +24,7 @@ const LEAD: Record<Beat, string> = {
   write: "Creative Assets Agent is drafting the ads.",
   reply: "Two paused ads, written against Manchester search.",
   ads: "Nothing spends until you say so.",
+  code: "The build is written. Still paused.",
 };
 
 const ADS = [
@@ -58,12 +60,13 @@ if (process.env.NODE_ENV !== "production") {
   console.assert(beatAt(4400) === "write");
   console.assert(beatAt(6800) === "reply");
   console.assert(beatAt(9800) === "ads");
-  console.assert(beatAt(17000) === "prompt");
+  console.assert(beatAt(15000) === "code");
+  console.assert(beatAt(20600) === "prompt");
 }
 
 function lockedBeat(): Beat | null {
   const q = new URLSearchParams(window.location.search).get("beat");
-  return q === "prompt" || q === "think" || q === "write" || q === "reply" || q === "ads" ? q : null;
+  return q === "prompt" || q === "think" || q === "write" || q === "reply" || q === "ads" || q === "code" ? q : null;
 }
 
 export function AgentExperienceSection() {
@@ -81,7 +84,7 @@ export function AgentExperienceSection() {
 
   useEffect(() => {
     if (reduce) {
-      setBeat("ads");
+      setBeat("code");
       return;
     }
     const pin = lockedBeat();
@@ -120,7 +123,7 @@ export function AgentExperienceSection() {
     };
   }, [reduce]);
 
-  const live = reduce ? "ads" : beat;
+  const live = reduce ? "code" : beat;
   const showField = live !== "prompt";
   const thinking = live === "think" || live === "write";
 
@@ -165,10 +168,37 @@ export function AgentExperienceSection() {
           <ul>
             <li>Demand + bid landscape</li>
             <li>Home improvers 35–54</li>
-            <li className={live === "ads" || live === "reply" ? "tl-agent-ok" : undefined}>
-              {live === "ads" || live === "reply" ? "Ads ready, paused" : "Drafting…"}
+            <li className={live === "ads" || live === "reply" || live === "code" ? "tl-agent-ok" : undefined}>
+              {live === "ads" || live === "reply" || live === "code" ? "Ads ready, paused" : "Drafting…"}
             </li>
           </ul>
+        </aside>
+
+        <aside className={`tl-agent-field tl-agent-field-bl${showField ? " is-on" : ""}`} aria-hidden={!showField}>
+          <p className="tl-agent-kicker">Written</p>
+          <ul>
+            <li>Search ad · paused</li>
+            <li>Meta ad · paused</li>
+            <li>Change log · open</li>
+          </ul>
+        </aside>
+
+        <aside className={`tl-agent-field tl-agent-field-b${showField ? " is-on" : ""}`} aria-hidden={!showField}>
+          <p className="tl-agent-kicker">Brief</p>
+          <ul>
+            <li>Kitchen renovation</li>
+            <li>Manchester, 8km</li>
+            <li>Quote + homeowners</li>
+          </ul>
+          <p className="tl-agent-kicker">Connected</p>
+          <p className="tl-agent-ok">
+            <i />
+            Google Ads · live
+          </p>
+          <p className="tl-agent-ok">
+            <i />
+            Meta Ads · live
+          </p>
         </aside>
 
         <article className="tl-agent-card">
@@ -177,7 +207,7 @@ export function AgentExperienceSection() {
               kAlnet
               <ChevronDownIcon className="size-3.5" />
             </p>
-            <span>Share</span>
+            <span>{live === "code" ? "Copy" : "Share"}</span>
           </header>
           <div className="tl-agent-thread">
             <p className="tl-agent-ask">Build a kitchen renovation campaign for Manchester.</p>
@@ -191,7 +221,7 @@ export function AgentExperienceSection() {
               </p>
             ) : null}
 
-            {live === "reply" || live === "ads" ? (
+            {live === "reply" || live === "ads" || live === "code" ? (
               <p className="tl-agent-say">
                 Two ads are in your accounts, paused. Search covers quote intent; Meta covers homeowners already looking. Review, edit, then launch.
               </p>
@@ -212,6 +242,8 @@ export function AgentExperienceSection() {
                 ))}
               </div>
             ) : null}
+
+            {live === "code" ? <CodeFace /> : null}
           </div>
           <div className="tl-agent-reply">
             <span>+</span>
@@ -228,6 +260,21 @@ export function AgentExperienceSection() {
         </span>
       </div>
     </section>
+  );
+}
+
+function CodeFace() {
+  return (
+    <pre className="tl-agent-pre">
+      <span className="c-p">from</span> kainet <span className="c-p">import</span> Client{"\n\n"}
+      client = Client(key=<span className="c-y">&quot;kn_live_…&quot;</span>){"\n"}
+      brief = client.briefs.create({"\n"}
+      {"  "}query=<span className="c-y">&quot;kitchen renovation, Manchester&quot;</span>,{"\n"}
+      {"  "}accounts=[<span className="c-y">&quot;google&quot;</span>, <span className="c-y">&quot;meta&quot;</span>],{"\n"}
+      {"  "}paused=<span className="c-l">True</span>,{"\n"}
+      ){"\n"}
+      print(brief.segments)
+    </pre>
   );
 }
 

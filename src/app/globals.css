@@ -1774,7 +1774,8 @@ html:has(.taste-site) body {
 }
 
 .tl-agent[data-state="ads"] .tl-agent-field.is-on,
-.tl-agent[data-state="reply"] .tl-agent-field.is-on {
+.tl-agent[data-state="reply"] .tl-agent-field.is-on,
+.tl-agent[data-state="code"] .tl-agent-field.is-on {
   opacity: 0.4;
   filter: none;
 }
@@ -1800,6 +1801,33 @@ html:has(.taste-site) body {
 
 .tl-agent-field-r.is-on {
   transform: translate3d(calc(var(--px) * 18px), calc(var(--py) * 12px), -80px);
+}
+
+.tl-agent-field-bl {
+  top: auto;
+  bottom: 8%;
+  left: max(1.25rem, calc(50% - 36rem));
+  max-width: 16rem;
+  transition-delay: 180ms;
+  transform: translate3d(calc(var(--px) * 10px - 16px), calc(var(--py) * 16px + 18px), -80px);
+}
+
+.tl-agent-field-bl.is-on {
+  transform: translate3d(calc(var(--px) * 10px), calc(var(--py) * 16px), -80px);
+}
+
+.tl-agent-field-b {
+  top: auto;
+  right: max(1.25rem, calc(50% - 36rem));
+  bottom: 7%;
+  left: auto;
+  max-width: 16rem;
+  transition-delay: 220ms;
+  transform: translate3d(calc(var(--px) * 10px + 16px), calc(var(--py) * 16px + 18px), -80px);
+}
+
+.tl-agent-field-b.is-on {
+  transform: translate3d(calc(var(--px) * 10px), calc(var(--py) * 16px), -80px);
 }
 
 .tl-agent-kicker {
@@ -2006,6 +2034,32 @@ html:has(.taste-site) body {
   font-weight: 600;
 }
 
+.tl-agent-pre {
+  margin: 0.75rem 0 0;
+  overflow: auto;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--kai-purple) 12%, transparent);
+  border-radius: 0.85rem;
+  background: color-mix(in srgb, var(--kai-lavender) 8%, #f4f2f6);
+  color: var(--kai-light-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.65;
+  animation: tl-agent-lead-in 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.tl-agent-pre .c-p {
+  color: var(--kai-purple);
+}
+
+.tl-agent-pre .c-y {
+  color: var(--kai-yellow);
+}
+
+.tl-agent-pre .c-l {
+  color: var(--kai-grad-pink);
+}
+
 .tl-agent-reply {
   display: flex;
   align-items: center;
@@ -2096,7 +2150,8 @@ html:has(.taste-site) body {
   .tl-agent-card,
   .tl-agent-lead-line,
   .tl-agent-say,
-  .tl-agent-ad {
+  .tl-agent-ad,
+  .tl-agent-pre {
     animation: none;
     transition: none;
   }

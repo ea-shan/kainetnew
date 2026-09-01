@@ -106,22 +106,16 @@ export function CookieIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
-        d="M7.2 5.15A8.2 8.2 0 1 0 18.9 9.4a2.25 2.25 0 0 1-2.35 1.7 2.3 2.3 0 0 1-2.25-2.4 2.3 2.3 0 0 1 1.55-2.2A8.1 8.1 0 0 0 7.2 5.15Z"
+        d="M14.2 3.85a8.4 8.4 0 1 0 6 8.05 3.15 3.15 0 0 1-3.2-3.05 3.15 3.15 0 0 1 2.35-3.05 8.3 8.3 0 0 0-5.15-1.95Z"
         stroke="currentColor"
-        strokeWidth="1.55"
+        strokeWidth="1.6"
         strokeLinejoin="round"
       />
-      <path
-        d="M14.15 8.55 12.4 10.8l1.25 1.55-1.2 2.05"
-        stroke="currentColor"
-        strokeWidth="1.35"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="9.1" cy="10.15" r="1.05" fill="currentColor" />
-      <circle cx="10.35" cy="14.55" r=".8" fill="currentColor" />
-      <circle cx="14.55" cy="14.2" r="1.05" fill="currentColor" />
-      <circle cx="11.7" cy="17.15" r=".7" fill="currentColor" />
+      <circle cx="9.15" cy="10.2" r="1.05" fill="currentColor" />
+      <circle cx="13.85" cy="11.15" r=".85" fill="currentColor" />
+      <circle cx="10.55" cy="14.55" r=".75" fill="currentColor" />
+      <circle cx="14.7" cy="15.35" r="1" fill="currentColor" />
+      <circle cx="8.7" cy="16.85" r=".7" fill="currentColor" />
     </svg>
   );
 }

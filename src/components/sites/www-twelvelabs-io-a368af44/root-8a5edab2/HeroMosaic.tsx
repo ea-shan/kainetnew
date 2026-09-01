@@ -527,10 +527,14 @@ function HeroField() {
   return <div ref={hostRef} className="absolute inset-0" />;
 }
 
-export function HeroMosaic() {
+export function HeroMosaic({ fill = false }: { fill?: boolean } = {}) {
   return (
     <div
-      className="tl-hero-mosaic pointer-events-none absolute inset-x-0 top-0 h-[calc(100%+8rem)] -translate-y-16 overflow-x-clip min-[768px]:h-[calc(100%+16rem)] min-[768px]:-translate-y-32 min-[1100px]:h-[calc(100%+28rem)] min-[1100px]:-translate-y-56"
+      className={
+        fill
+          ? "pointer-events-none absolute inset-0 overflow-hidden"
+          : "tl-hero-mosaic pointer-events-none absolute inset-x-0 top-0 h-[calc(100%+8rem)] -translate-y-16 overflow-x-clip min-[768px]:h-[calc(100%+16rem)] min-[768px]:-translate-y-32 min-[1100px]:h-[calc(100%+28rem)] min-[1100px]:-translate-y-56"
+      }
       style={{ backgroundColor: GROUND, backgroundImage: GROUND_GLOW }}
       aria-hidden
     >
@@ -538,14 +542,18 @@ export function HeroMosaic() {
         <HeroField />
       </div>
 
-      <div className="tl-hero-veil" />
-      <div
-        className="absolute inset-y-0 left-0 hidden w-[min(56vw,760px)] min-[768px]:block min-[1100px]:w-[min(48vw,760px)]"
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(8,7,10,0.98) 0%, rgba(8,7,10,0.94) 38%, rgba(8,7,10,0.7) 62%, rgba(8,7,10,0.28) 82%, transparent 100%)",
-        }}
-      />
+      {fill ? null : (
+        <>
+          <div className="tl-hero-veil" />
+          <div
+            className="absolute inset-y-0 left-0 hidden w-[min(56vw,760px)] min-[768px]:block min-[1100px]:w-[min(48vw,760px)]"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(8,7,10,0.98) 0%, rgba(8,7,10,0.94) 38%, rgba(8,7,10,0.7) 62%, rgba(8,7,10,0.28) 82%, transparent 100%)",
+            }}
+          />
+        </>
+      )}
     </div>
   );
 }

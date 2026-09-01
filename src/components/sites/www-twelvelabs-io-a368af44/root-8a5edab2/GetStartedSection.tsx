@@ -4,6 +4,7 @@ import { useState } from "react";
 import { LockIcon } from "../shared/icons";
 import { SiteButton } from "../shared/SiteButton";
 import { getStartedTabs } from "./content";
+import { GetStartedBackground } from "./GetStartedBackground";
 import { OrchestrationScene } from "./OrchestrationScene";
 import { StrategyScene } from "./StrategyScene";
 
@@ -12,13 +13,8 @@ export function GetStartedSection() {
   const current = getStartedTabs.find((t) => t.id === active) ?? getStartedTabs[0];
 
   return (
-    <section className="tl-get-started px-5 pt-2 pb-16 text-[var(--kai-white)] md:px-10 md:pt-4 md:pb-20">
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
-        <div className="tl-page relative h-full">
-          <span className="tl-get-started-rail absolute inset-y-0 left-0 w-px bg-white/12" />
-          <span className="tl-get-started-rail absolute inset-y-0 right-0 w-px bg-white/12" />
-        </div>
-      </div>
+    <section className="tl-get-started px-5 pt-16 pb-16 text-[var(--kai-white)] md:px-10 md:pt-24 md:pb-20">
+      <GetStartedBackground />
 
       <div className="tl-page relative z-10 grid grid-cols-1 items-start gap-8 pb-8 text-left md:grid-cols-2 md:gap-x-12 md:pb-10 lg:gap-x-20">
         <div className="min-w-0 border-l border-white/15 pl-6">
@@ -46,7 +42,7 @@ export function GetStartedSection() {
             runs until you&apos;ve seen it and said yes.
           </p>
         </div>
-        <div className="min-w-0 border-l border-white/15">
+        {/* <div className="min-w-0 border-l border-white/15">
           <div className="flex w-fit items-start gap-3 rounded-[14px] border border-white/12 bg-white/[0.03] px-4 py-3.5">
             <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center text-[var(--kai-lavender)]" aria-hidden>
               <LockIcon className="size-5" />
@@ -58,7 +54,7 @@ export function GetStartedSection() {
               </span>
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="tl-page relative z-10 grid grid-cols-1 items-start gap-8 md:grid-cols-2 md:gap-x-12 lg:gap-x-20">

@@ -1,5 +1,6 @@
 import { footerColumns } from "./content";
-import { CookieIcon, FooterBrandMark } from "./FooterBrandMark";
+import { CookiePreferences } from "./CookiePreferences";
+import { FooterBrandMark } from "./FooterBrandMark";
 
 export function SiteFooter() {
   return (
@@ -29,18 +30,9 @@ export function SiteFooter() {
         <FooterBrandMark className="w-full justify-center whitespace-nowrap text-[clamp(64px,16.5vw,260px)]" />
       </div>
 
-      <div className="relative mx-auto w-full max-w-[1400px] px-5 pb-8 min-[768px]:px-10 min-[768px]:pb-10">
-        <div className="tl-foot-bar">
-          <span aria-hidden />
-          <p>© 2026 Express Analytics. All rights reserved.</p>
-          <button
-            type="button"
-            aria-label="Cookie settings"
-            className="flex size-11 cursor-pointer items-center justify-center text-[var(--kai-light-muted)] transition-colors duration-200 hover:text-[var(--kai-light-text)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--kai-light-text)]"
-          >
-            <CookieIcon className="size-7" />
-          </button>
-        </div>
+      <div className="tl-foot-legal">
+        <p>© 2026 Express Analytics. All rights reserved.</p>
+        <CookiePreferences />
       </div>
     </footer>
   );

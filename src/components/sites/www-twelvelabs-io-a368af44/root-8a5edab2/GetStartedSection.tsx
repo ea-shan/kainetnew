@@ -16,7 +16,7 @@ export function GetStartedSection() {
     <section className="tl-get-started px-5 pt-16 pb-16 text-[var(--kai-white)] md:px-10 md:pt-24 md:pb-20">
       <GetStartedBackground />
 
-      <div className="tl-page relative z-10 grid grid-cols-1 items-start gap-8 pb-8 text-left md:grid-cols-2 md:gap-x-12 md:pb-10 lg:gap-x-20">
+      <div className="tl-page relative z-10 pb-8 text-left md:pb-10">
         <div className="min-w-0 border-l border-white/15 pl-6">
           <div className="mb-5 inline-flex max-w-full items-center gap-2 text-[12px] uppercase tracking-[0.14em]">
             <span className="font-mono text-[13px] leading-none text-[var(--kai-lavender)]" aria-hidden>
@@ -27,7 +27,7 @@ export function GetStartedSection() {
           <h2 className="mt-3 text-[32px] leading-[1.12] tracking-[-0.03em] md:text-[44px] md:leading-[1.1] md:tracking-[-0.04em]">
             One brief. <span className="tl-hero-grad">Six specialists.</span>
           </h2>
-          <p className="mt-4 max-w-[62ch] text-[14px] italic leading-[1.55] tracking-[0.01em] text-[var(--kai-white)]/82">
+          <p className="tl-gs-lede mt-4 text-[14px] italic leading-[1.55] tracking-[0.01em] text-[var(--kai-white)]/82">
             Take a kitchen renovation. Someone measures the room. Someone draws the layout.
             Someone works out what goes where and what it costs. Someone orders the units.
             Fitters put it in. Someone comes back at the end to check the doors line up.
@@ -35,7 +35,7 @@ export function GetStartedSection() {
             a go at all six. And nobody touches your old kitchen until you&apos;ve seen the
             plans and said yes.
           </p>
-          <p className="mt-4 max-w-[62ch] text-[15px] leading-[1.6] tracking-[0.01em] text-[var(--kai-white)]/82">
+          <p className="tl-gs-lede mt-4 text-[15px] leading-[1.6] tracking-[0.01em] text-[var(--kai-white)]/82">
           <span className="tl-hero-grad font-semibold">kAInet</span> works the same way. Six specialist
             agents, one plain-language brief, each doing one part of the job properly. The
             whole campaign gets built in your own Google and Meta accounts — and none of it

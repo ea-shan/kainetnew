@@ -7,6 +7,7 @@ import { SiteHeader } from "@/components/sites/www-twelvelabs-io-a368af44/root-8
 import { SolutionsSection } from "@/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/SolutionsSection";
 import { TrustedBySection } from "@/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/TrustedBySection";
 import { AgentExperienceSection } from "@/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/AgentExperienceSection";
+import { VideoIntelligenceModels } from "@/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/VideoIntelligenceModels";
 import { WorkflowsSection } from "@/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/WorkflowsSection";
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
         </div>
         <WorkflowsSection />
         <AgentExperienceSection />
+        <VideoIntelligenceModels />
         <TrustedBySection />
         <SolutionsSection />
         <SecuritySection />

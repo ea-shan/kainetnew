@@ -13,7 +13,7 @@ export function CtaSection() {
             Ready to brief the agents?
           </h2>
           <p className="tl-cta-lede">
-            Every campaign is built paused. Nothing spends until you say so.
+        Every campaign is built paused. Nothing spends until you say so.
           </p>
           <div className="tl-cta-actions">
             <SiteButton href="#" variant="primary" size="s" theme="dark">

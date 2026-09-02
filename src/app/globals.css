@@ -2137,6 +2137,10 @@ html:has(.taste-site) body {
   text-align: left;
 }
 
+.tl-vim-block.is-wide {
+  max-width: min(34rem, 46vw);
+}
+
 .tl-vim-pill {
   display: inline-flex;
   align-items: center;
@@ -2172,8 +2176,8 @@ html:has(.taste-site) body {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  perspective: 1200px;
-  perspective-origin: 50% 48%;
+  perspective: 700px;
+  perspective-origin: 50% 42%;
 }
 
 .tl-vim-world {
@@ -2190,25 +2194,70 @@ html:has(.taste-site) body {
 .tl-vim-grid {
   pointer-events: none;
   position: absolute;
-  inset: -45% -25%;
-  opacity: 0.2;
+  left: 50%;
+  top: 50%;
+  width: 2880px;
+  height: 2880px;
+  margin: -1440px 0 0 -1440px;
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
-  background-size: 80px 80px;
+    linear-gradient(rgba(0, 0, 0, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.16) 1px, transparent 1px);
+  background-size: 72px 72px;
+  background-position: 36px 36px;
+}
+
+.tl-vim-box {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 224px;
+  height: 224px;
+  margin: -112px 0 0 -112px;
+  transform-style: preserve-3d;
+}
+
+.tl-vim-box i {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  background: transparent;
+}
+
+.tl-vim-box .is-front {
+  transform: translateZ(112px);
+}
+
+.tl-vim-box .is-back {
+  transform: translateZ(-112px);
+}
+
+.tl-vim-box .is-left {
+  transform: rotateY(-90deg) translateZ(112px);
+}
+
+.tl-vim-box .is-right {
+  transform: rotateY(90deg) translateZ(112px);
+}
+
+.tl-vim-box .is-top {
+  transform: rotateX(90deg) translateZ(112px);
+}
+
+.tl-vim-box .is-bot {
+  transform: rotateX(-90deg) translateZ(112px);
 }
 
 .tl-vim-tile {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 58px;
-  height: 42px;
-  margin: -21px 0 0 -29px;
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: 6px;
+  background: transparent;
   transform-style: preserve-3d;
 }
 
@@ -2223,64 +2272,42 @@ html:has(.taste-site) body {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  mix-blend-mode: multiply;
 }
 
 .tl-vim-wash.is-pink {
-  background: color-mix(in srgb, var(--kai-grad-pink) 72%, transparent);
+  background: linear-gradient(135deg, var(--kai-grad-pink), var(--kai-lavender));
 }
 
 .tl-vim-wash.is-green {
-  background: color-mix(in srgb, #9caf88 72%, transparent);
+  background: linear-gradient(135deg, var(--kai-lavender), var(--kai-grad-purple));
 }
 
 .tl-vim-wash.is-yellow {
-  background: color-mix(in srgb, var(--kai-yellow) 72%, transparent);
+  background: linear-gradient(135deg, var(--kai-yellow), var(--kai-grad-pink));
 }
 
 .tl-vim-wash.is-orange {
-  background: color-mix(in srgb, var(--kai-camel) 72%, transparent);
-}
-
-.tl-vim-labels {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 25;
+  background: linear-gradient(135deg, var(--kai-purple), var(--kai-yellow));
 }
 
 .tl-vim-label {
   position: absolute;
-  padding: 0.28rem 0.55rem;
-  border: 1px solid rgba(0, 0, 0, 0.28);
+  left: 50%;
+  top: 50%;
+  z-index: 4;
+  padding: 5px 9px;
+  border: 1px solid rgba(0, 0, 0, 0.38);
   border-radius: 999px;
   background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   color: var(--kai-light-text);
   font-size: 9px;
-  letter-spacing: 0.04em;
+  font-weight: 500;
+  letter-spacing: 0.03em;
   line-height: 1;
   text-transform: uppercase;
   white-space: nowrap;
-}
-
-.tl-vim-label.is-pink {
-  left: 38%;
-  top: 58%;
-}
-
-.tl-vim-label.is-green {
-  left: 14%;
-  top: 72%;
-}
-
-.tl-vim-label.is-yellow {
-  left: 52%;
-  top: 66%;
-}
-
-.tl-vim-label.is-orange {
-  left: 58%;
-  top: 48%;
+  transform-style: preserve-3d;
 }
 
 @media (max-width: 767px) {
@@ -2309,12 +2336,16 @@ html:has(.taste-site) body {
   }
 
   .tl-vim-tile {
-    width: 44px;
-    height: 32px;
-    margin: -16px 0 0 -22px;
+    width: 48px;
+    height: 48px;
+    margin: -24px 0 0 -24px;
   }
 
-  .tl-vim-label:nth-child(n + 3) {
+  .tl-vim-tile:nth-child(n + 72) {
+    display: none;
+  }
+
+  .tl-vim-label:nth-of-type(n + 3) {
     display: none;
   }
 }

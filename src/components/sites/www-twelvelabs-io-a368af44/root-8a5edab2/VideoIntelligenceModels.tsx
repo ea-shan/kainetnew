@@ -8,109 +8,209 @@ const TILE_IMGS = Array.from({ length: 16 }, (_, i) => `${ASSET}/images/vim/${St
 
 type Pose = { x: number; y: number; z: number; o: number; s: number };
 type Semantic = "pink" | "green" | "yellow" | "orange";
+type Face = "front" | "back" | "left" | "right" | "top";
 
 type Tile = {
   id: number;
   src: string | null;
-  semantic: Semantic | null;
-  poses: Pose[];
+  cube: Pose;
+  cross: Pose;
+  plane: Pose;
+  semantic: Pose;
+  horizon: Pose;
+  semanticColor: Semantic | null;
 };
 
-const STAGES = [0, 0.1, 0.18, 0.34, 0.5, 0.7, 0.86, 1] as const;
+const CLUSTERS: { color: Semantic; label: string; cells: [number, number][] }[] = [
+  { color: "pink", label: "A DOG SPRINTS ACROSS SAND", cells: [[-2, 0], [-1, 0], [-2, 1], [-1, 1], [-3, 0]] },
+  { color: "green", label: "SURFER CARVES A WAVE AT SUNSET", cells: [[1, 3], [2, 3], [1, 4], [0, 3], [2, 4]] },
+  { color: "yellow", label: "TWO CHEFS PLATE A DISH", cells: [[4, 0], [5, 0], [4, 1], [5, -1], [6, 0]] },
+  { color: "orange", label: "CROWD CHEERS AS THE GOAL LANDS", cells: [[0, -3], [1, -3], [0, -4], [-1, -3]] },
+];
 
-const FEATURES = [
-  { img: 0, label: "A DOG SPRINTS ACROSS SAND", c: 5, r: 2, semantic: "pink" as const },
-  { img: 1, label: "SURFER CARVES A WAVE AT SUNSET", c: 4, r: 5, semantic: "green" as const },
-  { img: 2, label: "TWO CHEFS PLATE A DISH", c: 9, r: 3, semantic: "yellow" as const },
-  { img: 3, label: "CROWD CHEERS AS THE GOAL LANDS", c: 10, r: 1, semantic: "orange" as const },
-] as const;
+const SEMANTIC_AT = new Map<string, Semantic>();
+for (const g of CLUSTERS) for (const [c, r] of g.cells) SEMANTIC_AT.set(`${c},${r}`, g.color);
 
 function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * Math.min(1, Math.max(0, t));
+  return a + (b - a) * t;
 }
 
-function poseAt(p: number, poses: Pose[]): Pose {
+function easeInOutCubic(t: number) {
+  const x = Math.min(1, Math.max(0, t));
+  return x < 0.5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2;
+}
+
+function sample(p: number, stops: readonly number[], vals: readonly number[]) {
   let i = 0;
-  while (i < STAGES.length - 2 && p > STAGES[i + 1]) i++;
-  const t = (p - STAGES[i]) / (STAGES[i + 1] - STAGES[i] || 1);
-  const A = poses[i];
-  const B = poses[i + 1];
+  while (i < stops.length - 2 && p > stops[i + 1]) i++;
+  const t = (p - stops[i]) / (stops[i + 1] - stops[i] || 1);
+  return lerp(vals[i], vals[i + 1], Math.min(1, Math.max(0, t)));
+}
+
+function mix(a: Pose, b: Pose, t: number): Pose {
+  const e = easeInOutCubic(t);
   return {
-    x: lerp(A.x, B.x, t),
-    y: lerp(A.y, B.y, t),
-    z: lerp(A.z, B.z, t),
-    o: lerp(A.o, B.o, t),
-    s: lerp(A.s, B.s, t),
+    x: lerp(a.x, b.x, e),
+    y: lerp(a.y, b.y, e),
+    z: lerp(a.z, b.z, e),
+    o: lerp(a.o, b.o, e),
+    s: lerp(a.s, b.s, e),
   };
 }
 
+function poseAt(p: number, tile: Tile): Pose {
+  if (p <= 0.08) return tile.cube;
+  if (p <= 0.17) return mix(tile.cube, tile.cross, (p - 0.08) / 0.09);
+  if (p <= 0.3) return tile.cross;
+  if (p <= 0.4) return mix(tile.cross, tile.plane, (p - 0.3) / 0.1);
+  if (p <= 0.48) return tile.plane;
+  if (p <= 0.62) return mix(tile.plane, tile.semantic, (p - 0.48) / 0.14);
+  if (p <= 0.8) return mix(tile.semantic, tile.horizon, (p - 0.62) / 0.18);
+  return tile.horizon;
+}
+
+function depthScale(z: number, s: number) {
+  // CSS perspective already foreshortens; this only nudges depth separation.
+  const far = Math.min(1, Math.max(0, -z / 900));
+  return s * lerp(1.04, 0.62, far);
+}
+
+function cubePos(face: Face, u: number, v: number): Pose {
+  const D = 100;
+  const S = 50;
+  if (face === "front") return { x: u * S, y: v * S, z: D, o: 0.98, s: 0.8 };
+  if (face === "back") return { x: u * S, y: v * S, z: -D, o: 0.78, s: 0.8 };
+  if (face === "left") return { x: -D, y: v * S, z: u * S, o: 0.9, s: 0.8 };
+  if (face === "right") return { x: D, y: v * S, z: u * S, o: 0.92, s: 0.8 };
+  return { x: u * S, y: -D, z: v * S, o: 0.88, s: 0.8 };
+}
+
+// The box unfolds into a plus: front stays centred, each other face becomes one arm.
+function faceToCross(face: Face, u: number, v: number): [number, number] {
+  if (face === "front") return [u, v];
+  if (face === "back") return [u, v + 5];
+  if (face === "left") return [u - 5, v];
+  if (face === "right") return [u + 5, v];
+  return [u, v - 5];
+}
+
+// One shared lattice: CELL matches the grid backdrop, so tiles always sit in cells.
+const CELL = 72;
+
+function crossPose(gx: number, gy: number, on: boolean): Pose {
+  return { x: gx * CELL, y: gy * CELL, z: 0, o: on ? 0.96 : 0, s: 1 };
+}
+
+function planePose(gx: number, gy: number, on: boolean): Pose {
+  return { x: gx * CELL, y: gy * CELL, z: 0, o: on ? 0.98 : 0.14, s: 1 };
+}
+
+function semanticPose(gx: number, gy: number, on: boolean): Pose {
+  return { x: gx * CELL, y: gy * CELL - 120, z: 0, o: on ? 1 : 0.12, s: 1 };
+}
+
+function horizonPose(gx: number, gy: number, keep: boolean): Pose {
+  return { x: gx * CELL, y: gy * CELL - 420, z: 0, o: keep ? 0.9 : 0.07, s: 1 };
+}
+
+// Cancels world scale *and* the perspective foreshortening at a pose's depth, so every label
+// pill renders at the same pixel size however far down the floor its cluster sits.
+function labelScale(p: number, q: Pose) {
+  const s = sample(p, CAM_P, CAM_S);
+  const th = (sample(p, CAM_P, CAM_RX) * Math.PI) / 180;
+  const zc = s * (q.y * Math.sin(th) + q.z * Math.cos(th)) + sample(p, CAM_P, CAM_Z);
+  return Math.max(0.2, (PERSPECTIVE - zc) / PERSPECTIVE) / s;
+}
+
 function buildTiles(): Tile[] {
-  const cols = 15;
-  const rows = 7;
-  const mx = (cols - 1) / 2;
-  const my = (rows - 1) / 2;
   const tiles: Tile[] = [];
+  const taken = new Set<string>();
   let n = 0;
 
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const gx = c - mx;
-      const gy = r - my;
-      const onCross = Math.abs(gx) < 0.51 || Math.abs(gy) < 0.51;
-      const inCube = Math.abs(gx) <= 3 && Math.abs(gy) <= 2;
-      if (!onCross && (c * 5 + r * 3) % 7 === 0) continue;
+  const push = (src: string | null, gx: number, gy: number, cube: Pose, onCross: boolean, keepH: boolean) => {
+    const key = `${Math.round(gx * 2)},${Math.round(gy * 2)}`;
+    if (taken.has(key)) return;
+    taken.add(key);
+    const onPlane = onCross || (gx * 5 + gy * 7) % 4 === 0;
+    tiles.push({
+      id: n++,
+      src,
+      cube,
+      cross: crossPose(gx, gy, onCross),
+      plane: planePose(gx, gy, onPlane),
+      semantic: semanticPose(gx, gy, onPlane),
+      horizon: horizonPose(gx, gy, keepH),
+      semanticColor: SEMANTIC_AT.get(`${Math.round(gx)},${Math.round(gy)}`) ?? null,
+    });
+  };
 
-      const feature = FEATURES.find((f) => f.c === c && f.r === r);
-      const blank = !feature && n % 8 === 3;
-      const src = feature ? TILE_IMGS[feature.img] : blank ? null : TILE_IMGS[n % TILE_IMGS.length];
-      const semantic = feature?.semantic ?? (blank ? null : (["pink", "green", "yellow", "orange"] as const)[n % 4]);
-      const layer = ((c + r) % 3) - 1;
+  const cells = [-2, -1, 0, 1, 2];
+  const faces: Face[] = ["front", "back", "left", "right", "top"];
+  faces.forEach((face, fi) => {
+    for (const u of cells) {
+      for (const v of cells) {
+        // Same checkerboard parity on every face, so the holes line up and the box reads hollow.
+        if ((u + v) % 2 !== 0) continue;
+        const [gx, gy] = faceToCross(face, u, v);
+        const photo = (u * 3 + v + fi) % 7 !== 0;
+        push(photo ? TILE_IMGS[n % TILE_IMGS.length] : null, gx, gy, cubePos(face, u, v), true, gy > -1 && n % 3 === 0);
+      }
+    }
+  });
 
-      tiles.push({
-        id: n++,
-        src,
-        semantic,
-        poses: [
-          { x: gx * 30, y: gy * 22, z: inCube ? layer * 56 : -28, o: inCube ? 0.95 : 0, s: 0.7 },
-          { x: gx * 48, y: gy * 34, z: layer * 22, o: inCube || onCross ? 0.92 : 0.12, s: 0.84 },
-          { x: gx * 72, y: gy * 56, z: 0, o: onCross ? 1 : 0.06, s: 0.95 },
-          { x: gx * 88, y: gy * 68, z: gy * -8, o: 0.98, s: 1 },
-          { x: gx * 96, y: gy * 72, z: 0, o: 1, s: 1.02 },
-          { x: gx * 104, y: gy * 78 + 16, z: r * -28, o: 0.88, s: 1.04 },
-          { x: gx * 70, y: 70 + r * 22, z: -60 - r * 50, o: r < 2 ? 0.25 : 0.8, s: 0.96 },
-          { x: gx * 48, y: 96 + r * 14, z: -100 - r * 70, o: r < 2 ? 0.2 : 0.7, s: 0.9 },
-        ],
-      });
+  // Everything outside the box only exists once the cross opens into the floor.
+  for (let gy = -7; gy <= 7; gy++) {
+    for (let gx = -13; gx <= 13; gx++) {
+      const inCluster = SEMANTIC_AT.has(`${gx},${gy}`);
+      // Outer columns thin out so the floor reaches both viewport edges without blowing the tile budget.
+      if (!inCluster && (gx * 5 + gy * 11 + 3) % (Math.abs(gx) > 9 ? 6 : 4) !== 0) continue;
+      const photo = inCluster || (gx * 2 + gy + 9) % 3 === 0;
+      const hidden: Pose = { x: gx * 12, y: gy * 10, z: -60, o: 0, s: 0.5 };
+      push(photo ? TILE_IMGS[Math.abs(gx * 3 + gy) % TILE_IMGS.length] : null, gx, gy, hidden, false, gx % 3 === 0 && gy % 2 === 0);
     }
   }
+
   return tiles;
 }
 
 const TILES = buildTiles();
 
 if (process.env.NODE_ENV !== "production") {
-  if (TILES.length < 50 || TILES.length > 140) throw new Error(`vim tiles ${TILES.length}`);
-  if (TILES[0].poses.length !== STAGES.length) throw new Error("vim poses");
-  const mid = poseAt(0.4, TILES[0].poses);
+  if (TILES.length < 90 || TILES.length > 150) throw new Error(`vim tiles ${TILES.length}`);
+  const colored = TILES.filter((t) => t.semanticColor).length;
+  if (colored < 10 || colored > 28) throw new Error(`vim semantic ${colored}`);
+  const mid = poseAt(0.55, TILES[0]);
   if (!Number.isFinite(mid.x + mid.y + mid.z + mid.o + mid.s)) throw new Error("vim pose");
+}
+
+// Must match `perspective` on .tl-vim-stage.
+const PERSPECTIVE = 700;
+
+const CAM_P = [0, 0.08, 0.17, 0.3, 0.4, 0.48, 0.62, 0.78, 0.86, 1];
+const CAM_RX = [16, 15, 2, 3, 18, 72, 78, 80, 81, 82];
+const CAM_RY = [-26, -20, 0, 0, 0, 0, 0, 0, 0, 0];
+const CAM_RZ = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+const CAM_S = [1, 0.9, 0.39, 0.4, 0.46, 0.62, 0.68, 0.72, 0.76, 0.8];
+const CAM_X = [0, 30, 175, 178, 150, 34, 4, -4, -6, -6];
+const CAM_Y = [110, 106, 20, 16, 20, 120, 132, 146, 160, 210];
+const CAM_Z = [-140, -120, -80, -80, -40, 60, 90, 115, 135, 170];
+
+if (process.env.NODE_ENV !== "production") {
+  // Labels must all read at one pixel size, so the compensation has to grow with distance:
+  // a far row needs more world scale than a near one. A sign slip inverts this.
+  const near = labelScale(0.62, semanticPose(0, 4, true));
+  const far = labelScale(0.62, semanticPose(0, -4, true));
+  if (!(far > near && near > 0.5 && far < 4)) throw new Error(`vim label scale ${near}/${far}`);
 }
 
 export function VideoIntelligenceModels() {
   const sectionRef = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const tiles = useMemo(() => TILES, []);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
 
   return (
-    <section
-      ref={sectionRef}
-      className={`tl-vim${reduce ? " is-static" : ""}`}
-      aria-labelledby="tl-vim-title"
-    >
+    <section ref={sectionRef} className={`tl-vim${reduce ? " is-static" : ""}`} aria-labelledby="tl-vim-title">
       <div className="tl-vim-pin">
         <Narrative scroll={scrollYProgress} reduce={!!reduce} />
         <MediaUniverse scroll={scrollYProgress} tiles={tiles} reduce={!!reduce} />
@@ -119,20 +219,20 @@ export function VideoIntelligenceModels() {
   );
 }
 
-function band(p: number, enter0: number, enter1: number, leave0: number, leave1: number) {
-  if (p < enter0) return 0;
-  if (p < enter1) return (p - enter0) / (enter1 - enter0);
-  if (p < leave0) return 1;
-  if (p < leave1) return 1 - (p - leave0) / (leave1 - leave0);
+function band(p: number, a0: number, a1: number, b0: number, b1: number) {
+  if (p < a0) return 0;
+  if (p < a1) return (p - a0) / (a1 - a0);
+  if (p < b0) return 1;
+  if (p < b1) return 1 - (p - b0) / (b1 - b0);
   return 0;
 }
 
 function Narrative({ scroll, reduce }: { scroll: MotionValue<number>; reduce: boolean }) {
   const models = useTransform(scroll, (p) => (p < 0.08 ? 1 : p < 0.14 ? 1 - (p - 0.08) / 0.06 : 0));
-  const marengo = useTransform(scroll, (p) => band(p, 0.08, 0.16, 0.34, 0.4));
-  const pegasus = useTransform(scroll, (p) => band(p, 0.32, 0.42, 0.62, 0.68));
-  const jockey = useTransform(scroll, (p) => band(p, 0.62, 0.7, 0.8, 0.86));
-  const production = useTransform(scroll, (p) => band(p, 0.86, 0.92, 1.01, 1.2));
+  const marengo = useTransform(scroll, (p) => band(p, 0.12, 0.17, 0.34, 0.4));
+  const pegasus = useTransform(scroll, (p) => band(p, 0.38, 0.46, 0.74, 0.8));
+  const jockey = useTransform(scroll, (p) => band(p, 0.78, 0.84, 0.88, 0.93));
+  const production = useTransform(scroll, (p) => band(p, 0.9, 0.95, 1.05, 1.2));
 
   return (
     <div className="tl-vim-copy">
@@ -210,8 +310,9 @@ function Narrative({ scroll, reduce }: { scroll: MotionValue<number>; reduce: bo
             querying their video.
           </>
         }
-        description={null}
+        description="Marketers, creators, and builders running libraries through Jockey from ad tagging to streamlined creative workflows."
         position="left"
+        wide
       />
     </div>
   );
@@ -225,6 +326,7 @@ function NarrativeBlock({
   description,
   position,
   headingId,
+  wide,
 }: {
   opacity: MotionValue<number>;
   reduce: boolean;
@@ -233,16 +335,20 @@ function NarrativeBlock({
   description: ReactNode;
   position: "left" | "center";
   headingId?: string;
+  wide?: boolean;
 }) {
+  const vis = useTransform(opacity, (v) => (v < 0.04 ? "hidden" : "visible"));
+  const y = useTransform(opacity, (v) => (1 - v) * 10);
+
   return (
     <motion.div
-      className={`tl-vim-block is-${position}`}
+      className={`tl-vim-block is-${position}${wide ? " is-wide" : ""}`}
       style={
         reduce && position !== "center"
           ? { opacity: 0, visibility: "hidden" }
           : reduce
             ? undefined
-            : { opacity, visibility: useTransform(opacity, (v) => (v < 0.04 ? "hidden" : "visible")) }
+            : { opacity, visibility: vis, y }
       }
     >
       <p className="tl-vim-pill">{eyebrow}</p>
@@ -263,45 +369,51 @@ function MediaUniverse({
   tiles: Tile[];
   reduce: boolean;
 }) {
-  const stages = [...STAGES];
-  const rotateX = useTransform(scroll, stages, [2, 14, 40, 58, 64, 68, 73, 78]);
-  const rotateZ = useTransform(scroll, [0, 0.12, 0.22, 0.36, 1], [0, -5, -1, 0, 0]);
-  const scale = useTransform(scroll, stages, [0.62, 0.78, 0.92, 1.04, 1.14, 1.24, 1.34, 1.44]);
-  const y = useTransform(scroll, stages, [8, 28, 56, 88, 120, 150, 180, 210]);
-  const z = useTransform(scroll, stages, [40, 50, 70, 100, 140, 200, 260, 340]);
+  const rotateX = useTransform(scroll, CAM_P, CAM_RX);
+  const rotateY = useTransform(scroll, CAM_P, CAM_RY);
+  const rotateZ = useTransform(scroll, CAM_P, CAM_RZ);
+  const scale = useTransform(scroll, CAM_P, CAM_S);
+  const x = useTransform(scroll, CAM_P, CAM_X);
+  const y = useTransform(scroll, CAM_P, CAM_Y);
+  const z = useTransform(scroll, CAM_P, CAM_Z);
+  const boxOp = useTransform(scroll, (p) => Math.max(0, 0.55 - p * 3.6));
+  const gridOp = useTransform(scroll, (p) => Math.min(0.7, Math.max(0, (p - 0.12) * 7)));
 
   return (
     <div className="tl-vim-stage" aria-hidden>
       <motion.div
         className="tl-vim-world"
-        style={reduce ? undefined : { rotateX, rotateZ, scale, y, z }}
+        style={reduce ? { rotateX: 16, rotateY: -26, scale: 1.1 } : { rotateX, rotateY, rotateZ, scale, x, y, z }}
       >
-        <div className="tl-vim-grid" />
+        <motion.div className="tl-vim-grid" style={reduce ? { opacity: 0 } : { opacity: gridOp }} />
+        <motion.div className="tl-vim-box" style={reduce ? { opacity: 0.3 } : { opacity: boxOp }}>
+          <i className="is-front" />
+          <i className="is-back" />
+          <i className="is-left" />
+          <i className="is-right" />
+          <i className="is-top" />
+          <i className="is-bot" />
+        </motion.div>
         {tiles.map((tile) => (
           <MediaTile key={tile.id} tile={tile} scroll={scroll} reduce={reduce} />
         ))}
+        {CLUSTERS.map((c) => (
+          <ClusterLabel key={c.color} cluster={c} scroll={scroll} reduce={reduce} />
+        ))}
       </motion.div>
-      <SemanticLabels scroll={scroll} reduce={reduce} />
     </div>
   );
 }
 
-function MediaTile({
-  tile,
-  scroll,
-  reduce,
-}: {
-  tile: Tile;
-  scroll: MotionValue<number>;
-  reduce: boolean;
-}) {
+function MediaTile({ tile, scroll, reduce }: { tile: Tile; scroll: MotionValue<number>; reduce: boolean }) {
   const transform = useTransform(scroll, (p) => {
-    const q = poseAt(p, tile.poses);
-    return `translate3d(${q.x}px, ${q.y}px, ${q.z}px) scale(${q.s})`;
+    const q = poseAt(p, tile);
+    return `translate3d(${q.x}px, ${q.y}px, ${q.z}px) scale(${depthScale(q.z, q.s)})`;
   });
-  const opacity = useTransform(scroll, (p) => poseAt(p, tile.poses).o);
-  const wash = useTransform(scroll, [0.48, 0.54, 0.68, 0.76, 1], [0, tile.semantic ? 0.55 : 0, tile.semantic ? 0.55 : 0, 0, 0]);
-  const rest = tile.poses[0];
+  const opacity = useTransform(scroll, (p) => poseAt(p, tile).o);
+  const peak = tile.semanticColor ? 0.5 : 0;
+  const wash = useTransform(scroll, [0.52, 0.58, 0.7, 0.78], [0, peak, peak, 0]);
+  const rest = tile.cube;
 
   return (
     <motion.div
@@ -313,21 +425,47 @@ function MediaTile({
       }
     >
       {tile.src ? <img src={tile.src} alt="" /> : null}
-      {tile.semantic ? <motion.i className={`tl-vim-wash is-${tile.semantic}`} style={reduce ? { opacity: 0 } : { opacity: wash }} /> : null}
+      {tile.semanticColor ? (
+        <motion.i className={`tl-vim-wash is-${tile.semanticColor}`} style={reduce ? { opacity: 0 } : { opacity: wash }} />
+      ) : null}
     </motion.div>
   );
 }
 
-function SemanticLabels({ scroll, reduce }: { scroll: MotionValue<number>; reduce: boolean }) {
-  const opacity = useTransform(scroll, [0, 0.48, 0.54, 0.66, 0.74, 1], [0, 0, 1, 1, 0, 0]);
+function ClusterLabel({
+  cluster,
+  scroll,
+  reduce,
+}: {
+  cluster: (typeof CLUSTERS)[number];
+  scroll: MotionValue<number>;
+  reduce: boolean;
+}) {
+  const [cx, cy] = cluster.cells[0];
+  const dummy: Tile = {
+    id: -1,
+    src: null,
+    cube: { x: 0, y: 0, z: 0, o: 0, s: 1 },
+    cross: crossPose(cx, cy, true),
+    plane: planePose(cx, cy, true),
+    semantic: semanticPose(cx, cy, true),
+    horizon: horizonPose(cx, cy, false),
+    semanticColor: cluster.color,
+  };
+  // Billboard: undo the world rotation and scale so the pill stays upright and legible.
+  const transform = useTransform(scroll, (p) => {
+    const q = poseAt(p, dummy);
+    const rx = sample(p, CAM_P, CAM_RX);
+    const ry = sample(p, CAM_P, CAM_RY);
+    const rz = sample(p, CAM_P, CAM_RZ);
+    // Pill hangs off the cluster tile's centre-right, vertically centred, like the reference.
+    return `translate3d(${q.x}px, ${q.y}px, ${q.z + 8}px) rotateZ(${-rz}deg) rotateY(${-ry}deg) rotateX(${-rx}deg) scale(${labelScale(p, q)}) translate(-6px, -50%)`;
+  });
+  const opacity = useTransform(scroll, [0.54, 0.6, 0.68, 0.76], [0, 1, 1, 0]);
 
   return (
-    <motion.div className="tl-vim-labels" style={reduce ? { opacity: 0 } : { opacity }}>
-      {FEATURES.map((f) => (
-        <span key={f.label} className={`tl-vim-label is-${f.semantic}`}>
-          {f.label}
-        </span>
-      ))}
+    <motion.div className={`tl-vim-label is-${cluster.color}`} style={reduce ? { opacity: 0 } : { opacity, transform }}>
+      {cluster.label}
     </motion.div>
   );
 }

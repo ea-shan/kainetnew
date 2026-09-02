@@ -77,12 +77,13 @@ export function AgentExperienceSection() {
         >
           <p className="tl-agent-pill">Integration</p>
           <h2 id="tl-agent-title" className="tl-agent-h">
-            Ask your accounts from the
-            <br />
-            brief you already wrote.
+          Connect your accounts. Keep everything else.
           </h2>
           <p className="tl-agent-sub">
-            Connect Google and Meta, then ask for a campaign from the brief you already wrote. Nothing spends until you say so.
+          You've had the renewal call where you realise leaving means rebuilding everything from scratch. That can't happen here.</p>
+          <p>kAInet connects to your own Google and Meta accounts and builds directly in them. Your campaigns, keywords, and creative sit where they always did, under your login. Cancel tomorrow and they're still there, still running, still yours.</p>
+
+          <p>Nothing to migrate. Nothing to export. Nothing anyone can hold over you at renewal.
           </p>
           <p className="tl-agent-url">Paused in your own ad accounts</p>
         </motion.div>

@@ -15,7 +15,7 @@ export default function Home() {
     <div className="tl-site">
       <SiteHeader />
       <main>
-        <div className="tl-hero-band">
+        <div className="tl-hero-band" data-nav-dark>
           <HeroSection />
           <GetStartedSection />
         </div>

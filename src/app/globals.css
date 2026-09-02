@@ -727,6 +727,59 @@
   }
 }
 
+/* Sticky bar: dark glass by default, inverted to white over light sections. */
+.tl-header {
+  color: var(--kai-white);
+}
+
+.tl-header-bar {
+  background: rgba(12, 11, 16, 0.82);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.tl-header-drawer {
+  background: #0c0b10;
+}
+
+.tl-header-drawer > div {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tl-header.is-light {
+  color: var(--kai-light-text);
+}
+
+.tl-header.is-light .tl-header-bar {
+  background: rgba(255, 255, 255, 0.86);
+  border-bottom-color: color-mix(in srgb, var(--kai-purple) 12%, transparent);
+}
+
+.tl-header.is-light .tl-header-drawer {
+  background: var(--kai-white);
+  color: var(--kai-light-text);
+}
+
+.tl-header.is-light .tl-header-drawer > div {
+  border-bottom-color: color-mix(in srgb, var(--kai-purple) 12%, transparent);
+}
+
+/* The outline CTA is the only button whose own colours have to flip with the bar. */
+.tl-header.is-light a.tl-header-cta-outline > span {
+  background-color: var(--kai-white);
+  color: var(--kai-light-text);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--kai-black) 24%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-header-bar {
+    transition: none;
+  }
+}
+
 .tl-mega-link {
   color: var(--kai-white);
 }
@@ -1511,8 +1564,8 @@ html:has(.taste-site) body {
 
 .tl-agent {
   position: relative;
-  height: 400vh;
-  background: #eeeeee;
+  height: 420vh;
+  background: #f1f1ef;
   color: var(--kai-light-text);
 }
 
@@ -1530,7 +1583,6 @@ html:has(.taste-site) body {
 .tl-agent.is-static .tl-agent-pin {
   position: relative;
   height: auto;
-  min-height: min(100dvh, 54rem);
   padding: 5.5rem 1.25rem 4rem;
 }
 
@@ -1544,46 +1596,40 @@ html:has(.taste-site) body {
 .tl-agent-dots {
   background-image: radial-gradient(color-mix(in srgb, var(--kai-purple) 22%, transparent) 1px, transparent 1.2px);
   background-size: 24px 24px;
-  opacity: 0.08;
+  opacity: 0.09;
 }
 
 .tl-agent-ghost {
   z-index: 1;
+  opacity: 0;
 }
 
-.tl-agent.is-static .tl-agent-ghost {
-  opacity: 0.08;
-}
-
+/* Workspace behind the chat card: two outer columns framing the card, plus a footer band. */
 .tl-agent-ghost-grid {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
   height: 100%;
-  padding: 18vh 8vw 10vh;
-  color: var(--kai-light-muted);
+  padding: 14vh 6.5vw 20vh;
+  gap: 0 3rem;
+  grid-template-columns: minmax(0, 1fr) min(24rem, 30vw) minmax(0, 1fr);
+  color: color-mix(in srgb, var(--kai-black) 26%, transparent);
   font-size: 11px;
   line-height: 1.45;
 }
 
-.tl-agent-ghost-grid ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.tl-agent-ghost-grid > aside:first-of-type {
+  grid-column: 1;
 }
 
-.tl-agent-ghost-grid li + li {
-  margin-top: 1.4rem;
+.tl-agent-ghost-grid > aside:last-of-type {
+  grid-column: 3;
 }
 
 .tl-agent-kicker {
-  margin: 1.1rem 0 0.35rem;
-  color: var(--kai-light-text);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  margin: 2.1rem 0 0.2rem;
+  color: color-mix(in srgb, var(--kai-black) 42%, transparent);
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .tl-agent-kicker:first-child {
@@ -1595,79 +1641,214 @@ html:has(.taste-site) body {
   display: inline-block;
   width: 6px;
   height: 6px;
-  margin-right: 0.4rem;
+  margin-right: 0.45rem;
   border-radius: 999px;
   background: var(--kai-yellow);
+}
+
+.tl-agent-note {
+  margin: 0.1rem 0 0;
+  color: color-mix(in srgb, var(--kai-black) 22%, transparent);
+}
+
+.tl-agent-rail-list,
+.tl-agent-steps {
+  margin: 0.6rem 0 0;
+  padding: 0 0 0 1.05rem;
+  border-left: 1px solid color-mix(in srgb, var(--kai-black) 9%, transparent);
+  list-style: none;
+}
+
+.tl-agent-rail-list li + li {
+  margin-top: 1.5rem;
+}
+
+.tl-agent-steps li + li {
+  margin-top: 0.8rem;
+}
+
+.tl-agent-rail-list strong {
+  display: block;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--kai-black) 40%, transparent);
+}
+
+.tl-agent-rail-list span {
+  color: color-mix(in srgb, var(--kai-black) 24%, transparent);
 }
 
 .tl-agent-ok {
+  color: color-mix(in srgb, var(--kai-yellow) 55%, var(--kai-purple));
+  font-style: normal;
+}
+
+.tl-agent-file {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  color: color-mix(in srgb, var(--kai-yellow) 55%, var(--kai-purple));
+  gap: 0.7rem;
+  margin-top: 0.75rem;
 }
 
-.tl-agent-ok i {
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: var(--kai-yellow);
+.tl-agent-source {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1.5rem;
 }
 
-.tl-agent-ghost-card {
+.tl-agent-file p,
+.tl-agent-source p {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  margin-top: 1.15rem;
-  padding: 0.7rem 0.8rem;
-  border: 1px solid color-mix(in srgb, var(--kai-black) 8%, transparent);
-  border-radius: 0.75rem;
-  background: color-mix(in srgb, var(--kai-white) 58%, transparent);
+  gap: 0.1rem;
+  margin: 0;
 }
 
-.tl-agent-ghost-card strong {
-  font-size: 11px;
-  font-weight: 600;
-  color: color-mix(in srgb, var(--kai-black) 55%, transparent);
+.tl-agent-file strong,
+.tl-agent-source strong {
+  font-weight: 500;
+  color: color-mix(in srgb, var(--kai-black) 40%, transparent);
 }
 
-.tl-agent-ghost-card span {
-  color: color-mix(in srgb, var(--kai-black) 38%, transparent);
+.tl-agent-file span,
+.tl-agent-source span {
+  color: color-mix(in srgb, var(--kai-black) 22%, transparent);
+}
+
+.tl-agent-source i {
+  width: 1.55rem;
+  height: 1.55rem;
+  flex: none;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--kai-black) 7%, transparent);
+}
+
+.tl-agent-source em {
+  margin-left: auto;
+}
+
+.tl-agent-clip {
+  position: relative;
+  display: grid;
+  width: 4.5rem;
+  height: 2.9rem;
+  flex: none;
+  place-items: center;
+  border-radius: 0.45rem;
+  background: color-mix(in srgb, var(--kai-black) 8%, transparent);
+  color: color-mix(in srgb, var(--kai-black) 28%, transparent);
+}
+
+.tl-agent-clip svg {
+  width: 14px;
+  height: 14px;
+}
+
+.tl-agent-clip b {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--kai-black) 14%, transparent);
+  font-size: 7px;
+  font-weight: 500;
 }
 
 .tl-agent-thumbs {
   display: flex;
-  gap: 0.45rem;
+  gap: 0.4rem;
   margin-top: 1rem;
 }
 
-.tl-agent-thumbs img {
-  width: 58px;
-  height: 38px;
-  object-fit: cover;
-  border-radius: 0.5rem;
-  background: color-mix(in srgb, var(--kai-black) 10%, transparent);
+.tl-agent-brief {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin: 0.65rem 0 0;
+}
+
+.tl-agent-brief > div {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+}
+
+.tl-agent-brief dt,
+.tl-agent-brief dd {
+  margin: 0;
+}
+
+.tl-agent-brief dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  color: color-mix(in srgb, var(--kai-black) 22%, transparent);
+}
+
+.tl-agent-brief dd span {
+  padding: 0.12rem 0.4rem;
+  border-radius: 0.3rem;
+  background: color-mix(in srgb, var(--kai-black) 5%, transparent);
+}
+
+.tl-agent-brief dd span:only-child {
+  padding: 0;
+  background: none;
+}
+
+.tl-agent-strip {
+  position: absolute;
+  bottom: 12vh;
+  left: 6.5vw;
+  display: flex;
+  width: min(34vw, 30rem);
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.tl-agent-strip p {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0;
+  font-size: 10px;
+}
+
+.tl-agent-strip b {
+  color: color-mix(in srgb, var(--kai-purple) 55%, transparent);
+  font-weight: 500;
+}
+
+.tl-agent-strip strong {
+  color: color-mix(in srgb, var(--kai-black) 38%, transparent);
+  font-weight: 500;
+}
+
+.tl-agent-strip span {
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.3rem;
+  background: color-mix(in srgb, var(--kai-black) 5%, transparent);
+  color: color-mix(in srgb, var(--kai-black) 24%, transparent);
 }
 
 .tl-agent-plot {
   position: absolute;
-  right: 8vw;
-  bottom: 8vh;
-  left: 8vw;
+  right: 6.5vw;
+  bottom: 12vh;
+  width: min(30vw, 26rem);
 }
 
 .tl-agent-plot p {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.4rem;
   font-size: 10px;
 }
 
 .tl-agent-plot svg {
   display: block;
   width: 100%;
-  height: 50px;
-  border-top: 1px solid color-mix(in srgb, var(--kai-black) 10%, transparent);
+  height: 52px;
 }
 
 .tl-agent-plot path {
@@ -1676,9 +1857,16 @@ html:has(.taste-site) body {
   stroke-width: 1;
 }
 
+.tl-agent-plot-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.35rem;
+  padding-top: 0.3rem;
+  border-top: 1px solid color-mix(in srgb, var(--kai-black) 8%, transparent);
+}
+
 .tl-agent-hero,
-.tl-agent-api,
-.tl-agent-models {
+.tl-agent-final {
   position: absolute;
   left: 50%;
   z-index: 10;
@@ -1687,32 +1875,28 @@ html:has(.taste-site) body {
 }
 
 .tl-agent-hero {
-  top: max(11vh, 7.25rem);
+  top: max(11vh, 7rem);
 }
 
-.tl-agent-api {
-  top: auto;
-  bottom: max(5.5vh, 1.75rem);
+.tl-agent-final {
+  top: max(10vh, 5rem);
   z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.tl-agent-api .tl-agent-h {
-  font-size: clamp(28px, 4.4vw, 48px);
+.tl-agent-final .tl-agent-pill {
+  margin-top: 1.8rem;
 }
 
-.tl-agent-models {
-  top: 28vh;
-  z-index: 20;
+.tl-agent-final .tl-agent-h {
+  margin-top: 0.9rem;
+  font-size: clamp(28px, 4.2vw, 46px);
 }
 
-.tl-agent.is-static .tl-agent-hero {
-  position: relative;
-  top: auto;
-  left: auto;
-  width: 100%;
-  max-width: 850px;
-  margin: 0 auto 2rem;
-  transform: none;
+.tl-agent-final .tl-agent-actions {
+  margin-top: 1.2rem;
 }
 
 .tl-agent-pill,
@@ -1729,7 +1913,7 @@ html:has(.taste-site) body {
 }
 
 .tl-agent-url {
-  margin-top: 1.5rem;
+  margin-top: 1.6rem;
   font-size: 11px;
   letter-spacing: 0.02em;
   text-transform: none;
@@ -1745,7 +1929,7 @@ html:has(.taste-site) body {
 }
 
 .tl-agent-sub {
-  max-width: 36rem;
+  max-width: 34rem;
   margin: 1.15rem auto 0;
   color: color-mix(in srgb, var(--kai-black) 45%, transparent);
   font-size: 14px;
@@ -1786,13 +1970,295 @@ html:has(.taste-site) body {
 
 .tl-agent-fg {
   position: absolute;
-  top: max(14vh, 8.5rem);
+  top: max(14vh, 6rem);
   left: 50%;
   z-index: 30;
 }
 
-.tl-agent-code-fg {
-  top: max(26vh, 14.5rem);
+.tl-agent-card {
+  display: flex;
+  width: min(21.5rem, calc(100vw - 2.5rem));
+  flex-direction: column;
+  padding: 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--kai-black) 6%, transparent);
+  border-radius: 1.35rem;
+  background: color-mix(in srgb, var(--kai-white) 94%, var(--kai-lavender));
+  color: var(--kai-light-text);
+  text-align: left;
+  box-shadow: 0 24px 60px color-mix(in srgb, var(--kai-black) 9%, transparent);
+}
+
+.tl-agent-card-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+  font-size: 12.5px;
+}
+
+.tl-agent-card-bar p {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+.tl-agent-card-bar span {
+  color: color-mix(in srgb, var(--kai-black) 55%, transparent);
+}
+
+.tl-agent-ask {
+  margin: 0;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.7rem;
+  background: color-mix(in srgb, var(--kai-lavender) 7%, #ecebe6);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* Holds the line box open while the text types in, so the card never reflows. */
+.tl-agent-untyped {
+  opacity: 0;
+}
+
+/* The thinking dots overlay the reply so staging the exchange never reflows the card. */
+.tl-agent-stream {
+  position: relative;
+}
+
+.tl-agent-think {
+  position: absolute;
+  top: 0.9rem;
+  left: 0;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.tl-agent-think i {
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--kai-black) 32%, transparent);
+  animation: tl-agent-think 1.1s ease-in-out infinite;
+}
+
+.tl-agent-think i:nth-child(2) {
+  animation-delay: 0.16s;
+}
+
+.tl-agent-think i:nth-child(3) {
+  animation-delay: 0.32s;
+}
+
+@keyframes tl-agent-think {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-agent-think i {
+    animation: none;
+  }
+}
+
+.tl-agent-say {
+  margin: 0.85rem 0;
+  color: color-mix(in srgb, var(--kai-black) 70%, transparent);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Media rail: the third card is deliberately clipped by the card edge, as in the reference. */
+.tl-agent-rail {
+  position: relative;
+  margin-right: -0.9rem;
+}
+
+.tl-agent-rail ul {
+  display: grid;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  gap: 0.5rem;
+  grid-auto-flow: column;
+  grid-auto-columns: 8.6rem;
+  list-style: none;
+}
+
+.tl-agent-rail li {
+  display: flex;
+  flex-direction: column;
+}
+
+.tl-agent-rail img {
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  border-radius: 0.55rem;
+  object-fit: cover;
+}
+
+.tl-agent-rail strong {
+  margin-top: 0.4rem;
+  font-size: 10.5px;
+  font-weight: 500;
+}
+
+.tl-agent-rail span {
+  color: color-mix(in srgb, var(--kai-black) 45%, transparent);
+  font-size: 10.5px;
+}
+
+.tl-agent-rail button {
+  position: absolute;
+  top: 1.75rem;
+  right: 1.15rem;
+  display: grid;
+  width: 1.55rem;
+  height: 1.55rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--kai-white);
+  color: var(--kai-light-text);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--kai-black) 14%, transparent);
+  cursor: pointer;
+  place-items: center;
+}
+
+/* Keeps the visual pill small while still hitting the 44px target. */
+.tl-agent-rail button::before {
+  content: "";
+  position: absolute;
+  inset: -0.65rem;
+}
+
+.tl-agent-rail button svg {
+  width: 11px;
+  height: 11px;
+}
+
+.tl-agent-tools {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.95rem;
+  color: color-mix(in srgb, var(--kai-black) 32%, transparent);
+}
+
+.tl-agent-tools svg {
+  width: 13px;
+  height: 13px;
+}
+
+.tl-agent-sparkle {
+  display: block;
+  margin-top: 0.7rem;
+  color: var(--kai-light-text);
+}
+
+.tl-agent-sparkle svg {
+  width: 14px;
+  height: 14px;
+}
+
+.tl-agent-reply {
+  margin-top: 1.1rem;
+  padding: 0.6rem 0.65rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--kai-black) 8%, transparent);
+  border-radius: 0.9rem;
+  background: var(--kai-white);
+}
+
+.tl-agent-reply p {
+  margin: 0 0 0.85rem;
+  color: color-mix(in srgb, var(--kai-black) 38%, transparent);
+  font-size: 12px;
+}
+
+.tl-agent-reply div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tl-agent-reply div > span {
+  color: color-mix(in srgb, var(--kai-black) 40%, transparent);
+  font-size: 15px;
+  line-height: 1;
+}
+
+.tl-agent-reply em {
+  margin-left: auto;
+  color: color-mix(in srgb, var(--kai-black) 55%, transparent);
+  font-size: 11px;
+  font-style: normal;
+}
+
+.tl-agent-reply button {
+  display: grid;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--kai-black);
+  color: var(--kai-white);
+  cursor: pointer;
+  place-items: center;
+}
+
+.tl-agent-reply button svg {
+  width: 12px;
+  height: 12px;
+}
+
+.tl-agent-code {
+  width: min(23rem, calc(100vw - 2.5rem));
+}
+
+.tl-agent-pre {
+  margin: 0;
+  overflow-x: auto;
+  padding: 0.9rem 0.95rem;
+  border-radius: 0.9rem;
+  background: var(--kai-white);
+  color: var(--kai-light-text);
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 8.5px;
+  line-height: 1.7;
+  white-space: pre;
+}
+
+.tl-agent-pre .c-p {
+  color: var(--kai-purple);
+}
+
+.tl-agent-pre .c-y {
+  color: color-mix(in srgb, var(--kai-yellow) 78%, var(--kai-black));
+}
+
+.tl-agent-pre .c-l {
+  color: var(--kai-grad-pink);
+}
+
+.tl-agent.is-static .tl-agent-ghost {
+  display: none;
+}
+
+.tl-agent.is-static .tl-agent-hero,
+.tl-agent.is-static .tl-agent-final {
+  position: relative;
+  top: auto;
+  left: auto;
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto 3rem;
+  transform: none;
 }
 
 .tl-agent.is-static .tl-agent-fg {
@@ -1801,235 +2267,8 @@ html:has(.taste-site) body {
   left: auto;
   display: flex;
   justify-content: center;
+  margin-bottom: 3rem;
   transform: none;
-}
-
-.tl-agent-card {
-  display: flex;
-  width: min(22.5rem, calc(100vw - 2.5rem));
-  flex-direction: column;
-  padding: 0.85rem 0.85rem 0.75rem;
-  border: 1px solid color-mix(in srgb, var(--kai-black) 8%, transparent);
-  border-radius: 1.25rem;
-  background: color-mix(in srgb, var(--kai-white) 92%, var(--kai-lavender));
-  color: var(--kai-light-text);
-  box-shadow: 0 20px 60px color-mix(in srgb, var(--kai-black) 10%, transparent);
-}
-
-.tl-agent-code {
-  padding-bottom: 0.9rem;
-}
-
-.tl-agent-card-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.85rem;
-  font-size: 13px;
-}
-
-.tl-agent-card-bar p {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  margin: 0;
-  font-weight: 600;
-}
-
-.tl-agent-card-bar span {
-  color: var(--kai-light-muted);
-}
-
-.tl-agent-thread {
-  flex: 1;
-}
-
-.tl-agent-ask {
-  width: fit-content;
-  max-width: 92%;
-  margin: 0;
-  padding: 0.5rem 0.7rem;
-  border-radius: 0.7rem;
-  background: color-mix(in srgb, var(--kai-lavender) 22%, #eeeeeb);
-  font-size: 12px;
-  line-height: 1.45;
-}
-
-.tl-agent-say {
-  margin: 0.75rem 0 0.65rem;
-  max-width: 38ch;
-  color: color-mix(in srgb, var(--kai-black) 72%, transparent);
-  font-size: 12px;
-  line-height: 1.55;
-}
-
-.tl-agent-ads {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-}
-
-.tl-agent-ad {
-  margin: 0;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--kai-purple) 12%, transparent);
-  border-radius: 0.7rem;
-  background: color-mix(in srgb, var(--kai-lavender) 8%, var(--kai-white));
-}
-
-.tl-agent-ad img {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-}
-
-.tl-agent-ad figcaption {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  padding: 0.45rem 0.5rem 0.55rem;
-}
-
-.tl-agent-ad em {
-  color: color-mix(in srgb, var(--kai-yellow) 40%, var(--kai-purple));
-  font-size: 8px;
-  font-style: normal;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.tl-agent-ad strong {
-  font-size: 10px;
-  font-weight: 650;
-  line-height: 1.25;
-}
-
-.tl-agent-ad span {
-  color: var(--kai-light-muted);
-  font-size: 9px;
-  line-height: 1.35;
-}
-
-.tl-agent-ad b {
-  width: fit-content;
-  margin-top: 0.2rem;
-  padding: 0.18rem 0.45rem;
-  border-radius: 999px;
-  background: var(--kai-black);
-  color: #fff;
-  font-size: 9px;
-  font-weight: 600;
-}
-
-.tl-agent-tools {
-  display: flex;
-  gap: 0.7rem;
-  margin-top: 0.7rem;
-  color: color-mix(in srgb, var(--kai-black) 38%, transparent);
-}
-
-.tl-agent-tools svg {
-  width: 14px;
-  height: 14px;
-}
-
-.tl-agent-sparkle {
-  display: grid;
-  width: 1.4rem;
-  height: 1.4rem;
-  margin-top: 0.55rem;
-  place-items: center;
-  color: var(--kai-yellow);
-}
-
-.tl-agent-sparkle svg {
-  width: 13px;
-}
-
-.tl-agent-pre {
-  margin: 0;
-  overflow: auto;
-  padding: 0.85rem 0.9rem;
-  border: 1px solid color-mix(in srgb, var(--kai-purple) 12%, transparent);
-  border-radius: 0.85rem;
-  background: var(--kai-white);
-  color: var(--kai-light-text);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 10px;
-  line-height: 1.7;
-  white-space: pre-wrap;
-}
-
-.tl-agent-pre .c-p {
-  color: var(--kai-purple);
-}
-
-.tl-agent-pre .c-y {
-  color: var(--kai-yellow);
-}
-
-.tl-agent-pre .c-l {
-  color: var(--kai-grad-pink);
-}
-
-.tl-agent-think {
-  display: grid;
-  width: 1.1rem;
-  height: 1.1rem;
-  margin-top: 0.55rem;
-  place-items: center;
-  color: color-mix(in srgb, var(--kai-black) 42%, transparent);
-}
-
-.tl-agent-think svg {
-  width: 14px;
-  height: 14px;
-}
-
-.tl-agent-reply {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
-  padding: 0.55rem 0.65rem;
-  border: 1px solid color-mix(in srgb, var(--kai-black) 6%, transparent);
-  border-radius: 0.85rem;
-  background: var(--kai-white);
-  font-size: 12px;
-  color: var(--kai-light-muted);
-}
-
-.tl-agent-reply p {
-  position: relative;
-  flex: 1;
-  min-width: 0;
-  height: 1.2em;
-  margin: 0;
-}
-
-.tl-agent-type {
-  position: absolute;
-  inset: 0 auto 0 0;
-  overflow: hidden;
-  color: var(--kai-light-text);
-  white-space: nowrap;
-}
-
-.tl-agent-reply em {
-  font-style: normal;
-  color: var(--kai-light-text);
-}
-
-.tl-agent-reply button {
-  width: 1.6rem;
-  height: 1.6rem;
-  border: 0;
-  border-radius: 999px;
-  background: var(--kai-black);
-  color: var(--kai-white);
-  font-size: 12px;
-  line-height: 1;
 }
 
 @media (max-width: 1099px) {
@@ -2040,23 +2279,23 @@ html:has(.taste-site) body {
 
 @media (max-width: 767px) {
   .tl-agent {
-    height: 300vh;
+    height: 320vh;
   }
 
   .tl-agent-hero {
-    top: 8.5vh;
+    top: 9vh;
   }
 
   .tl-agent-fg {
-    top: 22vh;
+    top: 20vh;
   }
 
-  .tl-agent-code-fg {
-    top: 30vh;
+  .tl-agent-final {
+    top: 8vh;
   }
 
-  .tl-agent-api {
-    top: 68vh;
+  .tl-agent-final .tl-agent-pill {
+    margin-top: 1.6rem;
   }
 
   .tl-agent-h {
@@ -2064,26 +2303,15 @@ html:has(.taste-site) body {
   }
 
   .tl-agent-card {
-    width: min(20.5rem, calc(100vw - 1.75rem));
+    width: min(20rem, calc(100vw - 1.75rem));
   }
 
-  .tl-agent-ads {
-    grid-template-columns: 1fr;
+  .tl-agent-code {
+    width: min(20rem, calc(100vw - 1.75rem));
   }
 
-  .tl-agent-ad:nth-child(2) {
-    display: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .tl-agent {
-    height: auto;
-  }
-
-  .tl-agent-pin {
-    position: relative;
-    height: auto;
+  .tl-agent-pre {
+    font-size: 8.5px;
   }
 }
 

@@ -9,7 +9,13 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-
+.tmp-agent-ref/
+.tmp-vim-ref/
+.tmp-vim-ref.*
+.tmp-qa.*
+.tmp-qa/
+.tmp-jockey-frames/
+.tmp-jockey-frames.*
 # testing
 /coverage
 

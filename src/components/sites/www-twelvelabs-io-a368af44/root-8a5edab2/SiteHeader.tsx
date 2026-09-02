@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDownIcon, CloseIcon, IconsaxOutline, MenuIcon } from "../shared/icons";
 import { LogoMark } from "../shared/SiteButton";
 import { navItems } from "./content";
@@ -29,19 +29,65 @@ function MegaLink({ item }: { item: NavChild }) {
   );
 }
 
+const BAR_HEIGHT = 76;
+
+/**
+ * The bar inverts to white-on-black wherever it sits over a light section. Sections that need the
+ * dark bar opt in with `data-nav-dark`; everything else is treated as light.
+ */
+function useLightBar() {
+  const [light, setLight] = useState(false);
+
+  useEffect(() => {
+    const dark = Array.from(document.querySelectorAll<HTMLElement>("[data-nav-dark]"));
+    if (dark.length === 0) return;
+
+    let frame = 0;
+    const read = () => {
+      frame = 0;
+      const mid = BAR_HEIGHT / 2;
+      setLight(
+        !dark.some((el) => {
+          const rect = el.getBoundingClientRect();
+          return rect.top <= mid && rect.bottom >= mid;
+        }),
+      );
+    };
+    const schedule = () => {
+      frame ||= requestAnimationFrame(read);
+    };
+
+    read();
+    addEventListener("scroll", schedule, { passive: true });
+    addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      removeEventListener("scroll", schedule);
+      removeEventListener("resize", schedule);
+    };
+  }, []);
+
+  return light;
+}
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const light = useLightBar();
 
   return (
-    <header className="sticky top-0 z-50 text-[var(--kai-white)]">
-      <div className="isolate bg-[rgba(12,11,16,0.82)] backdrop-blur-[18px]">
+    <header className={`tl-header sticky top-0 z-50 ${light ? "is-light" : ""}`}>
+      <div className="tl-header-bar isolate backdrop-blur-[18px]">
         <div className="px-5 min-[768px]:px-10">
           <div className="tl-page flex h-[76px] items-center justify-between gap-3 overflow-visible">
             <a href="/" aria-label="kAInet" className="shrink-0">
-              <LogoMark wash className="text-[23px] leading-none" />
+              <LogoMark
+                wash={!light}
+                tone={light ? "light" : "dark"}
+                className="text-[23px] leading-none"
+              />
             </a>
 
-            <nav className="hidden min-w-0 flex-1 items-center justify-center gap-4 text-[16px] font-medium leading-6 tracking-[0.16px] text-[var(--kai-white)] min-[1100px]:flex">
+            <nav className="hidden min-w-0 flex-1 items-center justify-center gap-4 text-[16px] font-medium leading-6 tracking-[0.16px] min-[1100px]:flex">
               {navItems.map((item) => {
                 const mega = item.children && item.children.length > 0;
                 const cols = item.children && item.children.length > 3;
@@ -89,7 +135,7 @@ export function SiteHeader() {
               </a>
               <button
                 type="button"
-                className="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center text-[var(--kai-white)] min-[1100px]:hidden"
+                className="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center min-[1100px]:hidden"
                 aria-label={open ? "Close menu" : "Open menu"}
                 aria-expanded={open}
                 onClick={() => setOpen((v) => !v)}
@@ -102,10 +148,10 @@ export function SiteHeader() {
       </div>
 
       {open ? (
-        <div className="max-h-[calc(100dvh-76px)] w-full overflow-y-auto bg-[#0c0b10] px-5 pb-6 text-[16px] leading-6 tracking-[0.16px] min-[1100px]:hidden">
+        <div className="tl-header-drawer max-h-[calc(100dvh-76px)] w-full overflow-y-auto px-5 pb-6 text-[16px] leading-6 tracking-[0.16px] min-[1100px]:hidden">
           {navItems.map((item) => (
-            <div key={item.label} className="border-b border-white/10">
-              <a href={item.href} className="flex min-h-11 items-center py-3 text-[var(--kai-white)]">
+            <div key={item.label}>
+              <a href={item.href} className="flex min-h-11 items-center py-3">
                 {item.label}
               </a>
               {item.children?.map((child) => (

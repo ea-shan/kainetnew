@@ -3,7 +3,10 @@ import { HeroMosaic } from "./HeroMosaic";
 
 export function CtaSection() {
   return (
-    <section className="bg-[#0c0a10] px-5 py-8 text-[var(--kai-white)] min-[768px]:px-10 min-[768px]:py-10">
+    <section
+      data-nav-dark
+      className="bg-[#0c0a10] px-5 py-8 text-[var(--kai-white)] min-[768px]:px-10 min-[768px]:py-10"
+    >
       <div className="tl-page tl-cta-plate relative flex min-h-[min(42rem,82dvh)] items-center justify-center overflow-hidden rounded-[28px] px-6 py-20 min-[768px]:min-h-[min(48rem,86dvh)] min-[768px]:rounded-[36px] min-[768px]:px-12 min-[768px]:py-24 min-[1100px]:px-16">
         <HeroMosaic fill />
         <div className="tl-cta-glow" aria-hidden />

@@ -547,7 +547,14 @@
   text-align: right;
 }
 
-.tl-pipe-note-prop span {
+.tl-pipe-note-mid {
+  top: 16%;
+  right: 6%;
+  text-align: right;
+}
+
+.tl-pipe-note-prop span,
+.tl-pipe-note-mid span {
   margin-left: auto;
 }
 
@@ -583,6 +590,10 @@
 
 .tl-strat .tl-pipe-note-speed span {
   margin-left: auto;
+}
+
+.tl-opt .tl-pipe-note-speed {
+  top: 12%;
 }
 
 .tl-solutions-track {

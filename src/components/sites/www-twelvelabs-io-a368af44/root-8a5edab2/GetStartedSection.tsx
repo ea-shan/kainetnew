@@ -5,7 +5,11 @@ import { LockIcon } from "../shared/icons";
 import { SiteButton } from "../shared/SiteButton";
 import { getStartedTabs } from "./content";
 import { GetStartedBackground } from "./GetStartedBackground";
+import { CreativeScene } from "./CreativeScene";
+import { ExecutionScene } from "./ExecutionScene";
+import { OptimizationScene } from "./OptimizationScene";
 import { OrchestrationScene } from "./OrchestrationScene";
+import { SearchScene } from "./SearchScene";
 import { StrategyScene } from "./StrategyScene";
 
 export function GetStartedSection() {
@@ -104,6 +108,14 @@ export function GetStartedSection() {
               <OrchestrationScene />
             ) : current.id === "campaign-strategy" ? (
               <StrategyScene />
+            ) : current.id === "creative-assets" ? (
+              <CreativeScene />
+            ) : current.id === "campaign-execution" ? (
+              <ExecutionScene />
+            ) : current.id === "performance-analysis" ? (
+              <SearchScene />
+            ) : current.id === "optimization" ? (
+              <OptimizationScene />
             ) : (
               <img
                 key={current.id}

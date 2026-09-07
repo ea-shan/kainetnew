@@ -1,0 +1,442 @@
+{
+  "components.json": {
+    "mtime": 1786947257.879151,
+    "ast_hash": "fc5c9e9a7b93eeb2f7b4e1ce0959e4a6",
+    "semantic_hash": "fc5c9e9a7b93eeb2f7b4e1ce0959e4a6"
+  },
+  "docs/research/www-twelvelabs-io-a368af44/root-8a5edab2/ASSETS_RAW.json": {
+    "mtime": 1786947346.6875916,
+    "ast_hash": "e30e7e878693bd8dd22a860f00ec9258",
+    "semantic_hash": "e30e7e878693bd8dd22a860f00ec9258"
+  },
+  "eslint.config.mjs": {
+    "mtime": 1786947137.0,
+    "ast_hash": "dfa1f5f6a7037bf39dc510f30b180002",
+    "semantic_hash": "dfa1f5f6a7037bf39dc510f30b180002"
+  },
+  "next.config.ts": {
+    "mtime": 1788806856.587392,
+    "ast_hash": "eed3272f24bf59d1a76f31a26deb5982",
+    "semantic_hash": "eed3272f24bf59d1a76f31a26deb5982"
+  },
+  "package.json": {
+    "mtime": 1788800627.892563,
+    "ast_hash": "742a341a514b559725efab853072cd70",
+    "semantic_hash": "742a341a514b559725efab853072cd70"
+  },
+  "postcss.config.mjs": {
+    "mtime": 1786947137.0,
+    "ast_hash": "239f3ebf717465dc636818a1a619398d",
+    "semantic_hash": "239f3ebf717465dc636818a1a619398d"
+  },
+  "scripts/check-taste-carousel.mjs": {
+    "mtime": 1787140747.1695564,
+    "ast_hash": "90708bb03c41b38a0cea0a0a859784fd",
+    "semantic_hash": "90708bb03c41b38a0cea0a0a859784fd"
+  },
+  "scripts/download-assets-tastelabs-com-373890df-root-8a5edab2.mjs": {
+    "mtime": 1787140747.1542819,
+    "ast_hash": "e494c9f5f9cfe79ec73234c92d2bdb33",
+    "semantic_hash": "e494c9f5f9cfe79ec73234c92d2bdb33"
+  },
+  "scripts/download-assets-www-twelvelabs-io-a368af44-root-8a5edab2.mjs": {
+    "mtime": 1786947484.4480214,
+    "ast_hash": "a985832614e2fdb3bf9f4f61faea71c5",
+    "semantic_hash": "a985832614e2fdb3bf9f4f61faea71c5"
+  },
+  "scripts/download-hero-mosaic.mjs": {
+    "mtime": 1786950173.6875377,
+    "ast_hash": "7646f084d3c3899c3fef9d24f5ba4ca7",
+    "semantic_hash": "7646f084d3c3899c3fef9d24f5ba4ca7"
+  },
+  "scripts/extract-data-svgs.py": {
+    "mtime": 1786947667.94691,
+    "ast_hash": "b7f90ba6e66cb7562b0951475ce8b208",
+    "semantic_hash": "b7f90ba6e66cb7562b0951475ce8b208"
+  },
+  "scripts/summarize-assets.py": {
+    "mtime": 1786947392.3497777,
+    "ast_hash": "cb2e11ce21c3b7026174f16126309f15",
+    "semantic_hash": "cb2e11ce21c3b7026174f16126309f15"
+  },
+  "src/app/clone-website/layout.tsx": {
+    "mtime": 1787140747.1789463,
+    "ast_hash": "f26c92b2161a4d2272b42e3d39bd3c9e",
+    "semantic_hash": "f26c92b2161a4d2272b42e3d39bd3c9e"
+  },
+  "src/app/clone-website/page.tsx": {
+    "mtime": 1787140747.178906,
+    "ast_hash": "5ac02a796c357af8e8953d779e6082a6",
+    "semantic_hash": "5ac02a796c357af8e8953d779e6082a6"
+  },
+  "src/app/layout.tsx": {
+    "mtime": 1787589496.2561524,
+    "ast_hash": "00304e02cf2bec7a344b3ff9e20df28f",
+    "semantic_hash": "00304e02cf2bec7a344b3ff9e20df28f"
+  },
+  "src/app/page.tsx": {
+    "mtime": 1788344754.451958,
+    "ast_hash": "58d93c030acb31c45ec15659272832e5",
+    "semantic_hash": "58d93c030acb31c45ec15659272832e5"
+  },
+  "src/components/sites/tastelabs-com-373890df/root-8a5edab2/ChallengeSection.tsx": {
+    "mtime": 1787141925.2305434,
+    "ast_hash": "e6168e12954168097a6f4f1e7f4a47dc",
+    "semantic_hash": "e6168e12954168097a6f4f1e7f4a47dc"
+  },
+  "src/components/sites/tastelabs-com-373890df/root-8a5edab2/HeroSection.tsx": {
+    "mtime": 1787141904.5657,
+    "ast_hash": "1d5f173b2640981f8484313d6d5bd195",
+    "semantic_hash": "1d5f173b2640981f8484313d6d5bd195"
+  },
+  "src/components/sites/tastelabs-com-373890df/root-8a5edab2/MissionSection.tsx": {
+    "mtime": 1787141505.4063125,
+    "ast_hash": "1f19b37d26ad41c4d4f5bf4290afe59e",
+    "semantic_hash": "1f19b37d26ad41c4d4f5bf4290afe59e"
+  },
+  "src/components/sites/tastelabs-com-373890df/root-8a5edab2/ProductSection.tsx": {
+    "mtime": 1787141505.4442925,
+    "ast_hash": "b398fa579cb45d3786d18840d3f2e2c9",
+    "semantic_hash": "b398fa579cb45d3786d18840d3f2e2c9"
+  },
+  "src/components/sites/tastelabs-com-373890df/root-8a5edab2/ResearchSection.tsx": {
+    "mtime": 1787141505.4898148,
+    "ast_hash": "9469c309697af436f5ba35a20d067594",
+    "semantic_hash": "9469c309697af436f5ba35a20d067594"
+  },
+  "src/components/sites/tastelabs-com-373890df/root-8a5edab2/SiteHeader.tsx": {
+    "mtime": 1787141905.307046,
+    "ast_hash": "653d5de0328996bab5426ca13e405492",
+    "semantic_hash": "653d5de0328996bab5426ca13e405492"
+  },
+  "src/components/sites/tastelabs-com-373890df/root-8a5edab2/SwipeFooter.tsx": {
+    "mtime": 1787141505.5204902,
+    "ast_hash": "bb92d409cb6ed5a7b494f69ba9ee4b9d",
+    "semantic_hash": "bb92d409cb6ed5a7b494f69ba9ee4b9d"
+  },
+  "src/components/sites/tastelabs-com-373890df/root-8a5edab2/TeamSection.tsx": {
+    "mtime": 1787141505.4699197,
+    "ast_hash": "7d44e89613a30b01e6f7fc3de6dcebbb",
+    "semantic_hash": "7d44e89613a30b01e6f7fc3de6dcebbb"
+  },
+  "src/components/sites/tastelabs-com-373890df/root-8a5edab2/carousel.ts": {
+    "mtime": 1787141505.2643266,
+    "ast_hash": "e3f37705270dab47332b0478115fd27c",
+    "semantic_hash": "e3f37705270dab47332b0478115fd27c"
+  },
+  "src/components/sites/tastelabs-com-373890df/root-8a5edab2/content.ts": {
+    "mtime": 1787141505.2460577,
+    "ast_hash": "33ad0bd992c822ddf0c93ede535387a8",
+    "semantic_hash": "33ad0bd992c822ddf0c93ede535387a8"
+  },
+  "src/components/sites/tastelabs-com-373890df/root-8a5edab2/types.ts": {
+    "mtime": 1787141505.1914341,
+    "ast_hash": "7b0a7ddd44dafd772722424de5f4cc9e",
+    "semantic_hash": "7b0a7ddd44dafd772722424de5f4cc9e"
+  },
+  "src/components/sites/tastelabs-com-373890df/shared/ScrambleText.tsx": {
+    "mtime": 1787140747.1647978,
+    "ast_hash": "0ecb25b7ea461be85594a5127c9d4bfe",
+    "semantic_hash": "0ecb25b7ea461be85594a5127c9d4bfe"
+  },
+  "src/components/sites/tastelabs-com-373890df/shared/TasteButton.tsx": {
+    "mtime": 1787140747.1896198,
+    "ast_hash": "1e22c30679e2d17446a58f28706d03c0",
+    "semantic_hash": "1e22c30679e2d17446a58f28706d03c0"
+  },
+  "src/components/sites/tastelabs-com-373890df/shared/icons.tsx": {
+    "mtime": 1787140747.1896336,
+    "ast_hash": "b38526250049f5dae20c9f7186857d23",
+    "semantic_hash": "b38526250049f5dae20c9f7186857d23"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/AgentExperienceSection.tsx": {
+    "mtime": 1788344293.2064984,
+    "ast_hash": "249740ecaea48c588154b0acfb9cea6f",
+    "semantic_hash": "249740ecaea48c588154b0acfb9cea6f"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/CookiePreferences.tsx": {
+    "mtime": 1788291455.007553,
+    "ast_hash": "40b3dd50d321bb2a27d83438c61e99a8",
+    "semantic_hash": "40b3dd50d321bb2a27d83438c61e99a8"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/CreativeScene.tsx": {
+    "mtime": 1788807208.9488502,
+    "ast_hash": "30e104ff9a80b8854e7491b3a8cec41d",
+    "semantic_hash": "30e104ff9a80b8854e7491b3a8cec41d"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/CtaSection.tsx": {
+    "mtime": 1788807437.9693758,
+    "ast_hash": "fc8758fb13fc14eb1bad4bc9aa1f2fa2",
+    "semantic_hash": "fc8758fb13fc14eb1bad4bc9aa1f2fa2"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/ExecutionScene.tsx": {
+    "mtime": 1788349569.596763,
+    "ast_hash": "09624ae76580695606286596cbc2bcf5",
+    "semantic_hash": "09624ae76580695606286596cbc2bcf5"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/FooterBrandMark.tsx": {
+    "mtime": 1788291448.7884974,
+    "ast_hash": "c27e2d8535e29f8de74c6232bc66f763",
+    "semantic_hash": "c27e2d8535e29f8de74c6232bc66f763"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/GetStartedBackground.tsx": {
+    "mtime": 1788291424.2600136,
+    "ast_hash": "1a448a20b37e307cbfe5c6665dd42972",
+    "semantic_hash": "1a448a20b37e307cbfe5c6665dd42972"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/GetStartedSection.tsx": {
+    "mtime": 1788806855.7711525,
+    "ast_hash": "8a2d7ad449a5bec0245afa87067a8165",
+    "semantic_hash": "8a2d7ad449a5bec0245afa87067a8165"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/HeroMosaic.tsx": {
+    "mtime": 1788292770.36139,
+    "ast_hash": "f9e2c28365d1c379937af9642f46ab5a",
+    "semantic_hash": "f9e2c28365d1c379937af9642f46ab5a"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/HeroSection.tsx": {
+    "mtime": 1787854431.9550269,
+    "ast_hash": "3279e7269bb0c6b7cfc1b8d5cfbce9d3",
+    "semantic_hash": "3279e7269bb0c6b7cfc1b8d5cfbce9d3"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/KpisSection.tsx": {
+    "mtime": 1787241442.7062364,
+    "ast_hash": "b825e485b8e98f1d84efda7c8f7fea22",
+    "semantic_hash": "b825e485b8e98f1d84efda7c8f7fea22"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/ModelsSection.tsx": {
+    "mtime": 1787775036.8647892,
+    "ast_hash": "8257de87fd09839fca70f4cd071a4767",
+    "semantic_hash": "8257de87fd09839fca70f4cd071a4767"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/OptimizationScene.tsx": {
+    "mtime": 1788350234.555631,
+    "ast_hash": "fce164b69d4ebf6446143319495e9e34",
+    "semantic_hash": "fce164b69d4ebf6446143319495e9e34"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/OrchestrationScene.tsx": {
+    "mtime": 1787854631.101189,
+    "ast_hash": "2b74a3d93a97129c4d61523916ca2256",
+    "semantic_hash": "2b74a3d93a97129c4d61523916ca2256"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/SearchScene.tsx": {
+    "mtime": 1788349571.8404016,
+    "ast_hash": "2a729633161447b360c0173f1e98a574",
+    "semantic_hash": "2a729633161447b360c0173f1e98a574"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/SecuritySection.tsx": {
+    "mtime": 1788784070.607777,
+    "ast_hash": "7d2a9aa1dd4a43b9bf1e060375369b45",
+    "semantic_hash": "7d2a9aa1dd4a43b9bf1e060375369b45"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/SiteFooter.tsx": {
+    "mtime": 1788291457.9814508,
+    "ast_hash": "488f78fd31841eaf224c3c0ddc3f73d3",
+    "semantic_hash": "488f78fd31841eaf224c3c0ddc3f73d3"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/SiteHeader.tsx": {
+    "mtime": 1788344832.1399508,
+    "ast_hash": "7c3299ccd7e54030f58f63137d49fd16",
+    "semantic_hash": "7c3299ccd7e54030f58f63137d49fd16"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/SolutionsSection.tsx": {
+    "mtime": 1787775036.8751047,
+    "ast_hash": "5c4c0cb338b444a48cd2f1259816486a",
+    "semantic_hash": "5c4c0cb338b444a48cd2f1259816486a"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/StrategyScene.tsx": {
+    "mtime": 1787854630.5128,
+    "ast_hash": "131cf313e2846a730c92737beab0f068",
+    "semantic_hash": "131cf313e2846a730c92737beab0f068"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/TestimonialsSection.tsx": {
+    "mtime": 1787249841.508327,
+    "ast_hash": "e0ae6abe55335b52dfc1d6038eda0226",
+    "semantic_hash": "e0ae6abe55335b52dfc1d6038eda0226"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/TrustedBySection.tsx": {
+    "mtime": 1787833313.8094747,
+    "ast_hash": "d14cf62b4deca8f6f3e0ee682d967553",
+    "semantic_hash": "d14cf62b4deca8f6f3e0ee682d967553"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/VideoIntelligenceModels.tsx": {
+    "mtime": 1788339897.5644658,
+    "ast_hash": "995626e1ec14c8de86d1c47cb245ceba",
+    "semantic_hash": "995626e1ec14c8de86d1c47cb245ceba"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/WorkflowVisual.tsx": {
+    "mtime": 1787241442.7104583,
+    "ast_hash": "ee3b6a43b2192844de4915faa33509b9",
+    "semantic_hash": "ee3b6a43b2192844de4915faa33509b9"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/WorkflowsSection.tsx": {
+    "mtime": 1788283921.1717846,
+    "ast_hash": "8e32ee90805a51c975e7ffb82a3d8703",
+    "semantic_hash": "8e32ee90805a51c975e7ffb82a3d8703"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/content.ts": {
+    "mtime": 1787775036.8175435,
+    "ast_hash": "7935d16e46c878849f66ee6181129049",
+    "semantic_hash": "7935d16e46c878849f66ee6181129049"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/types.ts": {
+    "mtime": 1787601665.406305,
+    "ast_hash": "fab63ece378bdc1ba6b70e081d17e53f",
+    "semantic_hash": "fab63ece378bdc1ba6b70e081d17e53f"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/shared/SiteButton.tsx": {
+    "mtime": 1787813939.029105,
+    "ast_hash": "60fe9ef0e3840e884daa3557e74ef3c5",
+    "semantic_hash": "60fe9ef0e3840e884daa3557e74ef3c5"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/shared/icons.tsx": {
+    "mtime": 1787773707.5668726,
+    "ast_hash": "7ce8a840bc1e2140dcc0673697f78b37",
+    "semantic_hash": "7ce8a840bc1e2140dcc0673697f78b37"
+  },
+  "src/components/ui/button.tsx": {
+    "mtime": 1786947263.8946102,
+    "ast_hash": "e04ce5251d6b0dd04020988126c905e9",
+    "semantic_hash": "e04ce5251d6b0dd04020988126c905e9"
+  },
+  "src/lib/utils.ts": {
+    "mtime": 1786947263.9319272,
+    "ast_hash": "5a6fd53fdcf2be529e9cc0b718fde352",
+    "semantic_hash": "5a6fd53fdcf2be529e9cc0b718fde352"
+  },
+  "tsconfig.json": {
+    "mtime": 1786947137.0,
+    "ast_hash": "ee17fd1c97c735e9f3564e3f5251f125",
+    "semantic_hash": "ee17fd1c97c735e9f3564e3f5251f125"
+  },
+  "public/sites/tastelabs-com-373890df/root-8a5edab2/videos/hero-loader-desktop.webm": {
+    "mtime": 1786966982.5552473,
+    "ast_hash": "1cdc4f60489953d82f33156726d80927",
+    "semantic_hash": "1cdc4f60489953d82f33156726d80927"
+  },
+  "public/sites/tastelabs-com-373890df/root-8a5edab2/videos/hero-loader-mobile.webm": {
+    "mtime": 1786966982.9211595,
+    "ast_hash": "8dae1ca2dd21f9240a6733fe2b0a76e5",
+    "semantic_hash": "8dae1ca2dd21f9240a6733fe2b0a76e5"
+  },
+  "public/sites/tastelabs-com-373890df/root-8a5edab2/videos/hero-loop-desktop.webm": {
+    "mtime": 1786966982.7817428,
+    "ast_hash": "d8cc90afebfa9ce2e580996bec8ce5f2",
+    "semantic_hash": "d8cc90afebfa9ce2e580996bec8ce5f2"
+  },
+  "public/sites/tastelabs-com-373890df/root-8a5edab2/videos/hero-loop-mobile.webm": {
+    "mtime": 1786966982.816909,
+    "ast_hash": "177a97fa7391d6c6706ed35bce66669f",
+    "semantic_hash": "177a97fa7391d6c6706ed35bce66669f"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/funnel-wave.mp4": {
+    "mtime": 1787255825.274629,
+    "ast_hash": "15c5d4637a858f1f999e498132377c40",
+    "semantic_hash": "15c5d4637a858f1f999e498132377c40"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/horse-cta.mp4": {
+    "mtime": 1788798388.8030427,
+    "ast_hash": "3bc47767a4fe52b8c2e52f264a589deb",
+    "semantic_hash": "3bc47767a4fe52b8c2e52f264a589deb"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-00.mp4": {
+    "mtime": 1786950234.1601305,
+    "ast_hash": "a7af1a3a59a78dc0eb4a1c6b28de1775",
+    "semantic_hash": "a7af1a3a59a78dc0eb4a1c6b28de1775"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-01.mp4": {
+    "mtime": 1786950234.0703027,
+    "ast_hash": "f6427c0fb0b3734f8140bb734524ed41",
+    "semantic_hash": "f6427c0fb0b3734f8140bb734524ed41"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-02.mp4": {
+    "mtime": 1786950234.43158,
+    "ast_hash": "39e054e3b1b1fa02267862af226beff2",
+    "semantic_hash": "39e054e3b1b1fa02267862af226beff2"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-03.mp4": {
+    "mtime": 1786950234.3018198,
+    "ast_hash": "fab51df3a20b60940248487ac8e2cb01",
+    "semantic_hash": "fab51df3a20b60940248487ac8e2cb01"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-04.mp4": {
+    "mtime": 1786950234.6151042,
+    "ast_hash": "2c6e91a8a79956ae0bc4ec3a4d910b1c",
+    "semantic_hash": "2c6e91a8a79956ae0bc4ec3a4d910b1c"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-05.mp4": {
+    "mtime": 1786950234.602441,
+    "ast_hash": "b0b39c4bc0a5096dc77e08c7b5fedf16",
+    "semantic_hash": "b0b39c4bc0a5096dc77e08c7b5fedf16"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-06.mp4": {
+    "mtime": 1786950234.8148313,
+    "ast_hash": "b48cce9c01bfbef42cf7319db847149e",
+    "semantic_hash": "b48cce9c01bfbef42cf7319db847149e"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-07.mp4": {
+    "mtime": 1786950235.2808526,
+    "ast_hash": "5a3131ce4976b82f588e62cacf9695fa",
+    "semantic_hash": "5a3131ce4976b82f588e62cacf9695fa"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-08.mp4": {
+    "mtime": 1786950235.189747,
+    "ast_hash": "f64426dc3fead3ddc7fb3b683579a38f",
+    "semantic_hash": "f64426dc3fead3ddc7fb3b683579a38f"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-09.mp4": {
+    "mtime": 1786950235.0900505,
+    "ast_hash": "779494154808f30f8de4127569710b36",
+    "semantic_hash": "779494154808f30f8de4127569710b36"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-10.mp4": {
+    "mtime": 1786950235.208366,
+    "ast_hash": "9532db25b1330b17f8688b94cb6f1ac6",
+    "semantic_hash": "9532db25b1330b17f8688b94cb6f1ac6"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-11.mp4": {
+    "mtime": 1786950235.8273153,
+    "ast_hash": "1691c12311db6e5f7fff513a561f2c15",
+    "semantic_hash": "1691c12311db6e5f7fff513a561f2c15"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-12.mp4": {
+    "mtime": 1786950235.6768763,
+    "ast_hash": "c68983ef4dc75f01a8bc793c93989e9f",
+    "semantic_hash": "c68983ef4dc75f01a8bc793c93989e9f"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-13.mp4": {
+    "mtime": 1786950235.710272,
+    "ast_hash": "d5bb88dabf7143308215fb70bf1c1f71",
+    "semantic_hash": "d5bb88dabf7143308215fb70bf1c1f71"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-14.mp4": {
+    "mtime": 1786950236.0219831,
+    "ast_hash": "b6302708460a594a3c975b7315edea21",
+    "semantic_hash": "b6302708460a594a3c975b7315edea21"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/mosaic/clip-15.mp4": {
+    "mtime": 1786950237.2038238,
+    "ast_hash": "f71b492c6e2ec4d3c12b0fd55ca5c84d",
+    "semantic_hash": "f71b492c6e2ec4d3c12b0fd55ca5c84d"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/tl-01-alpha.webm": {
+    "mtime": 1786947507.6886573,
+    "ast_hash": "087704b9ec5cc3ea962d77fc1a524123",
+    "semantic_hash": "087704b9ec5cc3ea962d77fc1a524123"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/glasses.mp4": {
+    "mtime": 1788793274.8468218,
+    "ast_hash": "e49c655e2f94be6cfaf72648b273f972",
+    "semantic_hash": "e49c655e2f94be6cfaf72648b273f972"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/make-up.mp4": {
+    "mtime": 1788793418.4592402,
+    "ast_hash": "f17a94241c226e9b1f7481682a629e7d",
+    "semantic_hash": "f17a94241c226e9b1f7481682a629e7d"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/the-ordinary.mp4": {
+    "mtime": 1788793525.940088,
+    "ast_hash": "ea9ea9612e4a12540843ccfa76933fc7",
+    "semantic_hash": "ea9ea9612e4a12540843ccfa76933fc7"
+  }
+}

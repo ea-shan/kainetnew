@@ -1460,33 +1460,9 @@ html:has(.taste-site) body {
 .tl-cta-plate {
   isolation: isolate;
   background: #08080d;
-  box-shadow: inset 0 0 0 1px rgba(211, 167, 217, 0.18);
-}
-
-.tl-cta-plate::after {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  border-radius: inherit;
-  padding: 1px;
-  background: conic-gradient(
-    from var(--tl-cta-border),
-    var(--kai-purple) 0deg,
-    var(--kai-lavender) 40deg,
-    var(--kai-grad-purple) 72deg,
-    transparent 110deg
-  );
-  animation: tl-cta-border-orbit 5s linear infinite;
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  mask-composite: exclude;
+  box-shadow:
+    0 22px 56px color-mix(in srgb, var(--kai-yellow) 28%, transparent),
+    0 -16px 48px color-mix(in srgb, var(--kai-lavender) 36%, transparent);
 }
 
 @keyframes tl-cta-border-orbit {
@@ -1495,22 +1471,40 @@ html:has(.taste-site) body {
   }
 }
 
+.tl-cta-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .tl-cta-glow {
   pointer-events: none;
   position: absolute;
-  inset: -18%;
+  inset: 0;
   z-index: 2;
-  background:
-    radial-gradient(ellipse 48% 58% at 16% 28%, color-mix(in srgb, var(--kai-lavender) 44%, transparent), transparent 64%),
-    radial-gradient(ellipse 52% 54% at 58% 50%, color-mix(in srgb, var(--kai-grad-pink) 40%, transparent), transparent 66%),
-    radial-gradient(ellipse 44% 50% at 90% 38%, color-mix(in srgb, var(--kai-yellow) 46%, transparent), transparent 68%);
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    var(--kai-lavender),
+    var(--kai-grad-pink),
+    var(--kai-yellow),
+    var(--kai-purple),
+    var(--kai-lavender)
+  );
+  background-size: 300% 100%;
+  animation: tl-cta-grad-ltr 8s linear infinite;
+  -webkit-mask: radial-gradient(ellipse 72% 60% at 50% 50%, transparent 54%, #000 100%);
+  mask: radial-gradient(ellipse 72% 60% at 50% 50%, transparent 54%, #000 100%);
   mix-blend-mode: screen;
-  animation: tl-cta-glow-drift 14s ease-in-out infinite;
+  opacity: 0.9;
 }
 
-@keyframes tl-cta-glow-drift {
-  50% {
-    transform: translate3d(-8%, 5%, 0) rotate(10deg);
+@keyframes tl-cta-grad-ltr {
+  to {
+    background-position: 300% 0;
   }
 }
 
@@ -1519,9 +1513,16 @@ html:has(.taste-site) body {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background:
-    radial-gradient(ellipse 72% 68% at 50% 48%, rgba(8, 8, 13, 0.42) 0%, rgba(8, 8, 13, 0.72) 100%),
-    rgba(8, 8, 13, 0.5);
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse 78% 68% at 50% 46%,
+    rgba(8, 8, 13, 0.72) 0%,
+    rgba(8, 8, 13, 0.48) 58%,
+    rgba(8, 8, 13, 0.56) 100%
+  );
+  box-shadow:
+    inset -22px -20px 70px color-mix(in srgb, var(--kai-lavender) 40%, transparent),
+    inset 22px 20px 70px color-mix(in srgb, var(--kai-yellow) 26%, transparent);
 }
 
 .tl-cta-copy {
@@ -1530,27 +1531,28 @@ html:has(.taste-site) body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
-  max-width: 40rem;
+  gap: 1.15rem;
+  max-width: 46rem;
   text-align: center;
+  text-shadow: 0 1px 18px rgba(8, 8, 13, 0.55);
 }
 
 .tl-cta-copy h2 {
   margin: 0;
+  color: var(--kai-white);
+}
+
+.tl-cta-kicker {
+  margin: 0;
+  max-width: 44rem;
 }
 
 .tl-cta-lede {
   margin: 0;
-  max-width: none;
+  max-width: 36rem;
   font-size: 16px;
   line-height: 1.6;
-  color: color-mix(in srgb, var(--kai-white) 82%, transparent);
-}
-
-@media (min-width: 768px) {
-  .tl-cta-lede {
-    white-space: nowrap;
-  }
+  color: color-mix(in srgb, var(--kai-white) 94%, transparent);
 }
 
 .tl-cta-actions {
@@ -1559,17 +1561,22 @@ html:has(.taste-site) body {
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  margin-top: 0.5rem;
+  margin-top: 0.35rem;
+  text-shadow: none;
+}
+
+.tl-cta-note {
+  margin: 0;
+  max-width: 34rem;
+  font-size: 13px;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--kai-white) 84%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tl-cta-plate::after,
   .tl-cta-glow {
     animation: none;
-  }
-
-  .tl-cta-plate::after {
-    --tl-cta-border: 28deg;
+    background-position: 28% 50%;
   }
 }
 

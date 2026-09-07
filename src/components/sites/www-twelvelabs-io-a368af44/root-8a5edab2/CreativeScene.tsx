@@ -72,23 +72,34 @@ function boot(host: HTMLDivElement, reduce: boolean) {
   });
 
   const geo = pillGeo();
-  const mesh = new THREE.InstancedMesh(
-    geo,
-    new THREE.MeshBasicMaterial({
-      transparent: true,
-      opacity: 0.42,
-      depthWrite: false,
-      side: THREE.DoubleSide,
-    }),
-    N,
-  );
-  mesh.frustumCulled = false;
-  mesh.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(N * 3), 3);
+  const glassMat = new THREE.MeshBasicMaterial({
+    transparent: true,
+    opacity: 0.13,
+    depthWrite: false,
+    side: THREE.DoubleSide,
+  });
+  const rimMat = new THREE.MeshBasicMaterial({
+    transparent: true,
+    opacity: 0.92,
+    depthWrite: false,
+    side: THREE.DoubleSide,
+  });
+  const rim = new THREE.InstancedMesh(geo, rimMat, N);
+  const glass = new THREE.InstancedMesh(geo, glassMat, N);
+  rim.frustumCulled = false;
+  glass.frustumCulled = false;
+  rim.renderOrder = 0;
+  glass.renderOrder = 1;
+  rim.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(N * 3), 3);
+  glass.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(N * 3), 3);
 
   const color = new THREE.Color();
+  const wash = new THREE.Color();
   const seed = Array.from({ length: N }, (_, i) => {
     color.setHex(TONES[i % TONES.length]);
-    mesh.setColorAt(i, color);
+    rim.setColorAt(i, color);
+    wash.copy(color).lerp(new THREE.Color(0xffffff), 0.62);
+    glass.setColorAt(i, wash);
     return {
       rail: i % 3,
       t: (i / N) * 0.9,
@@ -96,8 +107,10 @@ function boot(host: HTMLDivElement, reduce: boolean) {
       thick: 0.82 + (i % 3) * 0.1,
     };
   });
-  mesh.instanceColor.needsUpdate = true;
-  scene.add(mesh);
+  rim.instanceColor.needsUpdate = true;
+  glass.instanceColor.needsUpdate = true;
+  scene.add(rim);
+  scene.add(glass);
 
   const dummy = new THREE.Object3D();
   const tangent = new THREE.Vector3();
@@ -137,9 +150,13 @@ function boot(host: HTMLDivElement, reduce: boolean) {
       dummy.rotateY(Math.PI / 2);
       dummy.scale.set(s.len, s.thick, s.thick);
       dummy.updateMatrix();
-      mesh.setMatrixAt(i, dummy.matrix);
+      glass.setMatrixAt(i, dummy.matrix);
+      dummy.scale.set(s.len * 1.055, s.thick * 1.14, s.thick * 1.1);
+      dummy.updateMatrix();
+      rim.setMatrixAt(i, dummy.matrix);
     });
-    mesh.instanceMatrix.needsUpdate = true;
+    glass.instanceMatrix.needsUpdate = true;
+    rim.instanceMatrix.needsUpdate = true;
     renderer.render(scene, camera);
   });
 
@@ -149,7 +166,8 @@ function boot(host: HTMLDivElement, reduce: boolean) {
     geo.dispose();
     pathGeos.forEach((g) => g.dispose());
     pathMat.dispose();
-    (mesh.material as THREE.Material).dispose();
+    glassMat.dispose();
+    rimMat.dispose();
     renderer.dispose();
     renderer.domElement.remove();
   };

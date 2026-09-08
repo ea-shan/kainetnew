@@ -31,6 +31,7 @@ export type KpiItem = {
 export type SolutionCard = {
   id: string;
   title: string;
+  headline: string;
   body: string;
   href: string;
   image: string;
@@ -54,3 +55,4 @@ export type FooterColumn = {
   title: string;
   links: { label: string; href: string }[];
 };
+

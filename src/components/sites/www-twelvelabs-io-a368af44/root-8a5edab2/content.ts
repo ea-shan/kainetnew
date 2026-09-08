@@ -30,9 +30,9 @@ export const navItems: NavItem[] = [
     label: "Use Cases",
     href: "#",
     children: [
-      { label: "Agencies", href: "#", icon: "briefcase", description: "Same retainer. None of the build." },
-      { label: "In-House Teams", href: "#", icon: "people", description: "Launch like a bigger team than you have." },
-      { label: "Enterprise", href: "#", icon: "buildings", description: "Every account to the same standard, with a full change log." },
+      { label: "Agencies", href: "/use-cases/agencies", icon: "briefcase", description: "Same retainer. None of the build." },
+      { label: "In-House Teams", href: "/use-cases/in-house", icon: "people", description: "Launch like a bigger team than you have." },
+      { label: "Enterprise", href: "/use-cases/enterprise", icon: "buildings", description: "Every account to the same standard, with a full change log." },
     ],
   },
   { label: "Pricing", href: "#" },
@@ -115,24 +115,27 @@ export const kpis: KpiItem[] = [
 
 export const solutions: SolutionCard[] = [
   {
-    id: "creative",
-    title: "Creative Industries",
-    body: "Turn archives from liabilities to strategic assets. Within seconds: timestamped clips, from every year, every shoot. What used to take a research team three days takes three seconds.",
-    href: "https://www.twelvelabs.io/solutions/media",
+    id: "agencies",
+    title: "Performance agencies",
+    headline: "Same retainer. None of the build.",
+    body: 'Research, structure, creative, and the build itself, across every client account. Each one waiting for you to look at it. Each one logged, so "what changed?" has an answer.',
+    href: "/use-cases/agencies",
     image: `${ASSET}/images/workflow-b.png`,
   },
   {
-    id: "ads",
-    title: "Advertising and Marketing",
-    body: "Actually contextual targeting, driven by understanding, not metadata. Place ads only in brand-safe scenes, no tags, no manual review.",
-    href: "https://www.twelvelabs.io/solutions/advertising",
+    id: "in-house",
+    title: "In-house teams",
+    headline: "Launch like a bigger team than you have.",
+    body: "One brief in, a finished campaign in your own accounts. You still decide what runs — you just stop spending Thursdays building it.",
+    href: "/use-cases/in-house",
     image: `${ASSET}/images/workflow-c.png`,
   },
   {
-    id: "public",
-    title: "Public Sector",
-    body: "Evidence management, anomaly detection, after incident reporting, all done in minutes using TwelveLabs video intelligence.",
-    href: "https://www.twelvelabs.io/solutions/government",
+    id: "enterprise",
+    title: "Enterprise",
+    headline: "Every account to the same standard, with a full change log.",
+    body: "The campaign a new hire builds looks like the one your best person builds. Custom onboarding, dedicated support, and a record of every change across every account.",
+    href: "/use-cases/enterprise",
     image: `${ASSET}/images/workflow-a.png`,
   },
 ];
@@ -216,9 +219,9 @@ export const footerColumns: FooterColumn[] = [
   {
     title: "Use Cases",
     links: [
-      { label: "For Agencies", href: "#" },
-      { label: "For In-House Teams", href: "#" },
-      { label: "For Enterprise", href: "#" },
+      { label: "For Agencies", href: "/use-cases/agencies" },
+      { label: "For In-House Teams", href: "/use-cases/in-house" },
+      { label: "For Enterprise", href: "/use-cases/enterprise" },
     ],
   },
   {

@@ -63,16 +63,16 @@ export function SolutionsSection() {
           <span aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-px bg-[#000000]/15" />
           <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-0">
             <h2 className="border-l border-[#000000]/15 pl-6 text-[36px] leading-[1.14] tracking-[-0.02em] md:text-[48px] md:leading-[54.72px] md:tracking-[-0.96px]">
-              Built for every video workflow.
+              Use Cases.
             </h2>
-            <p className="max-w-[420px] border-l border-[#000000]/15 pl-6 text-[16px] leading-6 tracking-[0.16px]">
+            {/* <p className="max-w-[420px] border-l border-[#000000]/15 pl-6 text-[16px] leading-6 tracking-[0.16px]">
               Video intelligence for teams in media, sports, advertising, government, security, and more.
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
 
-      <div className="mt-10 flex flex-wrap justify-center gap-1 px-5 md:mt-14" role="tablist" aria-label="Industries">
+      <div className="mt-10 flex flex-wrap justify-center gap-1 px-5 md:mt-14" role="tablist" aria-label="Use cases">
         {solutions.map((tab, i) => {
           const on = i === active;
           return (
@@ -124,7 +124,7 @@ export function SolutionsSection() {
                 <img src={card.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-transparent" />
                 <div className="pointer-events-none relative z-[2] flex h-full max-w-[440px] flex-col justify-center p-7 text-[var(--kai-white)] md:p-12 lg:p-14">
-                  <h3 className="text-[28px] leading-9 tracking-[-0.02em] md:text-[36px] md:leading-[42px]">{card.title}</h3>
+                  <h3 className="text-[28px] leading-9 tracking-[-0.02em] md:text-[36px] md:leading-[42px]">{card.headline}</h3>
                   <p className="mt-4 text-[16px] leading-6 tracking-[0.16px]">{card.body}</p>
                   <a
                     href={card.href}

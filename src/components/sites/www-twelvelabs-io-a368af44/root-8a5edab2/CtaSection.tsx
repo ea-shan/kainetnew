@@ -1,6 +1,6 @@
 import { SiteButton } from "../shared/SiteButton";
 
-const VIDEO = "/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/horse-cta.mp4";
+const VIDEO = "/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/cta_bg.mp4";
 const POSTER = "/sites/www-twelvelabs-io-a368af44/root-8a5edab2/images/cta-still.png";
 
 export function CtaSection() {

@@ -1,28 +1,26 @@
-import { SiteButton } from "../shared/SiteButton";
-import { SecurityGlassGrid } from "./SecurityGlassGrid";
+import { SecurityVideoDeck } from "./SecurityVideoDeck";
 
 export function SecuritySection() {
   return (
-    <section
-      className="relative overflow-hidden px-5 py-24 text-[#000000] min-[768px]:px-10"
-      style={{
-        background:
-          "radial-gradient(ellipse 72% 90% at 6% 12%, rgba(230, 190, 198, 0.88) 0%, transparent 60%), radial-gradient(ellipse 62% 80% at 20% 100%, rgba(127, 123, 193, 0.62) 0%, transparent 56%), radial-gradient(ellipse 42% 55% at 48% 94%, rgba(206, 207, 247, 0.55) 0%, transparent 64%), #EEEEEE",
-      }}
-    >
-      <div className="tl-page relative grid items-center gap-12 min-[900px]:grid-cols-[1.2fr_0.9fr] min-[900px]:gap-x-16">
-        <SecurityGlassGrid />
+    <section className="tl-secure-section relative overflow-hidden px-5 py-24 text-[#000000] min-[768px]:px-10">
+      <div className="tl-page relative grid items-start gap-12 min-[900px]:grid-cols-[1.1fr_0.9fr] min-[900px]:gap-x-16 min-[900px]:items-center">
+        <SecurityVideoDeck />
         <div className="border-l border-[#000000]/15 pl-8 min-[900px]:pl-12">
           <h2 className="max-w-[520px] text-[36px] leading-[1.14] tracking-[-0.02em] min-[768px]:text-[48px] min-[768px]:leading-[54.72px] min-[768px]:tracking-[-0.96px]">
-            Secure by design
+            Built in the open
           </h2>
-          <p className="mt-6 max-w-[420px] text-[16px] leading-6 tracking-[0.16px]">
-            SOC 2 Type II certified. Encrypted data handling. The entire intelligence stack deploys where you want.
-          </p>
-          <div className="mt-8">
-            <SiteButton href="https://www.twelvelabs.io/security" theme="light">
-              Learn more
-            </SiteButton>
+          <div className="mt-6 max-w-[28rem] space-y-4 text-[16px] leading-6 tracking-[0.16px]">
+            <p>
+              <strong>kAInet is early.</strong> Our first accounts started this summer, so we don&apos;t have a wall of
+              customer results to show you yet — and we&apos;re not going to borrow anyone else&apos;s or
+              dress up a demo number as one.
+            </p>
+            <p>
+              What we can do is show you exactly how it works and let you check it yourself. Every action
+              kAInet takes lands in your own account, timestamped, in a change log you can read line by
+              line. Nothing about how this works is hidden from you.
+            </p>
+            <p>When we do have numbers, they&apos;ll be real ones, and we&apos;ll tell you how we counted them.</p>
           </div>
         </div>
       </div>

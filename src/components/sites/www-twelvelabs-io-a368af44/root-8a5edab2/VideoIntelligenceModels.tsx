@@ -243,7 +243,6 @@ function Narrative({ scroll, reduce }: { scroll: MotionValue<number>; reduce: bo
         title={
           <>
             From brief to a campaign
-            <br />
             that&apos;s ready to launch
           </>
         }
@@ -254,7 +253,7 @@ function Narrative({ scroll, reduce }: { scroll: MotionValue<number>; reduce: bo
       <NarrativeBlock
         opacity={marengo}
         reduce={reduce}
-        eyebrow="01"
+        eyebrow="Step 1"
         title="Brief it."
         description="Describe what you're advertising like you'd tell a teammate. No ad jargon required."
         position="left"
@@ -262,7 +261,7 @@ function Narrative({ scroll, reduce }: { scroll: MotionValue<number>; reduce: bo
       <NarrativeBlock
         opacity={pegasus}
         reduce={reduce}
-        eyebrow="02"
+        eyebrow="Step 2"
         title="Review it."
         description="See the audience, keywords, structure, and assets the agents built. Change anything."
         position="left"
@@ -270,7 +269,7 @@ function Narrative({ scroll, reduce }: { scroll: MotionValue<number>; reduce: bo
       <NarrativeBlock
         opacity={jockey}
         reduce={reduce}
-        eyebrow="03"
+        eyebrow="Step 3"
         title="Approve it."
         description="Nothing goes live until you say so."
         position="left"
@@ -278,7 +277,7 @@ function Narrative({ scroll, reduce }: { scroll: MotionValue<number>; reduce: bo
       <NarrativeBlock
         opacity={production}
         reduce={reduce}
-        eyebrow="04"
+        eyebrow="Step 4"
         title="Improve it."
         description="Performance Analysis Agent tells you how it's running. Optimization Agent turns that into specific tests. You decide which ones run."
         position="left"

@@ -2350,7 +2350,7 @@ html:has(.taste-site) body {
 
 .tl-vim-block {
   position: absolute;
-  max-width: 27rem;
+  max-width: 42rem;
 }
 
 .tl-vim-block.is-center {
@@ -2368,7 +2368,7 @@ html:has(.taste-site) body {
 }
 
 .tl-vim-block.is-wide {
-  max-width: min(34rem, 46vw);
+  max-width: min(44rem, 56vw);
 }
 
 .tl-vim-pill {
@@ -2391,11 +2391,12 @@ html:has(.taste-site) body {
 }
 
 .tl-vim-sub {
-  max-width: 24.4rem;
+  max-width: 40rem;
   margin: 1rem auto 0;
-  color: color-mix(in srgb, var(--kai-black) 50%, transparent);
-  font-size: 12px;
-  line-height: 1.55;
+  color: var(--kai-light-text);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.16px;
 }
 
 .tl-vim-block.is-left .tl-vim-sub {

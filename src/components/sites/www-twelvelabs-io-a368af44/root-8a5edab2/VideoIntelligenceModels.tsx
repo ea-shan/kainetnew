@@ -239,78 +239,48 @@ function Narrative({ scroll, reduce }: { scroll: MotionValue<number>; reduce: bo
       <NarrativeBlock
         opacity={models}
         reduce={reduce}
-        eyebrow="THE MODELS"
+        eyebrow="How it works"
         title={
           <>
-            Built on the models
+            From brief to a campaign
             <br />
-            that understand video.
+            that&apos;s ready to launch
           </>
         }
-        description={
-          <>
-            Marengo finds it, Pegasus describes it.
-            <br />
-            Jockey turns it into something you can query.
-          </>
-        }
+        description="Brief to something worth reviewing: about 12 minutes. Long enough for a coffee, short enough to stay on the page."
         position="center"
         headingId="tl-vim-title"
       />
       <NarrativeBlock
         opacity={marengo}
         reduce={reduce}
-        eyebrow="MARENGO"
-        title={
-          <>
-            Indexes media
-            <br />
-            by meaning.
-          </>
-        }
-        description="Makes video and photo libraries searchable by phrase, image, clip, concept, action, object, place, or person."
+        eyebrow="01"
+        title="Brief it."
+        description="Describe what you're advertising like you'd tell a teammate. No ad jargon required."
         position="left"
       />
       <NarrativeBlock
         opacity={pegasus}
         reduce={reduce}
-        eyebrow="PEGASUS"
-        title={
-          <>
-            Understands media
-            <br />
-            in natural language.
-          </>
-        }
-        description="Describes scenes, summarizes clips, explains context, generates captions, and reasons over what happens inside video."
+        eyebrow="02"
+        title="Review it."
+        description="See the audience, keywords, structure, and assets the agents built. Change anything."
         position="left"
       />
       <NarrativeBlock
         opacity={jockey}
         reduce={reduce}
-        eyebrow="JOCKEY"
-        title={
-          <>
-            Orchestrates the workflow
-            <br />
-            across the library.
-          </>
-        }
-        description="Breaks down a request, searches the right parts of the library, reasons over results, and returns output your application can use."
+        eyebrow="03"
+        title="Approve it."
+        description="Nothing goes live until you say so."
         position="left"
       />
       <NarrativeBlock
         opacity={production}
         reduce={reduce}
-        eyebrow="IN PRODUCTION"
-        title={
-          <>
-            Teams are already
-            <br />
-            querying their video.
-          </>
-        }
-        description="Marketers, creators, and builders running libraries through Jockey from ad tagging to streamlined creative workflows."
+        eyebrow="04"
+        title="Improve it."
+        description="Performance Analysis Agent tells you how it's running. Optimization Agent turns that into specific tests. You decide which ones run."
         position="left"
         wide
       />
@@ -351,7 +321,12 @@ function NarrativeBlock({
             : { opacity, visibility: vis, y }
       }
     >
-      <p className="tl-vim-pill">{eyebrow}</p>
+      <p className="inline-flex max-w-full items-center gap-2 text-[12px] uppercase tracking-[0.14em]">
+        <span className="font-mono text-[13px] leading-none text-[var(--kai-purple)]" aria-hidden>
+          {"</>"}
+        </span>
+        <span className="tl-preview-text font-semibold">{eyebrow}</span>
+      </p>
       <h2 id={headingId} className="tl-vim-h">
         {title}
       </h2>

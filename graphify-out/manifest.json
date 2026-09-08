@@ -20,44 +20,14 @@
     "semantic_hash": "eed3272f24bf59d1a76f31a26deb5982"
   },
   "package.json": {
-    "mtime": 1788800627.892563,
-    "ast_hash": "742a341a514b559725efab853072cd70",
-    "semantic_hash": "742a341a514b559725efab853072cd70"
+    "mtime": 1788856831.079833,
+    "ast_hash": "fbce093cea7c127beffb771bdb637b07",
+    "semantic_hash": "fbce093cea7c127beffb771bdb637b07"
   },
   "postcss.config.mjs": {
     "mtime": 1786947137.0,
     "ast_hash": "239f3ebf717465dc636818a1a619398d",
     "semantic_hash": "239f3ebf717465dc636818a1a619398d"
-  },
-  "scripts/check-taste-carousel.mjs": {
-    "mtime": 1787140747.1695564,
-    "ast_hash": "90708bb03c41b38a0cea0a0a859784fd",
-    "semantic_hash": "90708bb03c41b38a0cea0a0a859784fd"
-  },
-  "scripts/download-assets-tastelabs-com-373890df-root-8a5edab2.mjs": {
-    "mtime": 1787140747.1542819,
-    "ast_hash": "e494c9f5f9cfe79ec73234c92d2bdb33",
-    "semantic_hash": "e494c9f5f9cfe79ec73234c92d2bdb33"
-  },
-  "scripts/download-assets-www-twelvelabs-io-a368af44-root-8a5edab2.mjs": {
-    "mtime": 1786947484.4480214,
-    "ast_hash": "a985832614e2fdb3bf9f4f61faea71c5",
-    "semantic_hash": "a985832614e2fdb3bf9f4f61faea71c5"
-  },
-  "scripts/download-hero-mosaic.mjs": {
-    "mtime": 1786950173.6875377,
-    "ast_hash": "7646f084d3c3899c3fef9d24f5ba4ca7",
-    "semantic_hash": "7646f084d3c3899c3fef9d24f5ba4ca7"
-  },
-  "scripts/extract-data-svgs.py": {
-    "mtime": 1786947667.94691,
-    "ast_hash": "b7f90ba6e66cb7562b0951475ce8b208",
-    "semantic_hash": "b7f90ba6e66cb7562b0951475ce8b208"
-  },
-  "scripts/summarize-assets.py": {
-    "mtime": 1786947392.3497777,
-    "ast_hash": "cb2e11ce21c3b7026174f16126309f15",
-    "semantic_hash": "cb2e11ce21c3b7026174f16126309f15"
   },
   "src/app/clone-website/layout.tsx": {
     "mtime": 1787140747.1789463,
@@ -165,9 +135,9 @@
     "semantic_hash": "30e104ff9a80b8854e7491b3a8cec41d"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/CtaSection.tsx": {
-    "mtime": 1788807437.9693758,
-    "ast_hash": "fc8758fb13fc14eb1bad4bc9aa1f2fa2",
-    "semantic_hash": "fc8758fb13fc14eb1bad4bc9aa1f2fa2"
+    "mtime": 1788857868.9691412,
+    "ast_hash": "78d3280a63346cdbf3da358cb3aa1506",
+    "semantic_hash": "78d3280a63346cdbf3da358cb3aa1506"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/ExecutionScene.tsx": {
     "mtime": 1788349569.596763,
@@ -225,9 +195,9 @@
     "semantic_hash": "2a729633161447b360c0173f1e98a574"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/SecuritySection.tsx": {
-    "mtime": 1788784070.607777,
-    "ast_hash": "7d2a9aa1dd4a43b9bf1e060375369b45",
-    "semantic_hash": "7d2a9aa1dd4a43b9bf1e060375369b45"
+    "mtime": 1788865820.2032173,
+    "ast_hash": "f91cee2b8d73bb79de449681e0630252",
+    "semantic_hash": "f91cee2b8d73bb79de449681e0630252"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/SiteFooter.tsx": {
     "mtime": 1788291457.9814508,
@@ -240,9 +210,9 @@
     "semantic_hash": "7c3299ccd7e54030f58f63137d49fd16"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/SolutionsSection.tsx": {
-    "mtime": 1787775036.8751047,
-    "ast_hash": "5c4c0cb338b444a48cd2f1259816486a",
-    "semantic_hash": "5c4c0cb338b444a48cd2f1259816486a"
+    "mtime": 1788866239.0418656,
+    "ast_hash": "3a097abe5e1947c0dd31f777cb4960b9",
+    "semantic_hash": "3a097abe5e1947c0dd31f777cb4960b9"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/StrategyScene.tsx": {
     "mtime": 1787854630.5128,
@@ -260,9 +230,9 @@
     "semantic_hash": "d14cf62b4deca8f6f3e0ee682d967553"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/VideoIntelligenceModels.tsx": {
-    "mtime": 1788339897.5644658,
-    "ast_hash": "995626e1ec14c8de86d1c47cb245ceba",
-    "semantic_hash": "995626e1ec14c8de86d1c47cb245ceba"
+    "mtime": 1788867832.9903548,
+    "ast_hash": "b20b0c44cec74439c56e22e4b1e1000e",
+    "semantic_hash": "b20b0c44cec74439c56e22e4b1e1000e"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/WorkflowVisual.tsx": {
     "mtime": 1787241442.7104583,
@@ -275,14 +245,14 @@
     "semantic_hash": "8e32ee90805a51c975e7ffb82a3d8703"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/content.ts": {
-    "mtime": 1787775036.8175435,
-    "ast_hash": "7935d16e46c878849f66ee6181129049",
-    "semantic_hash": "7935d16e46c878849f66ee6181129049"
+    "mtime": 1788866237.834954,
+    "ast_hash": "e5c4f1169567707dfd4a64425572698d",
+    "semantic_hash": "e5c4f1169567707dfd4a64425572698d"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/types.ts": {
-    "mtime": 1787601665.406305,
-    "ast_hash": "fab63ece378bdc1ba6b70e081d17e53f",
-    "semantic_hash": "fab63ece378bdc1ba6b70e081d17e53f"
+    "mtime": 1788866234.1368902,
+    "ast_hash": "7057a2f4cfeb8e096fe9c427d2599f01",
+    "semantic_hash": "7057a2f4cfeb8e096fe9c427d2599f01"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/shared/SiteButton.tsx": {
     "mtime": 1787813939.029105,
@@ -305,9 +275,9 @@
     "semantic_hash": "5a6fd53fdcf2be529e9cc0b718fde352"
   },
   "tsconfig.json": {
-    "mtime": 1786947137.0,
-    "ast_hash": "ee17fd1c97c735e9f3564e3f5251f125",
-    "semantic_hash": "ee17fd1c97c735e9f3564e3f5251f125"
+    "mtime": 1788868425.372502,
+    "ast_hash": "baa720bfca157a3dffaa48672238ae18",
+    "semantic_hash": "baa720bfca157a3dffaa48672238ae18"
   },
   "public/sites/tastelabs-com-373890df/root-8a5edab2/videos/hero-loader-desktop.webm": {
     "mtime": 1786966982.5552473,
@@ -438,5 +408,15 @@
     "mtime": 1788793525.940088,
     "ast_hash": "ea9ea9612e4a12540843ccfa76933fc7",
     "semantic_hash": "ea9ea9612e4a12540843ccfa76933fc7"
+  },
+  "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/SecurityVideoDeck.tsx": {
+    "mtime": 1788865817.9039006,
+    "ast_hash": "c39e8615667d942d12203881b022402d",
+    "semantic_hash": "c39e8615667d942d12203881b022402d"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/cta_bg.mp4": {
+    "mtime": 1788855148.0201266,
+    "ast_hash": "e2f4ec93fd33949a6538d4042ea9d094",
+    "semantic_hash": "e2f4ec93fd33949a6538d4042ea9d094"
   }
 }

@@ -30,7 +30,7 @@ export function CtaSection() {
             </span>
           </p>
           <h2 className="text-[32px] leading-[1.12] font-semibold tracking-[-0.03em] min-[768px]:text-[50px] min-[768px]:leading-[1.06] min-[768px]:tracking-[-0.04em]">
-            Launched by you. For performance agencies and the in-house teams running <span className="tl-hero-grad"> $1M+ in Google and Meta spend</span>
+            For performance agencies and the in-house teams running <span className="tl-hero-grad"> $1M+ in Google and Meta spend</span>
           </h2>
           <p className="tl-cta-lede">
             Bring your next campaign. See what six agents and one approval get you. It&apos;s built

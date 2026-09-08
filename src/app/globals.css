@@ -674,47 +674,34 @@
 }
 
 .tl-site a.tl-header-cta-solid {
-  padding: 2px;
+  padding: 1px;
   overflow: visible;
-}
-
-.tl-site a.tl-header-cta-solid::after {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: inherit;
-  padding: 2px;
-  background: conic-gradient(
+  background-color: color-mix(in srgb, var(--kai-lavender) 68%, var(--kai-yellow) 32%);
+  background-image: conic-gradient(
     from var(--tl-cta-border),
-    transparent 0deg,
-    transparent 250deg,
-    var(--kai-purple) 290deg,
-    var(--kai-lavender) 320deg,
-    var(--kai-yellow) 340deg,
-    #fff 350deg,
+    rgb(154 92 163 / 0) 0deg,
+    rgb(154 92 163 / 0) 218deg,
+    var(--kai-purple) 255deg,
+    var(--kai-lavender) 300deg,
+    var(--kai-yellow) 332deg,
+    #fff 348deg,
     var(--kai-lavender) 358deg,
-    transparent 360deg
+    rgb(216 188 235 / 0) 360deg
   );
-  filter: drop-shadow(0 0 6px rgba(217, 179, 226, 0.55));
-  animation: tl-cta-border-orbit 2.4s linear infinite;
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  mask-composite: exclude;
+  animation: tl-cta-border-orbit 2.8s linear infinite;
+  color: var(--kai-black);
+  box-shadow: none;
 }
-
+.tl-site a.tl-header-cta-solid::after {
+  content: none;
+}
 .tl-site a.tl-header-cta-solid > span {
   width: 100%;
   min-width: 0;
+  border-radius: 9px;
   background-image: var(--kai-cta-grad);
   background-size: 100% 100%;
-  color: var(--kai-black);
+  color: inherit;
 }
 
 .tl-site a.tl-header-cta-outline > span {
@@ -733,7 +720,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tl-site a.tl-header-cta-solid::after {
+  .tl-site a.tl-header-cta-solid {
     animation: none;
   }
 }
@@ -1460,9 +1447,6 @@ html:has(.taste-site) body {
 .tl-cta-plate {
   isolation: isolate;
   background: #08080d;
-  box-shadow:
-    0 22px 56px color-mix(in srgb, var(--kai-yellow) 28%, transparent),
-    0 -16px 48px color-mix(in srgb, var(--kai-lavender) 36%, transparent);
 }
 
 @keyframes tl-cta-border-orbit {

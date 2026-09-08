@@ -1,5 +1,5 @@
 import { SiteButton } from "../shared/SiteButton";
-import { ASSET } from "./content";
+import { SecurityGlassGrid } from "./SecurityGlassGrid";
 
 export function SecuritySection() {
   return (
@@ -11,15 +11,7 @@ export function SecuritySection() {
       }}
     >
       <div className="tl-page relative grid items-center gap-12 min-[900px]:grid-cols-[1.2fr_0.9fr] min-[900px]:gap-x-16">
-        <div className="relative mx-auto w-full max-w-[720px] min-[900px]:mx-0">
-          <img
-            src={`${ASSET}/images/solutions-visual.png`}
-            alt="Secure by design"
-            width={1507}
-            height={1306}
-            className="h-auto w-full object-contain"
-          />
-        </div>
+        <SecurityGlassGrid />
         <div className="border-l border-[#000000]/15 pl-8 min-[900px]:pl-12">
           <h2 className="max-w-[520px] text-[36px] leading-[1.14] tracking-[-0.02em] min-[768px]:text-[48px] min-[768px]:leading-[54.72px] min-[768px]:tracking-[-0.96px]">
             Secure by design

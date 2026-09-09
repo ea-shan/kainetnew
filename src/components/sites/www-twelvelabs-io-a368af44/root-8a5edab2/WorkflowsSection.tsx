@@ -38,27 +38,35 @@ export function WorkflowsSection() {
         </header>
 
         <div className="tl-wf-plate relative mt-14 md:mt-16">
-          <div className="relative grid grid-cols-1 gap-6 md:auto-rows-fr md:grid-cols-2 md:gap-x-12 md:gap-y-8">
+          <div className="relative grid grid-cols-2 auto-rows-fr gap-3 min-[480px]:gap-4 md:gap-x-12 md:gap-y-8">
             <span
               aria-hidden
-              className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 bg-[var(--kai-purple)]/15 md:block"
+              className="pointer-events-none absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-[var(--kai-purple)]/15"
             />
             {comparePanels.map((panel) => {
               const good = panel.kind === "good";
               return (
                 <article
                   key={panel.heading}
-                  className="tl-wf-card tl-wf-card-good flex h-full items-start gap-5 rounded-[28px] px-6 py-8 md:items-center md:gap-7 md:rounded-[32px] md:px-8 md:py-10"
+                  className="tl-wf-card tl-wf-card-good flex h-full min-w-0 flex-col items-start gap-3 rounded-[20px] px-3 py-4 min-[480px]:flex-row min-[480px]:gap-5 min-[480px]:rounded-[28px] min-[480px]:px-5 min-[480px]:py-6 md:items-center md:gap-7 md:rounded-[32px] md:px-8 md:py-10"
                 >
                   <CompareMark good={good} />
                   <div className="min-w-0">
-                    <p className="tl-wf-grad text-[11px] font-semibold uppercase tracking-[0.12em]">
+                    <p
+                      className={
+                        good
+                          ? "tl-preview-text text-[11px] font-semibold uppercase tracking-[0.12em]"
+                          : "tl-wf-grad text-[11px] font-semibold uppercase tracking-[0.12em]"
+                      }
+                    >
                       {good ? "The good kind" : "The bad kind"}
                     </p>
-                    <h3 className="mt-2 text-[20px] font-[family-name:var(--font-milling-bold)] font-bold leading-7 tracking-[0.1px]">
+                    <h3 className="mt-2 text-[15px] font-[family-name:var(--font-milling-bold)] font-bold leading-5 tracking-[0.1px] min-[480px]:text-[18px] min-[480px]:leading-6 md:text-[20px] md:leading-7">
                       {panel.heading}
                     </h3>
-                    <p className="mt-3 text-[16px] leading-6 tracking-[0.16px]">{panel.body}</p>
+                    <p className="mt-3 text-[13px] leading-5 tracking-[0.16px] min-[480px]:text-[15px] md:text-[16px] md:leading-6">
+                      {panel.body}
+                    </p>
                   </div>
                 </article>
               );

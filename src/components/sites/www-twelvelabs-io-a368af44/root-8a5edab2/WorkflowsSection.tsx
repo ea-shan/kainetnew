@@ -55,7 +55,7 @@ export function WorkflowsSection() {
                     <p
                       className={
                         good
-                          ? "tl-preview-text text-[11px] font-semibold uppercase tracking-[0.12em]"
+                          ? "tl-wf-grad text-[11px] font-semibold uppercase tracking-[0.12em]"
                           : "tl-wf-grad text-[11px] font-semibold uppercase tracking-[0.12em]"
                       }
                     >

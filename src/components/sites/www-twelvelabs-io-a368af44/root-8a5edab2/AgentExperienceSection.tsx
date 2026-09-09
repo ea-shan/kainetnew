@@ -129,7 +129,7 @@ export function AgentExperienceSection() {
           style={reduce ? undefined : { y: finalY, scale: finalScale, opacity: finalOpacity, x: "-50%" }}
         >
           <HitlCard progress={progress} reduce={reduce} />
-          <h2 className="tl-agent-h">Keep everything else.</h2>
+          {/* <h2 className="tl-agent-h">Keep everything else.</h2> */}
           <p className="tl-agent-final-lede">
             kAInet connects to your own Google and Meta accounts and builds directly in them. Your
             campaigns, keywords, and creative sit where they always did, under your login. Cancel

@@ -157,7 +157,7 @@ export function AgentExperienceSection() {
           </ul>
           <div className="tl-agent-actions">
             <SiteButton href="#" variant="primary" size="s" theme="light">
-              Start your free trial
+            Integrate your ad accounts now!
             </SiteButton>
           </div>
         </motion.div>

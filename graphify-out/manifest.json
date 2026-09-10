@@ -120,9 +120,9 @@
     "semantic_hash": "b38526250049f5dae20c9f7186857d23"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/AgentExperienceSection.tsx": {
-    "mtime": 1788344293.2064984,
-    "ast_hash": "249740ecaea48c588154b0acfb9cea6f",
-    "semantic_hash": "249740ecaea48c588154b0acfb9cea6f"
+    "mtime": 1788956409.0816815,
+    "ast_hash": "164f1a14d21e66844fb91b1246f3ef85",
+    "semantic_hash": "164f1a14d21e66844fb91b1246f3ef85"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/CookiePreferences.tsx": {
     "mtime": 1788291455.007553,
@@ -130,9 +130,9 @@
     "semantic_hash": "40b3dd50d321bb2a27d83438c61e99a8"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/CreativeScene.tsx": {
-    "mtime": 1788807208.9488502,
-    "ast_hash": "30e104ff9a80b8854e7491b3a8cec41d",
-    "semantic_hash": "30e104ff9a80b8854e7491b3a8cec41d"
+    "mtime": 1788981308.515938,
+    "ast_hash": "057767d381f8785fc16cdd4822b850ca",
+    "semantic_hash": "057767d381f8785fc16cdd4822b850ca"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/CtaSection.tsx": {
     "mtime": 1788857868.9691412,
@@ -140,9 +140,9 @@
     "semantic_hash": "78d3280a63346cdbf3da358cb3aa1506"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/ExecutionScene.tsx": {
-    "mtime": 1788349569.596763,
-    "ast_hash": "09624ae76580695606286596cbc2bcf5",
-    "semantic_hash": "09624ae76580695606286596cbc2bcf5"
+    "mtime": 1789026299.0797122,
+    "ast_hash": "d4709cede62e66d63f7ea4dd8bb4a69e",
+    "semantic_hash": "d4709cede62e66d63f7ea4dd8bb4a69e"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/FooterBrandMark.tsx": {
     "mtime": 1788291448.7884974,
@@ -230,9 +230,9 @@
     "semantic_hash": "d14cf62b4deca8f6f3e0ee682d967553"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/VideoIntelligenceModels.tsx": {
-    "mtime": 1788867832.9903548,
-    "ast_hash": "b20b0c44cec74439c56e22e4b1e1000e",
-    "semantic_hash": "b20b0c44cec74439c56e22e4b1e1000e"
+    "mtime": 1788896480.601521,
+    "ast_hash": "298f2d732f2e60712d321424210c38be",
+    "semantic_hash": "298f2d732f2e60712d321424210c38be"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/WorkflowVisual.tsx": {
     "mtime": 1787241442.7104583,
@@ -240,9 +240,9 @@
     "semantic_hash": "ee3b6a43b2192844de4915faa33509b9"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/WorkflowsSection.tsx": {
-    "mtime": 1788283921.1717846,
-    "ast_hash": "8e32ee90805a51c975e7ffb82a3d8703",
-    "semantic_hash": "8e32ee90805a51c975e7ffb82a3d8703"
+    "mtime": 1788937549.8047533,
+    "ast_hash": "9f8e7893f7cdedec185098dbebd7b691",
+    "semantic_hash": "9f8e7893f7cdedec185098dbebd7b691"
   },
   "src/components/sites/www-twelvelabs-io-a368af44/root-8a5edab2/content.ts": {
     "mtime": 1788866237.834954,
@@ -415,6 +415,11 @@
     "semantic_hash": "c39e8615667d942d12203881b022402d"
   },
   "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/cta_bg.mp4": {
+    "mtime": 1788937302.715302,
+    "ast_hash": "346017d91615b54dc61e39739445ed69",
+    "semantic_hash": "346017d91615b54dc61e39739445ed69"
+  },
+  "public/sites/www-twelvelabs-io-a368af44/root-8a5edab2/videos/cta_bg_old.mp4": {
     "mtime": 1788855148.0201266,
     "ast_hash": "e2f4ec93fd33949a6538d4042ea9d094",
     "semantic_hash": "e2f4ec93fd33949a6538d4042ea9d094"
